@@ -1,0 +1,26 @@
+<ion-buttons slot="end">
+  <ion-button (click)="dismiss()">
+    <ion-icon slot="icon-only" name="close" style="color: grey;"></ion-icon>
+  </ion-button>
+</ion-buttons>
+<ion-label class="titulo">Agregar nueva tarjeta</ion-label>
+<ion-content>
+  <div class="contenedor-page">
+
+    <div class="contenedor">
+      <form #form="ngForm" id="guardar" (ngSubmit)="save(form)">
+
+        <div class="payment-form" #myCard id="my-card" data-capture-name="true">         
+        </div>
+        <div class="button-content">
+          <ion-button class="btn-registro" id="guardarTarjeta" size="large" type="submit">
+            <p class="registro">Agregar</p>
+          </ion-button>
+        </div>
+        <div id="messages"></div>
+      </form>
+    </div>
+
+  </div>
+
+</ion-content>

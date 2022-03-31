@@ -1,0 +1,20 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <ion-label class="titulo">Historial de compras</ion-label>
+    <div class="contenedor">
+      <div class="contener-historial" *ngFor="let historial of historiales">
+        <div class="div-historial" (click)="detalle(historial.id_pedido)">
+          <div class="contener-columnaI">
+            <img src="../assets/img/carrito_naranja.png">
+          </div>        
+          <div class="contener-columna">
+            <h6 class="nombre-historial">Compra</h6>
+            <h6 class="nombre-historial">{{ historial.fecha | date:'dd/MM/yyyy' }}</h6>            
+            <h6 class="nombre-historial">${{ historial.total | number : '1.2-2' }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

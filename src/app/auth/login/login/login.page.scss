@@ -1,0 +1,156 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+.header{
+    padding: 0px 0px 0px 0px !important;
+}
+.atras{
+    position: absolute;
+    top: 2%;
+    left: 3%;
+    height: 30px;
+}
+
+ion-footer{
+    margin: 0 auto;
+    position: relative;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+}
+
+ion-toolbar{
+    --background: var(--ion-color-naranja-oscuro);
+}
+
+.fb_login{
+    position: relative;
+    bottom: 20%;
+    width: 50% !important;
+}
+
+ion-title{
+    /*width: auto;*/
+    --color: #fff;
+    width: 100%; 
+    position: relative; 
+    left: 0; 
+    height: 0%;
+}
+ion-item{
+    margin: 5% 0px;
+    padding: 0px;
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+    border-radius: 10px;
+    font-size: 0.8rem;
+    height: 40% !important;
+    --highlight-height: 0.5px !important;
+}
+ion-button.inicio{
+    padding: 0px 0px 0px 0px !important;
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
+    width: 100%;
+}
+/*
+ion-button.button-fb{
+    --background: #4e71ba!important;
+    border-style: none !important;
+}*/
+
+.button  > img {
+    width: 100%;
+    border-radius: 5px;
+    border: #4e71ba 1px solid;
+}
+
+
+.logo2{
+    text-align: center;
+    padding: 68px;
+    width: 300%;
+}
+.logo > .img_logo{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 20px 0px ;
+    top:35%;
+    position: relative;
+    width: 100%;
+}
+
+
+.logo{
+    z-index:1;
+    //width: 100%
+    //position:relative;
+}
+
+div.ion-text-center{
+    padding: 0px 37px 0px 37px;
+    margin: 0 auto;
+    //--background:white !important; 
+    width:100%;
+}
+.letras {
+    color:#FE3A00;
+    font-family: "MyriadPro-Light"!important;
+    font-size: 0.8rem;
+    
+}
+
+.ruta{
+    text-decoration: none; 
+    color:#FE3A00;
+    font-size: 0.8rem;
+}
+
+.ion-text-right{
+    padding: 5px 0px 0px 0px!important;
+    //font-family: "MyriadPro-Light"!important;
+    font-size: 0.8rem;
+}
+
+ .button{
+    margin: 0 auto;
+    width:80%;
+}
+
+
+.espacio2{
+    margin-top: 5vh;
+    position: relative;
+    bottom: 10%;
+    left: 10%;
+    width: 80%;
+
+}
+
+.espacio45{
+    height: 15px;
+}
+
+.sesion{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.contenedor-footer{
+    height: 7vh;
+    margin: 2vh auto 0px auto;
+    width: 78%;
+}
+
+ion-button.inicio{
+    height: 100%;
+}

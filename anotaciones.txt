@@ -1,0 +1,16 @@
+1. necesitas tener instalado node.js en su ultima versión
+https://nodejs.org/en/
+2.  abre el power shell como administrador y ejecuta el siguiente comando:
+        Set-ExecutionPolicy Unrestricted
+esto solucionara tu problema y podras ejectar scripts en la consola de VS Code
+
+3. abres una terminal en visual code y escribes
+npm install -g @ionic/cli
+
+        4. para iniciar una nueva aplicacion de ionic corres este comando:
+        ionic start myApp tabs
+
+5. Como ya tenemos una aplicacion creada para correrla necesitamos ejecutar el siguiente comando:
+ionic serve
+
+y a todo le damos Yes

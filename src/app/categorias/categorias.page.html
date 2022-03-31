@@ -1,0 +1,16 @@
+<ion-content>
+  <div class="contenedor-page">
+    <div class="contenedor-titulo">
+      <ion-label class="titulo">Categorías</ion-label>
+    </div>
+    <div class="contenedor">
+      <div class="contener-categoria" *ngFor="let categoria of categorias">
+        <div class="div-categoria" (click)="mostrar(categoria.nombre)">
+          <img class="categoria-imagen" name="imagen" src="http://cabutoshop.pythonanywhere.com/media/{{categoria.image}}">
+          <h6 class="nombre-producto" name="nombre">{{categoria.nombre}}</h6>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

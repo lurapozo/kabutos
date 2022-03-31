@@ -1,0 +1,50 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    margin: 20px 20px;
+}
+.contenedor{
+    margin: 15px 0px ;
+}
+.titulo{
+    padding: 0px 30px;
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 5vw;
+    margin-bottom: 0px;
+}
+
+ion-buttons{
+    justify-content: flex-end;
+}
+#my-card{
+    margin: 15px 0;
+
+    .name{
+        background-color: #e7e7e7  !important;
+        color: var(--ion-color-azul-oscuro) !important;
+        font-size: 0.9rem !important;
+        border-radius: 10px !important;
+        height: 45px !important;
+    }
+
+}
+
+.button-content{
+    display: flex;
+    justify-content: center;
+}
+.btn-registro{
+    width:45%;
+    height: 2rem;
+    line-height: 0px;
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.9rem;
+}
+.registro{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

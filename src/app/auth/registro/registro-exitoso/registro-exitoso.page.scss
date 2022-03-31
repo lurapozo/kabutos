@@ -1,0 +1,18 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+ion-button{
+   // --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    --background: var(--ion-color-naranja-oscuro);
+    color: white;
+}
+
+.fondo > img{
+    margin: 0 auto;
+    padding-top: 100px;
+}
+
+ion-button{
+    font-size: 1rem;
+}

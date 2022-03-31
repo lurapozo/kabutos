@@ -1,0 +1,21 @@
+<ion-buttons slot="end">
+  <ion-button (click)="dismiss()">
+    <ion-icon slot="icon-only" name="close" style="color: gray;"></ion-icon>
+  </ion-button>
+</ion-buttons>
+<ion-label class="titulo">Direcciones guardadas</ion-label>
+<ion-content>
+  <div class="contenedor-page">
+    <div class="contenedor">
+      <div class="contener-direccion" *ngFor="let direccion of direcciones" >
+        <div class="div-direccion" (click)="confirmar(direccion.id_direccion)">
+          <div class="contener-columna">
+            <h6 class="nombre-direccion">{{direccion.direccion}}</h6>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class ="btn_regresar"> <img src="../assets/img/agregar_2.png" class="atras" (click)="agregar()"> </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,51 @@
+<!--<ion-header>-->
+
+<!--</ion-header><br> [disabled]="form.invalid"-->
+
+<ion-content class="animated fadeIn login auth-page inicio">
+  <div class='header'>
+    <!--<div class= "logo" > <img src="../assets/img/header_login.png" size= 12></div>-->
+    <div class="logo"> <img class="atras" src="../assets/img/atras_blanco.png" size=12 (click)="atras()"><img class="img_logo" src="../assets/img/header_login_final.png" size=12></div>
+  </div>
+  <div class="contenido">
+
+    <form class="centro" #form="ngForm" (ngSubmit)="verificar(form)">
+      <ion-grid>
+        <div class="form">
+          <ion-col align-self-center size-md="5" size-lg="10" size-xs="10">
+            <ion-item>
+              <ion-input name="correo" type="email" placeholder="Correo Electrónico" ngModel required></ion-input>
+            </ion-item><br>
+            <ion-item>
+              <ion-input name="contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="Contraseña" ngModel
+                required></ion-input>
+              <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
+                <ion-icon class="icono-input" text-right id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;">
+                </ion-icon>
+              </button>
+            </ion-item>
+            <p style="color: var(--ion-color-naranja-oscuro);" class=ion-text-right (click)="contrasena()">
+              <!--<ion-label style="color: var(--ion-color-naranja-oscuro);">-->¿Olvidaste tu contraseña?
+              <!--/ion-label-->
+            </p>
+          </ion-col>
+        </div>
+        <div class="button fb_login">
+          <img src="../assets/img/btn_fb.png" (click)="showLoadingF()">
+        </div>
+      </ion-grid>
+      <div class="espacio2">
+        <div class="ion-text-center">
+          <p class="letras">¿Eres nuevo? <a class="ruta" (click)="showLoadingR()">Registrate aquí</a></p>
+        </div>
+      </div>
+      <div class="contenedor-footer">
+        <ion-button class="inicio" size="large" type="submit" expand="full">
+          <p class="sesion">Iniciar Sesión</p>
+        </ion-button>
+      </div>
+      <div class="espacio45">
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,58 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+    </div>
+    <div class="contenedor-titulo">
+      <ion-label class="titulo">Editar Perfil</ion-label>
+    </div>
+    <form #form="ngForm" (ngSubmit)="editar(form)" *ngIf="perfil">
+      <div class="form">
+        <div class="perfil">
+          <label class="hoverable" for="fileInput">
+            <img id="editar" src="../assets/img/editar-imagen.png">
+            <img [src]="imagenUrl ? imagenUrl : '../assets/img/avatar_perfil2.png'">
+          </label>
+          <input id="fileInput" name="foto" type='file' accept="image/x-png, image/jpg, image/jpeg" (change)="onSelectFile($event)">
+        </div>
+
+        <ion-label>Nombres</ion-label>
+        <ion-item>
+          <ion-input id="2" name="nombre" type="text" [(ngModel)]="perfil.nombre" required></ion-input>
+        </ion-item>
+        <ion-label>Apellidos</ion-label>
+        <ion-item>
+          <ion-input id="3" name="apellido" type="text" [(ngModel)]="perfil.apellido" required></ion-input>
+        </ion-item>
+        <ion-label>RUC/Cédula</ion-label>
+        <ion-item>
+          <ion-input id="1" name="cedula" type="tel" [(ngModel)]="perfil.cedula" readonly></ion-input>
+        </ion-item>
+        <ion-label>Correo Electrónico</ion-label>
+        <ion-item>
+          <ion-input id="4" name="email" type="email" [(ngModel)]="perfil.correo" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-item>
+          <ion-input id="5" type="tel" name="telefono" [(ngModel)]="perfil.telefono"></ion-input>
+        </ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-item>
+          <ion-input id="6" type="text" name="direccion" [(ngModel)]="perfil.direccion"></ion-input>
+        </ion-item>
+        <ion-label position="floating">Fecha de Nacimiento</ion-label>
+        <ion-item>
+          <ion-input id="7" type="date" name="fechaNac" [ngModel]="perfil.fechaNac | date:'yyyy-MM-dd'" (ngModelChange)="perfil.fechaNac= $event"></ion-input>
+        </ion-item>
+      </div>
+      <div class="button-content">
+        <ion-button class="btn-registro" size="large" type="submit">
+          <p class="registro">Guardar</p>
+        </ion-button>
+      </div>
+
+    </form>
+
+  </div>
+</ion-content>

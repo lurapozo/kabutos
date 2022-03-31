@@ -1,0 +1,45 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <div class="contenedor-titulo">
+      <ion-label class="titulo">Perfil</ion-label>
+      <ion-label class="editar" (click)="editar()" >Editar Perfil</ion-label>
+    </div>
+    <div class="contenedor">
+      <div class="contener-perfil" *ngIf="perfil">
+        <label class="hoverable perfil" for="fileInput">
+          <img [src]="url ? url : '../assets/img/avatar_perfil2.png'"> 
+        </label>
+        <ion-label>Nombres</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.nombre" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.apellido" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">RUC/Cédula</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.cedula" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.correo" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.telefono" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.direccion" readonly></ion-input>
+        </ion-item>
+        <ion-label position="floating">Fecha de Nacimiento</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="perfil.fechaNac | date:'dd/MM/yyyy'" readonly></ion-input>
+        </ion-item>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

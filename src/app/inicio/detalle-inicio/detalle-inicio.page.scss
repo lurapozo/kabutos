@@ -1,0 +1,54 @@
+.btn-salir img{
+    height: 0.6rem;
+    width: 0.6rem;
+}
+
+
+.btn-salir{
+    text-align: right !important;
+    padding: 20px 20px 10px 10px;
+}
+
+.imagen img{
+    height: 6rem;
+}
+
+.nombre{
+    padding: 10px;
+    color:#0F195E !important;
+}
+
+.carrito{
+    position: absolute;
+    right: 50px;
+}
+
+.precio{
+    text-align: center !important;
+    color:#FE3A00 !important;
+    padding: 15px;
+    font-size: 1.5rem;
+}
+
+.producto-carrito{
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 10px;
+}
+
+#mas{
+    z-index: 9;
+}
+#menos{
+    z-index: 9;
+
+}
+.contener-columna{
+    align-items: center;
+    display: flex;
+    width: 100%;
+    padding: 0% 2%;
+    justify-content: center;
+}

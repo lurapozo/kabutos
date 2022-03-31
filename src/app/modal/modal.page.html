@@ -1,0 +1,21 @@
+<div class='header'>
+  <div class="logo"> <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()"></div>
+</div>
+
+<ion-content padding text-center>
+  <div class="contendor-mail">
+    <div class="correo">Ingrese su correo electrónico para recuperar su contraseña</div>
+    <ion-item>
+      <ion-input style="--background: #e7e7e7;
+    padding-top: 30px;
+    --color: rgb(112, 106, 106);
+    font-size: 0.8rem;
+    border-radius: 5px;" name="email" type="email" placeholder="    Correo Electrónico" [(ngModel)]="textInput">
+      </ion-input>
+    </ion-item>
+  </div>
+</ion-content>
+<div>
+  <ion-button style="--background:var(--ion-color-naranja-oscuro);" class="recuperar" size="large" expand="full"
+    (click)="showLoadingE()">Recuperar</ion-button>
+</div>

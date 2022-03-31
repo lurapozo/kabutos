@@ -1,0 +1,87 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.contenedor{
+    margin: 15px 0px ;
+}
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+.div-notificacion{
+    display: flex;
+    flex-flow: row nowrap; /* Align on the same line */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    border-radius: 15px;
+    height: 75px;
+  }
+  
+  .btn-establecimiento{
+  vertical-align: middle;
+  
+  }
+.contener-notificacion{
+    padding:7px 0px;
+}
+.contener-columnaI{
+    float: right;
+    position: absolute;
+    left: 15%;
+    justify-content: flex-end;
+    img{
+        width: 1rem;
+    }
+}
+
+.contener-columna{
+    display: block;
+    position: absolute;
+    left: 25%;
+    width: 60%;
+    .nombre-notificacion{
+        font-weight: bold;
+        color: var(--ion-color-azul-oscuro);
+        margin-bottom: 2px;
+        margin-top: 0px;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
+        overflow: hidden;
+        
+    }
+    .direccion-notificacion{
+        font-family: 'MyriadPro-Light' !important;
+        font-style: normal;
+        color: var(--ion-color-gris-oscuro);
+        font-weight: bolder;
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+        margin-top: 0px;
+        margin-left: 10px;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
+        overflow: hidden;
+        width: 80%;
+    }
+}
+
+.contener-columnaII{
+    bottom: 28%;
+    position: relative;
+    left: 38%;
+    display: block;
+    .fecha{
+        font-family: 'MyriadPro-Light' !important;
+        font-style: normal;
+        color: var(--ion-color-gris-oscuro);
+        font-weight: bolder;
+        font-size: 0.6rem;
+    }
+}

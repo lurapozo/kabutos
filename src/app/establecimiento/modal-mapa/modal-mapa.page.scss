@@ -1,0 +1,12 @@
+.mapa{
+    height: 90%;
+    width: 80%;
+    margin:auto;
+}
+ion-buttons{
+    justify-content: flex-end;
+}
+ion-app._gmaps_cdv_ .ion-page:not(._gmaps_cdv_),
+ion-app._gmaps_cdv_ ion-modal:not(._gmaps_cdv_) {
+    display: none;
+}

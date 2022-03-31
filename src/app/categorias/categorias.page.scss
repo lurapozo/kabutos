@@ -1,0 +1,54 @@
+ion-header{
+    height: 10px;
+    width: 100%;
+}
+
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+.contenedor-page{
+    margin: 20px 30px;
+}
+
+.titulo{
+    font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 6.5vw;
+}
+
+.contenedor{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: wrap;
+}
+
+.contener-categoria{
+    display: flex;
+}
+
+.div-categoria{   
+    width: 27vw;
+    display: block;
+    text-align:center;
+    margin: 10px 0px;
+}
+
+.categoria-imagen{
+    border-radius: 50%;    
+    width: 22vw;
+    height: 22vw;
+    box-shadow: 2px 2px 3px 1px #c2c2c2;
+    margin: 5px;
+}
+
+.nombre-producto{
+    font-family: var(--ion-font-family);
+   font-weight: bold;
+   color: var(--ion-color-gris-oscuro);
+   font-size: 12px;
+   margin:0px
+}

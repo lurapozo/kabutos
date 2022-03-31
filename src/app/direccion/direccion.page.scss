@@ -1,0 +1,68 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+ion-buttons{
+    align-self: flex-end;
+}
+.contenedor-page{
+    margin: 25px 30px;
+}
+.contenedor{
+    margin: 15px 0px ;
+}
+.titulo{
+    padding: 0px 30px;
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 5vw;
+    margin-bottom: 0px;
+}
+
+.div-direccion{
+    display: flex;
+    align-items: center;
+    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    border-radius: 10px;
+    height: 45px;
+    margin: auto;
+    justify-content: center;
+  }
+  
+  .btn-establecimiento{
+  vertical-align: middle;
+  
+  }
+.contener-direccion{
+    padding:5px 0px;
+}
+
+.contener-columna{
+    justify-content: space-between;
+    display: flex;
+    width: 85%;
+    .nombre-direccion{
+        font-weight: bold;
+        font-size: 3.6vw;
+        color: var(--ion-color-azul-oscuro);
+        margin-bottom: 0px;
+        margin-top: 0px;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
+        overflow: hidden;
+        
+    }
+}
+
+.btn-regresar{
+    text-align: right;
+    width: 7rem;
+}
+.atras{
+    height: 2rem;
+    width: 2rem;
+    bottom: 8%;
+    right: 8%;
+    position: absolute;
+}
+

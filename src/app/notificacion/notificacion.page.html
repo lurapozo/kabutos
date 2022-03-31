@@ -1,0 +1,25 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <ion-label class="titulo">Notificaciones</ion-label>
+    <!-- Default Searchbar -->
+    <div class="contenedor">
+      <div class="contener-notificacion" *ngFor="let notificacion of notificaciones">
+        <div class="div-notificacion"  (click)="detalle(notificacion.id,notificacion.asunto,notificacion.mensaje,notificacion.imagen)">
+          <div class="contener-columnaI">
+            <img src="../assets/img/notificaciones_naranja.png">
+          </div>
+          <div class="contener-columna">
+            <h6 class="nombre-notificacion">{{notificacion.asunto}}</h6>
+            <p class="direccion-notificacion">{{notificacion.mensaje}}</p>
+          </div>
+          <div class="contener-columnaII">
+            <div class="fecha">
+                <p name="fecha">{{ notificacion.fecha | date:'dd/MM/yyyy' }}</p>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

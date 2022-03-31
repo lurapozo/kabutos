@@ -1,0 +1,183 @@
+ion-header{
+    height: 10px;
+    width: 100%;
+}
+
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+
+
+
+
+ion-toolbar{
+    --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+}
+
+
+.contenedor-searchbar{
+    display: flex;
+    align-items: center;
+    background: var(--ion-color-gris-claro);
+    color: var(--ion-color-light);
+    border-radius: 5px;  
+    height: 35px; 
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 5px;
+    margin-bottom: 15px;
+    .contenedor-img{
+        position: relative;
+        right: 10px;
+        .icono{
+            width: 15px;
+            height: 15px;
+        }
+    }
+    
+}
+
+.contenedor{
+    padding: 30px 0px;
+    padding-top: 10px;
+}
+
+ion-input{
+    font-weight: bold;
+    font-family: 'MyriadPro-Light' !important;
+}
+
+.contenedor-page{
+    padding: 20px 30px;
+}
+
+#contenedor-mapa{
+    height: 20%;
+    width: 20%;
+}
+
+.contenedor-filtro{
+    padding: 20px 0px 40px 0px;
+    display: flex;
+    justify-content: flex-end;
+    //height: 10px;
+    //width: 30px;
+    font-size: 1rem;
+}
+
+.selector{
+    font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: medium;
+    color: var(--ion-color-azul-oscuro);
+    background: var(--ion-color-gris-claro);
+    padding: 5px 20px 5px 20px;
+    border-radius: 5px;  
+    vertical-align: middle;
+    height: 40px;
+    font-size: 1rem;
+    width: 70%;
+
+}
+
+.contenedor-selector{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.subtitulo{
+    color: var(--ion-color-gris-oscuro);
+    font-weight: lighter;
+    padding: 10px 0px 0px 0px;
+    font-size: 0.8rem!important;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.div-establecimiento{
+  display: flex;
+  flex-flow: row nowrap; /* Align on the same line */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px #c2c2c2;
+  border-radius: 15px;
+  height: 100px;
+}
+
+.btn-establecimiento{
+vertical-align: middle;
+
+}
+
+.contener-establecimiento{
+    margin:20px 0px;
+}
+
+.contener-columna{
+    display: block;
+    position: absolute;
+    left: 130px;
+    .nombre-establecimiento{
+        font-weight: bold;
+        color: var(--ion-color-azul-oscuro);
+        margin-bottom: 2px;
+        margin-top: 0px;
+    }
+    .direccion-establecimiento{
+        font-family: 'MyriadPro-Light' !important;
+        font-style: normal;
+        color: var(--ion-color-gris-oscuro);
+        font-weight: bolder;
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+        margin-top: 0px;
+    }
+    .telefono-establecimiento{
+        margin-bottom: 2px;
+        margin-top: 0px;
+        display: flex; 
+        justify-content: space-around;
+        img{
+            width: 15px;
+            height: 14px;
+            margin-top: 2px;
+        }
+        p{
+            margin: 0px 0px 0px 5px;
+            font-family: 'MyriadPro-Light' !important;
+            font-style: normal;
+            color: var(--ion-color-gris-oscuro);
+            font-weight: bolder;
+            font-size: 0.75rem;
+        }
+    }
+}
+
+
+
+
+
+.centrar{
+    width: 70px;
+}
+
+.contener-columnaI{
+    float: right;
+    position: absolute;
+    padding-right: 20px;
+    text-align: right;
+    left: 60px;
+    justify-content: flex-end;
+    img{
+        width: 3rem;
+    }
+}

@@ -1,0 +1,60 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+ion-buttons{
+    align-self: flex-end;
+}
+.contenedor-page{
+    margin: 25px 30px;
+}
+.contenedor{
+    margin: 10px 0px ;
+    text-align: center;
+}
+.titulo{
+    padding: 0px 30px;
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 5vw;
+    margin-bottom: 0px;
+}
+
+.estrellas{
+    display:flex;
+    justify-content: center;
+}
+
+ion-item{
+    margin: 1.3rem 0px;
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+    font-size: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    --highlight-height: 0px !important;
+    ion-textarea{
+        color: var(--ion-color-azul-oscuro);
+        height: 120px;
+    }
+}
+
+ion-button{
+    font-size: 2.8vw;
+    line-height: 0px;
+    width: 40%;
+    height: 2.2rem;
+}
+.btn-registro{
+    --background: var(--ion-color-naranja-oscuro);
+}
+.registro{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+ion-icon{
+    width: 2rem;
+    height: 2rem;
+}

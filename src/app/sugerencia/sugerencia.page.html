@@ -1,0 +1,28 @@
+
+<ion-content>
+    <div class="contenedor-page">
+      <div class="contenedor-titulo">
+        <ion-label class="titulo">Reclamos y Sugerencias</ion-label>
+      </div>
+        <form #form="ngForm" (ngSubmit)="enviar(form)" >
+            <div class="form">
+              <div class="perfil">
+                <input class="placeholder" type="text" *ngIf="!url" value="Tu imagen aquí">
+                <label class="div-sugerencia" for="sugerenciaInput">
+                  <img [src]="url ? url : '../assets/img/agregar_imagen.png'">
+                </label>
+                <input id="sugerenciaInput" name="imagen" type='file' accept="image/x-png, image/jpg, image/jpeg" (change)="changeFile($event)">
+              </div>
+              <ion-item>
+                <ion-textarea name="descripcion" type="text" placeholder="Escribe aquí" rows="5"  [(ngModel)]="descripcion" required></ion-textarea>
+              </ion-item>              
+            </div>
+            <div class="button-content">
+              <ion-button class="btn-registro" size="large" type="submit">
+                <p class="registro">Enviar</p>
+              </ion-button>
+            </div>
+      
+          </form>
+    </div>
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-buttons slot="end">
+  <ion-button (click)="dismiss()">
+    <ion-icon slot="icon-only" name="close" style="color: grey;"></ion-icon>
+  </ion-button>
+</ion-buttons>
+<ion-label class="titulo">Agregar nueva dirección</ion-label>
+<ion-content >
+  <div class="contenedor-page">
+    
+    <div class="contenedor">
+      <div #mapaUbicacion class="mapa">
+
+      </div>
+      
+    <form #form="ngForm" (ngSubmit)="guardar(form)">
+      <ion-input  name="latitud" type="text" hidden></ion-input>
+      <ion-input  name="longitud" type="text" hidden></ion-input>      
+      <ion-item>
+        <ion-input id="1" name="direccion" type="text" placeholder="Dirección" [(ngModel)]="direccion" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea name="descripcion" type="text" placeholder="Descripción" ngModel required></ion-textarea>
+      </ion-item>
+      <div class="button-content">
+        <ion-button class="btn-registro" size="large" type="submit">
+          <p class="registro">Guardar</p>
+        </ion-button>
+      </div>
+
+    </form>
+    </div>
+    
+  </div>
+  
+</ion-content>

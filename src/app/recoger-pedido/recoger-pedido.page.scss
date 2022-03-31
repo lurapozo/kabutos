@@ -1,0 +1,125 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+.total{
+    display: flex;
+    justify-content: flex-end;
+    align-items: first baseline;
+}
+.A_pagar_header{
+    color: #2b85cd;
+    text-align: right;
+    font-size: 70%;
+    font-style: italic;
+}
+.A_pagar{
+    color:#FE3A00;
+    font-size: x-large;
+    text-align: left;
+}
+.total{
+    border-bottom: 1px solid var(--ion-color-azul-oscuro);
+    margin-top: 2px;
+    padding-bottom: 15px;
+    box-shadow: 0 4px 6px -6px #c2c2c2;
+}
+.datos{
+    color: #FE3A00;
+    font-size: smaller;
+    padding-left: 10px;
+    margin: 20px 0px;
+    font-weight: lighter;
+    font-style:italic;
+}
+.contener-direccion{
+    padding:5px 20px;
+}
+.div-direccion{
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 3px 5px 2px #c2c2c2;
+    border-radius: 10px;
+    height: 45px;
+    margin: auto;
+    justify-content: center;
+}
+
+.div-establecimiento{
+    display: flex;
+    flex-flow: row nowrap; /* Align on the same line */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    border-radius: 15px;
+    height: 80px;
+  }
+  .contener-columna{
+    display: block;
+    position: absolute;
+    left: 150px;
+    .nombre-establecimiento{
+        font-weight: bold;
+        color: var(--ion-color-azul-oscuro);
+        margin-bottom: 2px;
+        margin-top: 0px;
+    }
+    .direccion-establecimiento{
+        font-family: 'MyriadPro-Light' !important;
+        font-style: normal;
+        color: var(--ion-color-gris-oscuro);
+        font-weight: bolder;
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+        margin-top: 0px;
+    }
+    .telefono-establecimiento{
+        margin-bottom: 2px;
+        margin-top: 0px;
+        display: flex; 
+        justify-content: space-around;
+        img{
+            width: 15px;
+            height: 14px;
+            margin-top: 2px;
+        }
+        p{
+            margin: 0px 0px 0px 5px;
+            font-family: 'MyriadPro-Light' !important;
+            font-style: normal;
+            color: var(--ion-color-gris-oscuro);
+            font-weight: bolder;
+            font-size: 0.75rem;
+        }
+    }
+}
+
+.contener-columnaI{
+    float: right;
+    position: absolute;
+    padding-right: 20px;
+    text-align: right;
+    left: 75px;
+    justify-content: flex-end;
+    img{
+        width: 3rem;
+    }
+}
+
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.atras{
+    height: 25px;
+}

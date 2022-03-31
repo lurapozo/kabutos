@@ -1,0 +1,145 @@
+<ion-content>
+
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+      <ion-label class="titulo">Carrito</ion-label>
+    </div>
+    <div class="total">
+      <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
+      <div style="display: flex;">
+        <ion-label style="color:#FE3A00;font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
+        <div class="A_pagar" id="A_pagar" *ngIf="total">{{total}}</div>
+      </div>
+    </div>
+
+
+    <div *ngIf="prodLen > 0">
+      <div class="contener-producto" *ngFor="let productos of products">
+        <div class="available div-producto" *ngIf="productos.suma==null || productos.suma <= 0">Agotado</div>
+        <div class="div-producto" id="{{productos.id_producto}}">
+          <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
+              (click)="eliminar(productos.id_producto,productos.id_unico,productos.cantidad)"></div>
+          <div class="producto">
+            <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen_producto}}">
+          </div>
+          <div class="contener-columna">
+            <div class="nombre">
+              <h6 class="nombre-producto" name="nombre">{{productos.nombre_producto}}</h6>
+            </div>
+            <div class="producto-carrito">
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
+                (click)=quitar(productos.id_unico)>
+            
+              <div id="{{productos.id_unico}}" class="cantidad">{{productos.cantidad}}</div>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
+                (click)=agregar(productos.id_unico,productos.suma)>
+      
+              </div>
+            <div class="precio">
+              <p>$</p><p name="precio" class="subtotal" id="{{productos.id_unico}}">{{productos.subtotal| number : '1.2-2'}}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div *ngIf="oferLen > 0">
+      <div class="contener-producto" *ngFor="let ofert of oferts">
+        <div class="available div-producto" *ngIf="ofert.cantidad<= 0">Agotado</div>
+        <div class="div-producto" id="{{ofert.id_oferta}}">
+          <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
+              (click)="eliminar(ofert.id_oferta,ofert.id_unico,ofert.cantidad_oferta)"></div>
+
+          <div class="producto">
+            <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{ofert.imagen_oferta}}">
+          </div>
+          <div class="contener-columna">
+            <div class="nombre">
+              <h6 class="nombre-producto" name="nombre">{{ofert.nombre_oferta}}</h6>
+            </div>
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
+                (click)=agregar(ofert.id_unico,ofert.cantidad)>
+              <div tag="barra" id="{{ofert.id_unico}}" class="cantidad">{{ofert.cantidad_oferta}}</div>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
+                (click)=quitar(ofert.id_unico)>
+            </div>
+            <div class="precio">
+              <p>$</p><p name="precio" class="subtotal" id="{{ofert.id_unico}}">{{ofert.subtotal_oferta| number : '1.2-2'}}</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div *ngIf="comLen > 0">
+      <div class="contener-producto" *ngFor="let combo of combos">
+        <div class="available div-producto" *ngIf="combo.cantidad<= 0">Agotado</div>
+        <div class="div-producto" id="{{combo.id_combo}}">
+          <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
+              (click)="eliminar(combo.id_unico,combo.nombre,combo.cantidad_combo)"></div>
+
+          <div class="producto">
+            <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{combo.imagen}}">
+          </div>
+          <div class="contener-columna">
+            <div class="nombre">
+              <h6 class="nombre-producto" name="nombre">{{combo.nombre}}</h6>
+            </div>
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
+                (click)=agregar(combo.id_unico,combo.cantidad)>
+              <div tag="barra" id="{{combo.id_unico}}" class="cantidad">{{combo.cantidad_combo}}</div>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
+                (click)=quitar(combo.id_unico)>
+            </div>
+            <div class="precio">
+              <p>$</p>
+              <p name="precio" class="subtotal" id="{{combo.id_unico}}">{{combo.precio| number : '1.2-2'}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="cupLen > 0">
+      <div class="contener-producto" *ngFor="let cupons of cupon">
+        <div class="available div-producto" *ngIf="cupons.cantidad <= 0">Agotado</div>
+        <div class="div-producto" id="{{cupons.id_cupon}}">
+          <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
+              (click)="eliminar(cupons.id_cupon,cupons.id_unico,cupons.cantidad_cupon)"></div>
+            <div class="producto">
+              <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{cupons.imagen_cupon}}">
+            </div>
+          <div class="contener-columna">
+            <div class="nombre">
+              <h6 class="nombre-producto" name="nombre">{{cupons.nombre_cupon}}</h6>
+            </div>
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" style="visibility:hidden" width="10" height="10" class="btn-producto"
+                id="mas" (click)=agregar(cupons.id_unico,1)>
+              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value ={{productos.cantidad}} />-->
+              <div id="{{cupons.id_unico}}" class="cantidad">{{cupons.cantidad_cupon}}</div>
+              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
+              <img src="../assets/img/restar.png" style="visibility:hidden" width="10" height="3" class="btn-producto"
+                id="menos" (click)=quitar(cupons.id_unico)>
+            </div>
+            <div class="precio" style="visibility:hidden">
+              <p>$</p>
+              <h4 name="precio" class="subtotal" id="{{cupons.id_unico}}">{{cupons.subtotal_cupon| number : '1.2-2'}}</h4>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+    <div class="btns">
+      <button ion-button icon-end (click)="pagar()">
+        Continuar 
+        <img src="../assets/img/continuar.png" width="10" height="15">
+      </button>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,67 @@
+<!--<ion-header>-->
+  <div class = 'header'>
+  <div class ="btn_regresar"> <img src="../assets/img/regresar_final1.png"  (click)="regresar()"> </div>
+  <div class= "headerS" > <img src="../assets/img/header_registro_final1.png" size= 12></div>
+</div>
+<!--</ion-header>[disabled]="form.invalid"-->
+
+<ion-content class="animated fadeIn login auth-page inicio">
+  <form  #form="ngForm" (ngSubmit)="register(form)"> 
+   <ion-grid >
+     <div class="form" >
+       <ion-col align-self-center size-md="3" size-lg="5" size-xs="10">
+         <div class= "perfil"> 
+           <label class="hoverable" for="fileInput">
+            <img [src]="url ? url : '../assets/img/avatar_perfil.png'"> 
+           <!-- <div class="hover-text">Choose file</div>
+            <div class="background"></div>-->
+          </label>
+          <input id="fileInput" type='file' (change)="onSelectFile($event)">
+          <!---<button class="x" *ngIf="url" (click)="delete()" >X</button>-->
+         <div class ="delete">
+          <input id="button" type="button" *ngIf="url" (click)="delete()" value="X">
+         </div>
+          </div> 
+           <ion-item >
+             <ion-input id= "1" name="cedula" type="text" placeholder="RUC/Cédula*" ngModel required></ion-input>
+           </ion-item>
+           <ion-item >
+             <ion-input id= "2" name="nombre" type="text" placeholder="Nombre*" ngModel required></ion-input>
+           </ion-item>
+           <ion-item >
+             <ion-input id= "3" name="apellido" type="text" placeholder="Apellido*" ngModel required></ion-input>
+           </ion-item>
+           <ion-item >
+            <ion-input id= "4" name="email" type="email" placeholder="your@email.com*" ngModel required></ion-input>
+          </ion-item>  
+           <ion-item>
+             <ion-input id= "5" name="contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="Contraseña*" ngModel required></ion-input>
+             <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
+              <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+            </button>
+           </ion-item>
+           <ion-item >
+             <ion-input id= "6" name="confirmar" type="{{showPass ? 'text' : 'password'}}" placeholder="Repetir Contraseña*" ngModel required></ion-input>
+             <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
+              <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+            </button>
+           </ion-item>
+         <ion-radio-group  >
+           <div class = "Condicion">
+             <ion-label class="terminos" (click)="politicas()" >Acepto Términos y Condiciones</ion-label>
+             <ion-radio class = "radio" slot="start" value="acepto" ></ion-radio>
+           </div>
+         </ion-radio-group>
+       </ion-col>
+     </div>
+   </ion-grid>
+   <ion-footer>
+ <!--<ion-toolbar >-->
+   <div class="button-content">
+     <ion-button class= "btn-registro"  size="large" type="submit"expand="full"><p class = "registro">Registrarse</p></ion-button>
+   </div>
+ <!--</ion-toolbar>-->
+</ion-footer>
+
+ </form>
+</ion-content>

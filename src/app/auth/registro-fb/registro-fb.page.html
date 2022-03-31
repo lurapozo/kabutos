@@ -1,0 +1,22 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <div class = "ImgFb"> <img src="../assets/img/fb_access.jpeg" class ="fb"> </div>
+    <!--<ion-label class="titulo">Acceder con Facebook</ion-label>-->
+    
+    <div class = "contendor-Ruc">
+      <div>Completar Registro</div> 
+      <ion-input type="number" placeholder="Ruc/Cédula" [(ngModel)]="RegistroInput"></ion-input>
+    </div>
+  </div>
+</ion-content>
+
+<div>
+  <ion-button class = "registro" size="large"  expand="full" (click)="registroFb()">Registrarse</ion-button>
+</div>
+
+<ion-footer>
+  <!--<div>
+    <ion-button class = "registro" size="large" type="submit"  expand="full" (click)=registroFb()>Registrarse</ion-button>
+  </div>-->
+</ion-footer>

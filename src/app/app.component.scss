@@ -1,0 +1,121 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}   
+
+.header-content{
+    background-color: #2153FF !important;
+    height: 180px;
+    text-align: center;
+    display: flex;
+    padding-left: 1.6rem;
+    padding-top: 3rem;
+    vertical-align: middle;
+
+    img{
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+    }
+
+    h2{
+        font-size: 1.2rem;
+        color: #fff;
+        padding: 0px 0px 0px 0px;
+        //padding-top: 2rem;
+        //padding-left: 2rem;
+        margin: 0px;
+        text-transform: uppercase;
+    }
+
+}
+
+ion-menu{
+    --background: #2153FF !important;
+    --width: 16rem;
+}
+
+ion-menu {
+    &#menu-up{
+        display: block !important;
+        visibility: hidden;
+    }
+    &.show-menu {
+        visibility: visible !important;
+    }
+ }
+
+
+ion-item{
+    --background: #2153FF !important;
+    background: #2153FF !important;
+    padding-left: 0.5rem;
+    color: white;
+    font-size: 1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+
+.social-media {
+    //display: inline-block!important;
+    text-align: center;
+    background: #2153FF !important;
+    display: flex;
+    justify-content: center;
+    padding-top:2rem;
+    padding-bottom: 20px;
+    border-bottom: 1px white solid!important;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    img {
+        height: 1.6rem;
+        width: 2.8rem;
+        text-align: center;
+        background: #2153FF !important;
+        padding: 0px 10px 0px 10px;
+    }
+}
+
+.list-ios {
+    background: #2153FF !important;
+    text-align:center;
+}
+
+ion-footer{
+    --background: #2153FF !important;
+    color: white;
+    padding-top: 1rem;
+    margin: auto;
+
+}
+
+.sesion{
+    background:#2153FF !important;
+    font-size: 1rem;
+    padding-bottom: 1.5rem;
+    width: max-content;
+    margin:auto;
+}
+
+
+ion-app {
+ --background: #2153FF !important;   
+}
+
+ion-content{
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px ;
+}
+ion-list{
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px ;
+    //--border-bottom:white;
+}
+
+
+.fullname{
+    padding: 20px 0px 0px 10px;
+    margin: 0px;
+    text-align: left;
+}

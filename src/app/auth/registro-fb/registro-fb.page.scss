@@ -1,0 +1,50 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+ion-button{
+    --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+}
+
+ion-item{
+    display: flex;
+     flex-flow: row nowrap; /* Align on the same line */
+  justify-content: space-around; 
+vertical-align: middle;
+    box-shadow: 3px 3px 0px 0px #c2c2c2;
+    border-radius: 20px;
+    height: 130px;
+}
+.ImgFb{
+    padding-top: 140px;
+}
+
+.ImgFb > .fb{
+    
+    //margin: auto;
+    width: 80%;
+    height: 110%;
+    padding-left: 50px;
+
+}
+
+div.contenedor-page{
+    display: grid;
+    
+    //justify-content: center;
+    //align-content: center;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.contenedor-Ruc{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    color: var(--ion-color-gris-oscuro);
+    border-radius: 5px;  
+    height: 40px; 
+}
+ion-item{
+    --background: rgb(112, 106, 106);
+}
+

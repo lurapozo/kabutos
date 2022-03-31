@@ -1,0 +1,61 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.contenedor{
+    margin: 15px 0px ;
+}
+.titulo{
+    padding: 0px 30px;
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 5vw;
+    margin-bottom: 0px;
+}
+
+.mapa{
+    height: 55vh;
+    width: 100%;
+    margin: auto;
+}
+ion-buttons{
+    justify-content: flex-end;
+}
+ion-item{
+    margin: 15px 0px 17px 0px;
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+    font-size: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    --highlight-height: 0px !important;
+    ion-input{
+        color: var(--ion-color-azul-oscuro);
+        margin-left:10px;
+    }
+    ion-textarea{
+        color: var(--ion-color-azul-oscuro);
+        margin-left:10px;
+        height: 150px;
+    }
+}
+ion-button{
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
+}
+.button-content{
+    display: flex;
+    justify-content: center;
+}
+.btn-registro{
+    width:55%;
+    line-height: 0px;
+}
+.registro{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

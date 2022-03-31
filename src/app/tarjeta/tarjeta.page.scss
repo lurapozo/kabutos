@@ -1,0 +1,127 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+.total{
+    display: flex;
+    justify-content: flex-end;
+    align-items: first baseline;
+}
+.A_pagar_header{
+    color: #2b85cd;
+    text-align: right;
+    font-size: 70%;
+    font-style: italic;
+}
+.A_pagar{
+    color:#FE3A00;
+    font-size: x-large;
+    text-align: left;
+}
+.total{
+    border-bottom: 1px solid var(--ion-color-azul-oscuro);
+    margin-top: 2px;
+    padding-bottom: 15px;
+    box-shadow: 0 4px 6px -6px #c2c2c2;
+}
+.datos{
+    color: #FE3A00;
+    font-size: smaller;
+    padding-left: 10px;
+    margin: 20px 0px 5px 0px;
+    font-weight: lighter;
+    font-style:italic;
+}
+
+.confirmar{
+    color: grey;
+    font-size: 0.95rem;
+    padding-left: 30px;
+    margin: 5px 0px;
+    font-weight: lighter;
+}
+
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.atras{
+    height: 25px;
+}
+.btn-regresar{
+    text-align: right;
+    width: 7rem;
+}
+.agregar{
+    height: 2rem;
+    width: 2rem;
+    bottom: 8%;
+    right: 8%;
+    position: absolute;
+}
+.button-content{
+    display: flex;
+    justify-content: space-between;
+    bottom: 5%;
+    left: 0%;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    padding: 0px 25px;
+}
+
+.contener-tarjeta{
+    margin: 20px 10px;
+}
+
+.div-tarjeta{
+    display: flex;
+    flex-flow: row nowrap; /* Align on the same line */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    border-radius: 15px;
+    height: 85px;
+}
+
+.contener-columnaI{
+    float: right;
+    position: absolute;
+    padding-right: 20px;
+    text-align: right;
+    left: 70px;
+    justify-content: flex-end;
+    img{
+        width: 3rem;
+    }
+}
+
+.contener-columna{
+    display: block;
+    position: absolute;
+    left: 150px;
+    .nombre-tarjeta{
+        color: var(--ion-color-azul-oscuro);
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 0.85rem;
+    }
+    .direccion-tarjeta{
+        font-family: 'MyriadPro-Light' !important;
+        color: var(--ion-color-gris-oscuro);
+        font-weight: normal;
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+        margin-top: 0px;
+    }
+}

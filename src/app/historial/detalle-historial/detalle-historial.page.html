@@ -1,0 +1,133 @@
+<div class="contenedor-page">
+  <ion-label ion-fixed class="titulo">Historial de compras</ion-label>
+  <div class="contenedor" *ngIf="historial">
+    <div class="contener-historial">
+      <div class="div-historial">
+        <div class="contener-columnaI">
+          <img src="../assets/img/atras.png" (click)="regresar()">
+        </div>
+        <div class="contener-columna">
+          <h6 class="nombre-historial">Compra</h6>
+          <h6 class="nombre-historial">{{ historial.fecha | date:'dd/MM/yyyy' }}</h6>
+          <h6 class="nombre-historial">${{ historial.total | number : '1.2-2' }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ion-content>
+  <div class="contenedor-page">
+    <div *ngIf="historial">
+      <div class="contener-datos">
+        <div class="campos" *ngIf="perfil">
+          <ion-label class="left">Nombres: </ion-label>
+          <ion-label class="right">{{perfil.nombre}} {{perfil.apellido}}</ion-label>
+        </div>
+        <div class="campos" *ngIf="perfil">
+          <ion-label class="left">Cedula: </ion-label>
+          <ion-label class="right">{{perfil.cedula}}</ion-label>
+        </div>
+        <div class="campos" *ngIf="perfil">
+          <ion-label class="left">Teléfono: </ion-label>
+          <ion-label class="right">{{perfil.telefono}}</ion-label>
+        </div>
+        <div class="campos">
+          <ion-label class="left">Fecha: </ion-label>
+          <ion-label class="right">{{ historial.fecha | date:'dd/MM/yyyy' }}</ion-label>
+        </div>
+        <div class="campos">
+          <ion-label class="left">Tipo de entrega: </ion-label>
+          <ion-label class="right">{{historial.tipo_entrega}}</ion-label>
+        </div>
+        <div class="campos">
+          <ion-label class="left">Tipo de pago: </ion-label>
+          <ion-label class="right">{{historial.tipo_pago}}</ion-label>
+        </div>
+        <div class="campos">
+          <ion-label class="left">Descripción: </ion-label>
+          <ion-label class="right">{{historial.observacion}}</ion-label>
+        </div>
+        <div class="div-producto" *ngFor="let producto of productos">
+          <div class="contenedor-columna">
+            <div class="nombre-producto">{{producto.producto__nombre}}</div>
+          </div>
+          <div class="contenedor-centro">
+            <div id="" class="cantidad">{{producto.cantidad}}</div>
+          </div>
+          <div class="contener-columna-centrar">
+            <div class="precio">
+              ${{producto.precio | number : '1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <div class="div-producto" *ngFor="let producto of ofertas">
+          <div class="contenedor-columna">
+            <div class="nombre-producto">{{producto.oferta__nombre}}</div>
+          </div>
+          <div class="contenedor-centro">
+            <div id="" class="cantidad">{{producto.cantidad}}</div>
+          </div>
+          <div class="contener-columna-centrar">
+            <div class="precio">
+              ${{producto.precio | number : '1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <div class="div-producto" *ngFor="let producto of combos">
+          <div class="contenedor-columna">
+            <div class="nombre-producto">{{producto.combo__nombre}}</div>
+          </div>
+          <div class="contenedor-centro">
+            <div id="" class="cantidad">{{producto.cantidad}}</div>
+          </div>
+          <div class="contener-columna-centrar">
+            <div class="precio">
+              ${{producto.precio | number : '1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <div class="div-producto" *ngFor="let producto of cupones">
+          <div class="contenedor-columna">
+            <div class="nombre-producto">{{producto.cupon__nombre}}</div>
+          </div>
+          <div class="contenedor-centro">
+            <div id="" class="cantidad">{{producto.cantidad}}</div>
+          </div>
+          <div class="contener-columna-centrar">
+            <div class="precio">
+              ${{producto.precio | number : '1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <div class="valores">
+          <ion-label class="left">Subtotal: </ion-label>
+          <ion-label class="right">${{historial.subtotal | number : '1.2-2'}} </ion-label>
+        </div>
+        <div class="valores">
+          <ion-label class="left">Delivery: </ion-label>
+          <ion-label class="right">${{historial.envio | number : '1.2-2'}}</ion-label>
+        </div>
+        <div class="valores">
+          <ion-label class="left">Impuestos: </ion-label>
+          <ion-label class="right">${{historial.iva | number : '1.2-2'}}</ion-label>
+        </div>
+        <div class="valores">
+          <ion-label class="left">Total: </ion-label>
+          <ion-label class="right">${{ historial.total | number : '1.2-2' }}</ion-label>
+        </div>
+      </div>
+
+      <div class="button-content">
+        <ion-button class="btn-cancelar" size="large" *ngIf="historial.estado != 'Anulado'" (click)="anular(historial.id_pedido, historial.cliente_id)">
+          <p class="registro">Anular</p>
+        </ion-button>
+        <ion-button class="btn-registro" size="large" *ngIf="historial.tipo_pago == 'Tarjeta' && !historial.pagado && historial.estado != 'Anulado'" (click)="pagar(historial.id_pedido)">
+          <p class="registro">Pagar</p>
+        </ion-button>
+        <ion-button class="btn-registro" size="large" *ngIf="historial.estado == 'Entregado'" (click)="calificar(historial.id_pedido)">
+          <p class="registro">Calificar</p>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

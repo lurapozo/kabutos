@@ -1,0 +1,46 @@
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="datos($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="contenedor-page">
+        <ion-label class="titulo">Ofertas</ion-label>
+        <!-- Default Searchbar -->
+        <div class="contenedor">
+            <div>
+                <!--<div class="contener-oferta">-->
+                    <div class="contener-producto"  *ngFor="let productos of oferta">
+                        <div class="available div-producto" *ngIf="productos.cantidad<= 0">Agotado</div>
+                        <div class="div-producto">
+                            <div class="contener-columnaI">
+                                <div class="producto">
+                                    <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}"  >
+                                </div>
+                            </div>
+                            <div class="contener-columna">
+                                <div class="nombre">
+                                    <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
+                                </div>
+                                <div class="producto-carrito">
+                                    <!--<input type="text" tag = "barra" name="cantidad" id="{{productos.nombre}}" disabled="true" class="estilo-cantidad" placeholder="0" value ='0' >-->
+                                    <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.id_unico)>
+                                    <div  id="{{productos.id_unico}}" class="cantidad estilo-cantidad" >0</div>
+                                    <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico,productos.cantidad)>
+                                   
+                                </div>
+                            </div>
+                            <div class="contener-columna-centrar">
+                                <div class="precio">
+                                    <h4 class ="original">${{productos.precioAntes}}</h4>
+                                    <h4 class = "descuento">${{productos.precio}}</h4>
+                                </div>
+                                <div class="carrito">
+                                    <img src="../assets/img/carrito_activo.png" height="23" (click)=carrito(productos.id_unico)>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

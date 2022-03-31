@@ -1,0 +1,60 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.contenedor{
+    margin: 15px 0px ;
+}
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+
+.div-historial{
+    display: flex;
+    align-items: center;
+    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    border-radius: 15px;
+    height: 65px;
+    margin: auto;
+    justify-content: center;
+  }
+  
+  .btn-establecimiento{
+  vertical-align: middle;
+  
+  }
+.contener-historial{
+    padding:7px 0px;
+}
+.contener-columnaI{
+    justify-content: flex-start;
+    display: flex;
+    width: 15%;
+    img{
+        width: 1.4rem;
+    }
+}
+
+.contener-columna{
+    justify-content: space-between;
+    display: flex;
+    width: 70%;
+    .nombre-historial{
+        font-weight: bold;
+        font-size: 14px;
+        color: var(--ion-color-azul-oscuro);
+        margin-bottom: 2px;
+        margin-top: 0px;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
+        overflow: hidden;
+        
+    }
+}
+

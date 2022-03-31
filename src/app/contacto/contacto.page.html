@@ -1,0 +1,31 @@
+
+<ion-content>
+    <div class="contenedor-page">
+        <div class="contenedor-titulo">
+            <ion-label class="titulo">Contáctanos</ion-label>
+          </div>
+        <div class="social-media">
+            <div class="red" *ngFor="let contacto of contactos">
+                <a [href]="contacto.link">
+                    <img [src]='"http://cabutoshop.pythonanywhere.com" + contacto.imagen'>
+                </a>
+            </div>
+        </div>
+        <div class="empresa">
+            <div class="info">
+                <div class="left">
+                    <img src='../assets/img/telefonos.png'>
+                </div>
+                <a class="right" href="tel:0988277349">
+                    <ion-label>0988277349</ion-label>
+                </a>
+            </div>     
+        </div>
+    </div>
+    <div class="desarrollado">
+        Desarrollado por
+        <a href="https://www.instagram.com/ingenieriadesoftware/">
+            <img src='../assets/img/ids.jpg'>
+        </a>
+    </div>
+</ion-content>

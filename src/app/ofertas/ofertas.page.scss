@@ -1,0 +1,233 @@
+ion-header{
+    height: 10px;
+    width: 100%;
+}
+
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+.titulo{
+    font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.7rem;
+}
+
+
+.icono{
+    position: relative;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+ion-toolbar{
+    --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+}
+
+
+.contenedor{
+    padding: 20px 0px;
+}
+
+ion-input{
+    font-weight: bold;
+}
+
+.contenedor-page{
+    padding: 20px 30px;
+}
+
+
+.div-producto{
+    display: flex;
+     flex-flow: row nowrap; /* Align on the same line */
+    //justify-content: space-around; 
+    vertical-align: middle;
+    box-shadow: 5px 5px 5px 5px #c2c2c2;
+    //padding: 20px 0px;
+    border-radius: 20px;
+    height: 130px;
+
+
+}
+.producto-carrito{
+    // display: flex;
+    // vertical-align: bottom;
+    // justify-content: end;
+    // width: 100%;
+    position: absolute;
+    left: 10rem;
+    display: -webkit-inline-box;
+    //right: 30px;
+    //bottom:150px;
+    //padding-bottom: 100px ;
+    
+}
+
+.btn-producto{
+vertical-align: middle;
+
+}
+
+#mas{
+    margin-left:  12px;
+}
+#menos{
+    margin-right:  12px;
+
+}
+
+.estilo-cantidad{
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    border: solid 1px gray;
+    vertical-align: middle;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.2rem;
+}
+.contener-producto{
+    padding:10px 0px;
+        // height:  100px;
+
+}
+
+.contener-columna{
+    display: block;
+}
+
+.nombre-producto{
+     font-family: var(--ion-font-family);
+    font-weight: bold;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 14px;
+    position: relative;
+    top:20px;
+    right: 10px;
+}
+
+.producto{
+    position: relative;
+    //bottom: 20px;
+    //height: 5rem;
+    //width: 8rem;
+    top:1.5rem;
+    left:1rem;
+    
+}
+
+.producto >img {
+    height:80px!important ;
+    width: 90px!important;
+    
+    //padding-bottom: 5px;
+    //box-shadow: 3px 3px 3px 3px #c2c2c2;
+}
+
+.detalle{
+    position: relative;
+    bottom: 0px;
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    color: #2153FF;
+}
+
+.nombre{
+    //text-align: justify;
+    width: 150px;
+    height: 80px;
+    padding-left: 25px;
+    font-size: 1rem;
+    padding-top: 0px;
+}
+
+.nombre h6{
+    padding-top: 0px;
+}
+
+
+.precio{
+    display: flex;
+    flex-flow: row nowrap;
+    color: var(--ion-color-naranja-oscuro);
+   font-weight: bolder;
+   position: relative;
+   padding-left: 0px;
+   padding-right: 0.9rem;
+   text-align: right;
+   .original{
+       text-decoration:line-through ;
+       color: var(--ion-color-gris-oscuro);
+       position: relative;
+       padding-left: 10px;
+       padding-right: 5px;
+       padding-top: 4px;
+       text-align: right;
+       font-size: 0.8rem;
+   }
+   .descuento{
+       color: var(--ion-color-naranja-oscuro);
+       position: relative;
+       padding-left: 0px;
+       padding-right: 0.5rem;
+       text-align: right;
+       font-size: 1rem;
+       
+   }
+}
+
+
+div.precio h4{
+    position: relative;
+    padding-left: 0px;
+    text-align: right;
+    font-size: 1rem;
+}
+
+div.carrito img{
+    position: absolute;
+    top: 95px;
+    right: 2rem;
+}
+
+.centrar{
+    width: 70px;
+}
+
+.contener-columna-centrar{
+    float: right;
+    position: relative;
+    width: 30%;
+    padding: 0px 0px 0px 0px;
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.contener-columnaI{
+    float: right;
+    position: relative;
+    //paddin-left: 20px;
+    padding-left: 0px;
+    text-align: right;
+    justify-content: flex-end;
+}
+.carrito{
+    padding-left: 0px;
+    padding-right: 30px;
+}
+.available.div-producto {
+    position: absolute;
+    box-shadow: none;
+    z-index: 9;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255,255,255,0.8);
+}
+

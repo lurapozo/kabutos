@@ -1,0 +1,283 @@
+*{
+  font-family: 'MyriadProSemibold' !important;
+}
+.header{
+  height: 15%;
+}
+
+ion-toolbar{
+  --background: var(--ion-color-naranja-oscuro);}
+
+ion-header{
+  margin: 0 auto;
+}
+
+.btn_regresar{
+  float:left;
+  position:absolute;
+  top:20px;
+  left:10px;
+}
+
+ion-title{
+    /*width: auto;*/
+    --color: #fff;
+    width: 100%; 
+    position: absolute; 
+    left: 0; 
+    height: 0%;
+}
+
+ion-item{
+  padding: 0px 0px 16px 0px;
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+    font-size: 0.8rem;
+    border-radius: 10px;
+  width:100%;
+    --highlight-height: 0.5px !important;
+}
+
+
+ion-button{
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.Condicion{
+    //--background: var(--ion-color-primary-contrast);
+    color:var(--ion-color-naranja-oscuro);
+    padding: 10px 0px 30px 0px;
+}
+
+.contenedor{
+    width: auto;
+}
+.container{
+    width: 100%;
+}
+
+  .col_back{
+    text-align: center;
+}
+
+.regresar > img{
+    width: 120%;
+    height: 180%;
+    padding: 50% 0% 0% 40%;
+}
+
+.regresar{
+    text-align: center;
+    padding: 30% 20% 0% 10%;
+    margin:auto;
+    display: flex;
+    --color-selected: #fff;;
+    --color: #fff;
+    /*justify-content: start;
+    align-content: start;
+    align-items: start;*/
+    --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    /*font-size: 30px;
+    display: inline-block;
+    padding: 20px;*/
+}
+
+.col_logo{
+    text-align: center;
+}
+
+/*.logo{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+}*/
+.logo{
+    text-align: right;
+    //padding: 5% 0% 0% 0%;
+    margin: auto;
+}
+
+.logo > img{
+    margin: auto;
+    width: 70%;
+    height: 110%;
+}
+
+
+.col_title{
+    text-align: left;
+}
+
+
+  .perfil{
+    text-align: center;
+  }
+
+  .select-profile-picture{
+    text-align: left;
+    font-size: 12px;
+    margin: 0 auto;
+  }
+  
+  .btn_regresar >img{
+    height: 100%;
+    width: 100%;
+    float:left;
+  }
+  .header > img {
+    height: 100%;
+    width: 100%;
+    //border-radius: 50%;
+    //padding-left: 30px;
+    margin: 0 auto;
+  }
+
+  .hoverable > img {
+    height: 100%;
+    width: 100%;
+    padding: 0%;
+    border-radius: 50%;
+  }
+  .hoverable{
+    //position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 140px;
+    width: 120px;
+    //border: 5px solid #000;
+    border-radius: 50%;
+    margin: 0 auto;
+    padding-bottom: 25px;
+  }
+  /*
+  .hoverable .hover-text{
+    position: absolute;
+    display: none;
+    //top: 30%;
+    left:  50%;
+    transform: translate(-50%,-50%);   
+    z-index: 2;
+    margin: 0 auto;
+    border-radius: 50%;
+  }*/
+  /*
+  .hoverable .background{
+    position: absolute;
+    display: none;
+    top: 0;
+    left:  0;
+    bottom: 0;
+    right: 0;
+    background-color:rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 1;
+    margin: 0 auto;
+  }*/
+  /*.hoverable:hover .hover-text{
+    display: block;
+    margin: 0 auto;
+  }
+  .hoverable:hover .background{
+    display: block;
+    margin: 0 auto;
+  }*/
+  
+  #fileInput{
+    display: none;
+    height: 20%;
+    padding-top: 0px; 
+  }
+  
+/*
+  .x{
+    z-index: 3;
+    display: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }*/
+
+ /** ion-input{
+    --placeholder-color: red;
+    --placeholder-opacity: 1;
+    --content: "*";
+}*/
+/*
+input{
+  background: #e7e7e7;
+  border: none!important;
+}*/
+/*
+:-ms-input-placeholder::after{
+  color:red;
+  content: "*"!important;
+}
+::placeholder:after{color:red!important;content:" *"!important;}
+input[placeholder]::after{
+  content: attr("*");
+}
+*/
+.terminos{
+  font-family: "MyriadPro-Light"!important;
+  font-size: 0.8rem;
+  //padding-left: 5px !important;
+}
+.radio{
+  padding-right: 10px!important;
+  float: left;
+  padding-left: 10px !important; 
+  width: 2.5rem;
+}
+.delete{
+  justify-content: left;
+    align-content: left;
+    align-items: left;
+    text-align: start;
+}
+#button {
+  line-height: 12px;
+  width: 30px;
+  height: 30px;
+  font-size: 20pt;
+  margin-top: 1px;
+  margin-right: 95px;
+  position:absolute;
+  top:0;
+  right:0;
+  border:none!important;
+  border-radius: 20px;
+  background-color: transparent;
+  text-align:start!important;
+}
+
+ion-button.btn-registro{
+  height: 100%!important;
+}
+
+.button-content{
+  height: 100%!important;
+  margin: 0 auto;
+}
+ion-footer{
+  margin: 0 auto!important;
+}
+
+.registro{
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

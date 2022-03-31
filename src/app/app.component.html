@@ -1,0 +1,61 @@
+<ion-app style="--background: #2153FF !important;">
+  <ion-menu style="--background: #2153FF !important;" menuId="main-menu" side="start" contentId="principal"
+    class="menu"  (ionClose)="closingNavCallback()">
+    <div class="header-content">
+      <img [src]="image ? image : '../assets/img/avatar.png'" alt="">
+      <div class="fullname">
+        <h2>{{name}}</h2>
+        <h2>{{lastname}}</h2>
+      </div>
+    </div>
+    <ion-content style="--background: #2153FF !important;" #navChild>
+      <ion-list>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/producto">Productos</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/ofertas">Ofertas</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/cupones">Cupones</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/historial">Historial de Compras</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/info-tarjeta">Tarjetas</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item class="menu-items" routerLink="/footer/establecimiento">Locales</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/sugerencia">Reclamos y Sugerencias</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/perfil">Perfil</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/politicas">Políticas de Privacidad</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/contacto">Contáctanos</ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+      <div class="social-media" style="background: #2153FF !important; ">
+        <div class="facebook"><a href="https://www.facebook.com/cabutosmarket"><img
+              src="../assets/img/facebook.png"></a></div>
+        <div class="twitter"><a href="https://twitter.com/cabutos1?lang=es"><img src="../assets/img/twitter.png"></a>
+        </div>
+        <div class="instagram"><a href="https://www.instagram.com/cabutos/?hl=es-la"><img
+              src="../assets/img/instagram.png"></a></div>
+      </div>
+      <ion-footer>
+        <ion-menu-toggle auto-hide="true">
+          <div class="sesion" (click)="initOrOut()">{{action}}</div>
+        </ion-menu-toggle>
+      </ion-footer>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="principal"></ion-router-outlet>
+</ion-app>

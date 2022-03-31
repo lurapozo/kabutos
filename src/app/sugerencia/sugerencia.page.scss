@@ -1,0 +1,126 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.contenedor-titulo{
+    
+  font-weight: bold;
+  display:flex;
+  justify-content: center;
+  align-items: baseline;
+  .titulo{
+      color: var(--ion-color-azul-oscuro);
+      font-size: larger;
+      font-size: 1.5rem;
+      margin-bottom: 0px;
+  }
+}
+
+
+ion-item{
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+    font-size: 1rem;
+    --highlight-height: 0px !important;
+    margin: 5% auto;
+    border-radius: 10px;
+    ion-textarea{
+        color: var(--ion-color-azul-oscuro);
+        margin-left:10px;
+        height: 150px;
+    }
+  }
+
+  ion-button{
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
+}
+
+.form{
+    padding:20px 0px;
+    padding-bottom: 0px;
+  }
+  .perfil{
+    background: #e7e7e7;
+    border-radius: 15px;
+    text-align: center;
+  }
+
+  .perfil img{
+    height: 2rem;
+  }
+
+  .select-profile-picture{
+    text-align: left;
+    font-size: 12px;
+    margin: 0 auto;
+  }
+  .div-sugerencia > img {
+    height: 25%;
+    padding: 0%;
+    margin: auto;
+  }
+  .div-sugerencia{
+    background: #e7e7e7;
+    border-radius: 15px;
+    height: 30vh;
+    width: 100%;
+    margin: auto;
+    display: inline-flex;
+    justify-content:center;
+    padding: 10px;
+  }
+  #sugerenciaInput{
+    display: none;
+    height: 20%;
+    padding-top: 0px; 
+  }
+
+.delete{
+  justify-content: left;
+    align-content: left;
+    align-items: left;
+    text-align: start;
+}
+
+  #button {
+    line-height: 12px;
+    width: 30px;
+    height: 30px;
+    font-size: 20pt;
+    margin-top: 6vh;
+    margin-right: 2vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none !important;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align: start !important;
+  }
+
+  .placeholder{
+    text-align: justify;
+    background: transparent;
+    border: 0;
+    width: 100%;
+    padding-left: 10px;
+    color: var(--ion-color-azul-oscuro);
+    opacity: .5;
+    position: absolute;
+    margin: 15px;
+  }
+  
+  .button-content{
+    display: flex;
+    justify-content: center;
+  }
+  .btn-registro{
+    width:55%;
+    line-height: 0px;
+  }
+  .registro{
+    margin: 0 auto;
+  }

@@ -1,0 +1,28 @@
+<ion-tabs>
+  <ion-tab-bar slot="top" class="header" *ngIf="!selectedPath.includes('login')">
+    <ion-tab-button class="menu_hamburguesa" size=3>
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-tab-button>
+    <div class= "headerR" > <img src="../assets/img/logo.png"></div>
+    <ion-tab-button class= "carrito_logo" size=1 [tab]="tab_carrito">        
+      <div class= "carrito_logo">
+        <div class = "valor_c" *ngIf="cosas>0"><span>{{cosas}}</span></div>
+        <ion-img [src]="carrito"></ion-img>
+      </div> 
+    </ion-tab-button>
+  </ion-tab-bar> 
+  <ion-tab-bar slot="bottom" class="footer"> 
+    <ion-tab-button class="col_home" [class.active-item]="selectedPath.includes('inicio')|| selectedPath=='/'" size=4 tab="inicio">
+      <div class= "home"> <ion-img [src]="home" ></ion-img></div>
+    </ion-tab-button>
+    <ion-tab-button class= "col_notifications" [class.active-item]="selectedPath.includes('notificacion')" tab="notificacion" size= 4 >
+      <div class = "valor"><span>{{number}}</span></div>
+      <div class= "notifications"> <ion-img [src]="notificacion" ></ion-img></div> 
+    </ion-tab-button>
+    <ion-tab-button class= "col_perfil" [class.active-item]="selectedPath.includes('perfil') "  tab="perfil" size=4 >        
+      <div class= "perfil"> 
+        <ion-img [src]="usuario"></ion-img>
+      </div>  
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

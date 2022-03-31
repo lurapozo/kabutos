@@ -1,0 +1,30 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <ion-label class="titulo">Locales</ion-label>
+    <!-- Default Searchbar -->
+    <div class="contenedor">
+      <div class="contenedor-searchbar">
+        <ion-input placeholder="Zona" [(ngModel)]="textInput"></ion-input>
+        <div class="contenedor-img" (click)="buscar()">
+          <img src="../assets/img/buscar.png" class="icono" >
+        </div>
+      </div>
+      <div class="contener-establecimiento" *ngFor="let establecimiento of establecimientos">
+        <div class="div-establecimiento" (click)="presentModal(establecimiento.latitud, establecimiento.longitud)">
+          <div class="contener-columnaI">
+            <img src="../assets/img/locales.png">
+          </div>
+          <div class="contener-columna">
+            <h6 class="nombre-establecimiento">{{establecimiento.nombre}}</h6>
+            <p class="direccion-establecimiento">{{establecimiento.direccion}}</p>
+            <div class="telefono-establecimiento">
+              <img src="../assets/img/telefonos1.png" width="10px" height="10px">
+              <p>{{establecimiento.telefono}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
