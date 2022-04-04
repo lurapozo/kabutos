@@ -31,6 +31,7 @@ export class EfectivoPage implements OnInit {
   id_direccion;
   token = "";
   id: any;
+  cvc: any;
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -41,19 +42,20 @@ export class EfectivoPage implements OnInit {
     private localService: EstablecimientoService,
     private pedidoService: HistorialService,
     private loadingCtrl: LoadingController,
-    private navCtrlr: NavController, ) { }
+    private navCtrlr: NavController, 
+  ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.envio=false
-    console.log("didEnter");
+    //console.log("didEnter");
     this.storage.get('total').then((val) => {
       this.total = Number(val);
     });
     this.storage.get('perfil').then((value) => {
-      console.log(value);
+      //console.log(value);
       if (value == null) {
         this.storage.get('correo').then((val) => {
           if (val != null) {
@@ -93,7 +95,6 @@ export class EfectivoPage implements OnInit {
           this.tipoPago = "Tarjeta"
           this.storage.get('tokenTarjeta').then((val) => {
             this.token = val + "";
-            console.log(this.token);
           });
           this.storage.get('numeroTarjeta').then((val) => {
             if (val != null) {
@@ -130,6 +131,22 @@ export class EfectivoPage implements OnInit {
 
 
   }
+
+  //aqui pedimos el token
+  getcredenciales(tok){
+        //aqui pedimos el token
+        this.perfilService.getCredencial(tok)
+        .subscribe(
+          data => {
+            console.log(data);
+            //this.cvc = data.cvc;
+          },
+          err => {
+            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+          }
+        );
+  }
+
   async recoger(val) {
     await this.showLoading2();
     this.localService.getEstablecimientoId(val)
@@ -234,6 +251,7 @@ export class EfectivoPage implements OnInit {
   async pagar(form) {
 
     await this.showLoading2();  
+    this.getcredenciales(this.token);
 
     let completo = this.total + this.envio;
     let sub=this.total/1.12; 
@@ -243,9 +261,12 @@ export class EfectivoPage implements OnInit {
     let vat = Number(this.iva.toFixed(2));
     let tot = Number(completo.toFixed(2));
 
+    
+
     let info = {
       "card": {
-        "token": this.token
+        "token": this.token,
+        "cvc": this.cvc
       },
       "user": {
         "id": this.id + "",
@@ -261,7 +282,8 @@ export class EfectivoPage implements OnInit {
       }
     }
 
-
+    console.log(info);
+    /*
     this.tarjetaService.pagar(info)
       .pipe(
         finalize(async () => {
@@ -282,6 +304,8 @@ export class EfectivoPage implements OnInit {
           this.router.navigate([''])
         }
       );
+      */
+      
       
   }
 

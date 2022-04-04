@@ -38,7 +38,6 @@ export class PerfilPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log("didEnter");
     this.storage.get('perfil').then((val) => {
 
       if (val == null) {
@@ -48,7 +47,6 @@ export class PerfilPage implements OnInit {
             this.perfilService.getPerfil(this.correo).subscribe(
               data => {
                 this.perfil = data[0];
-                console.log(data);
                 if (this.perfil.telefono == "NONE") {
                   this.perfil.telefono = "";
                 }
@@ -56,17 +54,16 @@ export class PerfilPage implements OnInit {
                   this.perfil.direccion = "";
                 }
                 this.imageURL()
-                console.log(this.url)
                 if (Object.keys(this.perfil).length === 0) {
-                  this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+                  this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
                 } else {
                   this.storage.set('perfil', this.perfil);
-                  console.log("se guardo el perfil")
+                  console.log("se guardo el perfil");
                 }
 
               },
               err => {
-                this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+                this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
               }
             );
           } else {
@@ -75,12 +72,11 @@ export class PerfilPage implements OnInit {
 
         });
       } else {
-        console.log(val)
         this.perfil = val;
         if (this.perfil.url != undefined) {
           this.url = this.perfil.url;
         } else {
-          this.imageURL()
+          this.imageURL();
         }
       }
     });

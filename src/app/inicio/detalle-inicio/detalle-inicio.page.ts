@@ -36,7 +36,6 @@ export class DetalleInicioPage implements OnInit {
   agregar(id: string) {
 
     var cantidad = document.querySelectorAll("[id='" + id + "']");
-    console.log(cantidad[0])
     var num = cantidad[0].innerHTML
     if ((parseInt(num) + 1) > this.max) {
       this.mensajeIncorrecto("Agregar al carrito", "Ha excedido el stock del producto");
@@ -59,13 +58,11 @@ export class DetalleInicioPage implements OnInit {
   carrito(id: string) {
     this.getCorreo()
     this.storage.get('name').then((nombre) => {
-      console.log('Name is', nombre);
       if (login.login == false && nombre == null) {
         this.dismiss()
         this.router.navigateByUrl('/login');
       } else {
         var cantidad = document.getElementById(id);
-        console.log("La cantidad que se agrega al carrito es: ", cantidad.innerHTML);
         if (parseInt(cantidad.innerHTML) > 0) {
           const prodxcant = {
             'nombre': id,

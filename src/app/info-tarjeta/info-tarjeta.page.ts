@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { NuevaTarjetaPage } from '../tarjeta/nueva-tarjeta/nueva-tarjeta.page';
 import { TarjetaService } from '../servicios/tarjeta.service';
+import { PerfilService } from '../servicios/perfil.service';
 import { finalize } from 'rxjs/operators';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { CorrectoPage } from '../aviso/correcto/correcto.page';
@@ -22,6 +23,7 @@ export class InfoTarjetaPage implements OnInit {
     private alertCtrl: AlertController,
     private storage: Storage,
     public modalController: ModalController,
+    private perfiltarjeta:PerfilService,
     public tarjetaService: TarjetaService,
     private loadingCtrl: LoadingController,) { }
 
@@ -29,7 +31,7 @@ export class InfoTarjetaPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log("didEnter");
+    //console.log("didEnter");
     this.storage.get('id').then((val) => {
       if (val != null) {
         this.id = val;
@@ -102,6 +104,30 @@ export class InfoTarjetaPage implements OnInit {
       .subscribe(
         data => {
           if (data["message"] === "card deleted") {
+            this.borarcredencial(token);
+          }
+        },
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+        }
+      );
+  }
+
+  async borarcredencial(token){
+    const info = {
+      "token": token
+    }
+      
+    await this.showLoading2();
+    this.perfiltarjeta.delCredencial(info)
+      .pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      )
+      .subscribe(
+        data => {
+          if (data.valid == "OK") {
             this.mensajeCorrecto("Tarjeta eliminada", "Su tarjeta ha sido eliminada con éxito.")
             this.datos()
           }
@@ -154,7 +180,7 @@ export class InfoTarjetaPage implements OnInit {
       )
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           this.tarjetas = data["cards"];
           if (Object.keys(this.tarjetas).length === 0) {
             this.mensajeIncorrecto("No tiene tarjetas", "No cuenta con tarjetas guardadas")

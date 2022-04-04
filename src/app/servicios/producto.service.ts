@@ -121,16 +121,14 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
     let headers=
          new HttpHeaders(
            {
-                           'Access-Control-Allow-Origin':'*',
-"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+              'Access-Control-Allow-Origin':'*',
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
            });
          
    //console.log('getProducto '+this.baseUrl + '/producto')
    //return this.http.get<Producto[]>(this.baseUrl + 'producto')
    //,{headers:headers}
    return this.http.get(this.baseUrl+'politicaData/')      
-         
-     
  }
 
 }

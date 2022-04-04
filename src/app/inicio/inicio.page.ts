@@ -31,14 +31,12 @@ export class InicioPage implements OnInit {
     public modalCtrl: ModalController,
   ) { }
 
-  async ngOnInit() {
-    await this.showLoading2();
-    this.iniciar(null)
+  ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    await this.showLoading2();
     this.iniciar(null)
-    
   }
 
   async iniciar(event){
@@ -47,7 +45,6 @@ export class InicioPage implements OnInit {
         await this.loading.dismiss();
       })
     ).subscribe(data => {
-      console.log(data)
       this.producto = data['productos'];
       this.categorias = data['categorias'];
       this.ofertas = data['ofertas'];
@@ -70,7 +67,6 @@ export class InicioPage implements OnInit {
       })
     )
     .subscribe(data => {
-      console.log(data)
       this.producto = data['productos'];
       this.categorias = data['categorias'];
       this.ofertas = data['ofertas'];
@@ -125,7 +121,6 @@ export class InicioPage implements OnInit {
   mostrar(id) {
     this.storage.set('categoria',id);
     this.router.navigateByUrl('/footer/categorias/detalle-categoria');
-    console.log(id)
   }
 
 }

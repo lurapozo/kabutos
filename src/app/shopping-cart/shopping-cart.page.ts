@@ -63,7 +63,6 @@ export class ShoppingCartPage implements OnInit {
         this.datos()
       }
     }, (error) => {
-        console.error(error);
         this.mensajeIncorrecto("Algo Salio mal", "Fallo en en el carrito.")
       }); 
   }
@@ -91,7 +90,6 @@ export class ShoppingCartPage implements OnInit {
       )
       .subscribe(data => {
         this.cart = data;
-        console.log(this.cart)
         if (this.cart.hasOwnProperty(0)) {
           this.storage.set('id_carrito', this.cart[0]['id'])
           this.products = this.cart[0]['productos'];
@@ -105,13 +103,11 @@ export class ShoppingCartPage implements OnInit {
         this.total = this.getTotal();
         var divTotal = document.querySelectorAll("[id='A_pagar']");
         divTotal[0].innerHTML=""+this.total+"";
-        console.log(this.total)
         }else{
           this.comLen = 0;
           this.prodLen = 0;
           this.oferLen = 0;
           this.cupLen = 0;
-          console.log(this.total)
         }
         
       }, (error) => {
@@ -128,7 +124,6 @@ export class ShoppingCartPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    console.log(this.modificado)
     if (this.modificado) {
       var cantidades = document.querySelectorAll('.cantidad');
       let datos = {
@@ -168,11 +163,8 @@ export class ShoppingCartPage implements OnInit {
   }
 
   getCorreo() {
-    console.log(login.login)
     this.storage.get('correo').then((val) => {
       this.correo = val;
-      console.log('name: ', this.correo);
-
     });
 
   }
@@ -234,7 +226,6 @@ export class ShoppingCartPage implements OnInit {
   }
 
   getPrecioUnitario(id: string) {
-    console.log("estoy en getprcio unitario");
     for (let i = 0; i < this.getProductLen(); i++) {
       if (id === this.products[i]['id_unico']) {
         return this.products[i]['precio_producto'];
@@ -258,7 +249,6 @@ export class ShoppingCartPage implements OnInit {
   }
 
   agregar(id: string, max) {
-    //console.log("el id a recibir", id);
     this.modificado = true;
     var precio_unitario = this.getPrecioUnitario(id);
     var cantidad = document.querySelectorAll("[id='" + id + "']");
@@ -403,7 +393,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   getId(id: string) {
-    console.log("estoy en getprcio unitario");
+    //console.log("estoy en getprcio unitario");
     for (let i = 0; i < this.getProductLen(); i++) {
       if (id === this.products[i]['id_unico']) {
         return this.products[i]['id_unico'];
@@ -476,8 +466,8 @@ export class ShoppingCartPage implements OnInit {
   }  
 
   saveData(estado: any) {
-    console.log("Estoy en el saveData");
-    console.log(estado);
+    //console.log("Estoy en el saveData");
+    //console.log(estado);
     this.shoppingService.updateCart(estado).subscribe(data => {
 
     }, (error) => {

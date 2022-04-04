@@ -5,6 +5,8 @@ import { IncorrectoPage } from 'src/app/aviso/incorrecto/incorrecto.page';
 import { TarjetaService } from 'src/app/servicios/tarjeta.service';
 import { Storage } from '@ionic/storage';
 import { CorrectoPage } from 'src/app/aviso/correcto/correcto.page';
+import { PerfilService } from 'src/app/servicios/perfil.service';
+import { Router } from '@angular/router'
 
 declare var Payment: any;
 declare var PaymentForm: any;
@@ -25,7 +27,9 @@ export class NuevaTarjetaPage implements OnInit {
     public modalController: ModalController,
     public tarjetaService: TarjetaService,
     private loadingCtrl: LoadingController,
-    public storage: Storage
+    public storage: Storage,
+    public router: Router,
+    public perfiltarjeta: PerfilService
   ) {
     Payment.init('prod', paymentez.app_code_client,paymentez.app_key_client);
     setTimeout(() => {
@@ -55,6 +59,7 @@ export class NuevaTarjetaPage implements OnInit {
 
   save(form) {
     let checkCard = this.card.getCard()
+
     if (checkCard != null) {
       this.storage.get('id').then((id) => {
         if (id != null) {
@@ -66,17 +71,39 @@ export class NuevaTarjetaPage implements OnInit {
               let texto=button.innerText
               button.disabled = true;
               button.innerText = "Procesando...";
+
               let successHandler = function (cardResponse) {
-                console.log(cardResponse.card);
+                //console.log(cardResponse.card);
                 if (cardResponse.card.status === 'valid') {
-                  console.log(cardResponse.card.status);
-                  $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito")
+                  const info = {
+                    "token": cardResponse.card.token,
+                    "cvc": checkCard.card.cvc
+                  }
+
+                  $this.perfiltarjeta.addCredencial(info)
+                  .pipe()
+                  .subscribe(
+                    data => {
+                      console.log(data);
+                      if(data.valid=="OK"){
+                        $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito");
+                     }else{
+                      $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                      $this.router.navigate(['']);
+                     }
+                    },
+                    err => {
+                      $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                      $this.router.navigate(['']);
+                    }
+                  );
+
                 } else if (cardResponse.card.status === 'review') {
-                  $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada")
+                  $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
                 } else {
-                  $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos")
+                  $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
                 }
-                $this.dismiss()
+                $this.dismiss();
               };
 
               let errorHandler = function (err) {
@@ -84,8 +111,10 @@ export class NuevaTarjetaPage implements OnInit {
                 button.disabled = false;
                 button.innerText = texto;
               };
+
               Payment.addCard(id+"", val, checkCard, successHandler, errorHandler);
-            }
+
+             }
           });
         }
       });

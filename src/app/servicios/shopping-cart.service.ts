@@ -31,11 +31,11 @@ export class ShoppingCartService {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    console.log("sin transformar")
-    console.log(producto_carrito)
+    //console.log("sin transformar")
+    //console.log(producto_carrito)
     const body = JSON.stringify(producto_carrito);
-    console.log("Transformar")
-    console.log(body)
+    //console.log("Transformar")
+    //console.log(body)
     return this.http.post(this.baseUrl+'producto/',producto_carrito,{'headers':headers})
   }
 
@@ -56,11 +56,11 @@ export class ShoppingCartService {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    console.log("sin transformar")
-    console.log(auth)
+    //console.log("sin transformar")
+    //console.log(auth)
     const body = JSON.stringify(auth);
-    console.log("Transformar")
-    console.log(body)
+    //console.log("Transformar")
+    //console.log(body)
     return this.http.post(this.baseUrl+'carrito/',auth,{'headers':headers})
   }
 
@@ -69,11 +69,11 @@ export class ShoppingCartService {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    console.log("sin transformar")
-    console.log(producto_carrito)
+    //console.log("sin transformar")
+    //console.log(producto_carrito)
     const body = JSON.stringify(producto_carrito);
-    console.log("Transformar")
-    console.log(body)
+    //console.log("Transformar")
+    //console.log(body)
     return this.http.post(this.baseUrl+'quitar/',producto_carrito,{'headers':headers})
   }
 
@@ -82,11 +82,11 @@ export class ShoppingCartService {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    console.log("sin transformar")
-    console.log(cupon_carrito)
+    //console.log("sin transformar")
+    //console.log(cupon_carrito)
     const body = JSON.stringify(cupon_carrito);
-    console.log("Transformar")
-    console.log(body)
+    //console.log("Transformar")
+    //console.log(body)
     return this.http.post(this.baseUrl+'addCupon/',cupon_carrito,{'headers':headers})
   }
 }

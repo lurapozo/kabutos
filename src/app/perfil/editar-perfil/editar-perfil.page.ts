@@ -37,7 +37,6 @@ export class EditarPerfilPage implements OnInit {
 
     this.storage.get('perfil').then((val)=>{
       if(val!=null){
-        console.log(val)
         this.perfil=val;
         if(this.perfil.url != undefined){
           this.imagenUrl=this.perfil.url
@@ -54,14 +53,11 @@ export class EditarPerfilPage implements OnInit {
   }
 
   onSelectFile(event) {
-    console.log(event);
     if (event.target.files && event.target.files[0]) {
       login.perfil=true;
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.log(event.target.files)
-      console.log(event.target.files[0])
-      console.log(event.target.files[0].name)
+
       this.formData.append("file", event.target.files[0], event.target.files[0].name);
       reader.onload = (event) => { 
         var ul = ""
@@ -92,7 +88,6 @@ export class EditarPerfilPage implements OnInit {
     formData.append("fechaNac",this.perfil.fechaNac);
     formData.append("url",this.formData.get("file"))
     form = form.value;
-    console.log(form);
     if(form.nombre == ''|| form.apellido == ''){
       this.mensajeIncorrecto("Campos Incompletos","Por favor complete los campos Nombre y Apellido");
     }else{

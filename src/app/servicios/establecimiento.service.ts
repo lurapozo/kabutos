@@ -19,6 +19,7 @@ export class EstablecimientoService {
     }
     return this.http.get(this.baseUrl+'establecimiento/',{'headers':headers})            
   }
+ 
   getEstablecimientoBuscar(filtro: string){
     let parametro= new HttpParams().set('nombre',filtro);
     const httpOptions = {

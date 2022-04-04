@@ -82,7 +82,7 @@ export class TarjetaPage implements OnInit {
       )
       .subscribe(
         data => {
-          console.log(data);
+          console.log(this.id);
           this.tarjetas = data["cards"];
 
         },

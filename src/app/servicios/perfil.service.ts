@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Tarjeta } from '../modelo/tarjeta'
 
 
 @Injectable({
@@ -26,6 +27,43 @@ export class PerfilService {
   }
 
   editPerfil(user):Observable<any>{
-    return this.http.post(this.baseUrl+`editarCliente/`,user)
+    return this.http.post(this.baseUrl+`editarCliente/`,user);
   }
+
+
+  //pruebas de guardado de tarjeta
+  //se supone que ya funciona al 100%
+  addCredencial(credencial: Tarjeta):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(credencial);
+    return this.http.post(this.baseUrl+'tarjeta/add/',credencial,{'headers': headers});
+   }
+
+  //en revision
+  getCredencial(token: string){
+    let parametro= new HttpParams().set('token',token);
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'Accept': 'application/json, text/plain',
+          'Content-Type':  'application/json',
+        })
+      };
+   return this.http.get(this.baseUrl+'tarjeta/',{params:parametro, headers:httpOptions.headers});
+  }
+  //cesar - Te@moStefita0909
+
+  //en revision
+  delCredencial(credencial):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(credencial);
+    return this.http.post(this.baseUrl+'tarjeta/del/',credencial,{'headers': headers});
+  }
+
+
 }

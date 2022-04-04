@@ -104,20 +104,16 @@ export class AppComponent {
   public image;
 
   getStorage() {
-    console.log(login.login)
     this.storage.get('name').then((val) => {
       if (val == null) {
         this.name = "";
       } else {
         this.name = val.toUpperCase();
-        console.log('name: ', this.name.toUpperCase());
         this.storage.get('apellido').then((val) => {
           if (val == null) {
             this.lastname = "";
           } else {
             this.lastname = val.toUpperCase();
-            console.log('apellido: ', this.lastname.toUpperCase());
-            console.log(this.fullname.toUpperCase())
           }
         });
       }

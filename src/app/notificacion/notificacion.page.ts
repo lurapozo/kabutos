@@ -33,7 +33,6 @@ export class NotificacionPage implements OnInit {
         response => {
           this.loading.dismiss();
           this.notificaciones = JSON.parse(response.data);
-          console.log(this.notificaciones)
           this.parsearFechas();
           if (Object.keys(this.notificaciones).length === 0) {
             this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
@@ -41,7 +40,6 @@ export class NotificacionPage implements OnInit {
         },
         err => {
           this.loading.dismiss();
-          console.log(err);
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
       );
@@ -49,7 +47,6 @@ export class NotificacionPage implements OnInit {
 
 
   ionViewDidEnter() {
-    console.log("didEnter");
     this.get();
   }
 
