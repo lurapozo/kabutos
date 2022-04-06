@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
-import {paymentez} from 'src/environments/environment';
+import {paymentez} from 'src/environments/environment.prod';
 import { IncorrectoPage } from 'src/app/aviso/incorrecto/incorrecto.page';
 import { TarjetaService } from 'src/app/servicios/tarjeta.service';
 import { Storage } from '@ionic/storage';
@@ -81,7 +81,6 @@ export class NuevaTarjetaPage implements OnInit {
                   }
 
                   $this.perfiltarjeta.addCredencial(info)
-                  .pipe()
                   .subscribe(
                     data => {
                       console.log(data);
