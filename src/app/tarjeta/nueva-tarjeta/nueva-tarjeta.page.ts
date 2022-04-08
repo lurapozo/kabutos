@@ -118,6 +118,7 @@ export class NuevaTarjetaPage implements OnInit {
         }
       });
     }
+    
   }
 
   enviar() {

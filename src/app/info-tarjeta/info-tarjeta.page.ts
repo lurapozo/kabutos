@@ -113,18 +113,12 @@ export class InfoTarjetaPage implements OnInit {
       );
   }
 
-  async borarcredencial(token){
+  borarcredencial(token){
     const info = {
       "token": token
     }
       
-    await this.showLoading2();
     this.perfiltarjeta.delCredencial(info)
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
       .subscribe(
         data => {
           if (data.valid == "OK") {

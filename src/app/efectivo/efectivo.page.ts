@@ -128,23 +128,60 @@ export class EfectivoPage implements OnInit {
         this.pago = this.total;
       }
     });
-
-
   }
 
   //aqui pedimos el token
-  getcredenciales(tok){
-        //aqui pedimos el token
-        this.perfilService.getCredencial(tok)
-        .subscribe(
-          data => {
-            console.log(data);
-            //this.cvc = data.cvc;
-          },
-          err => {
-            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+  async getcredenciales(cvc,form){
+    await this.showLoading2(); 
+    let completo = this.total + this.envio;
+    let sub=this.total/1.12; 
+    this.iva = sub*0.12; 
+
+    let tax = Number(sub.toFixed(2));
+    let vat = Number(this.iva.toFixed(2));
+    let tot = Number(completo.toFixed(2));
+
+    
+
+    let info = {
+      "card": {
+        "token": this.token,
+        "cvc": cvc
+      },
+      "user": {
+        "id": this.id + "",
+        "email": this.perfil.correo
+      },
+      "order": {
+        "amount": tot,
+        "description": "Pedido Cabuto",
+        "dev_reference": "Pedido de Compra mediante tajreta",
+        "vat": vat,
+        "tax_percentage": 12,
+        "taxable_amount": tax
+      }
+    }
+
+    this.tarjetaService.pagar(info)
+      .pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      )
+      .subscribe(
+        data => {
+          if(data.transaction.status=="success"){
+            this.guardarPedido(form, data.transaction.id, data.transaction.authorization_code);
+          }else{
+            this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
+            this.router.navigate(['']);
           }
-        );
+        },
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Error con el Pago de su Tarjeta");
+          this.router.navigate([''])
+        }
+      );
   }
 
   async recoger(val) {
@@ -249,64 +286,21 @@ export class EfectivoPage implements OnInit {
   }
 
   async pagar(form) {
-
     await this.showLoading2();  
-    this.getcredenciales(this.token);
-
-    let completo = this.total + this.envio;
-    let sub=this.total/1.12; 
-    this.iva = sub*0.12; 
-
-    let tax = Number(sub.toFixed(2));
-    let vat = Number(this.iva.toFixed(2));
-    let tot = Number(completo.toFixed(2));
-
-    
-
-    let info = {
-      "card": {
-        "token": this.token,
-        "cvc": this.cvc
-      },
-      "user": {
-        "id": this.id + "",
-        "email": this.perfil.correo
-      },
-      "order": {
-        "amount": tot,
-        "description": "Pedido Cabuto",
-        "dev_reference": "Pedido de Compra mediante tajreta",
-        "vat": vat,
-        "tax_percentage": 12,
-        "taxable_amount": tax
-      }
-    }
-
-    console.log(info);
-    /*
-    this.tarjetaService.pagar(info)
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        data => {
-          if(data.transaction.status=="success"){
-            this.guardarPedido(form, data.transaction.id, data.transaction.authorization_code);
-          }else{
-            this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
-            this.router.navigate(['']);
+    this.perfilService.getCredencial(this.token)
+        .pipe(
+          finalize(async () => {
+            await this.loading.dismiss();
+          })
+        )
+        .subscribe(
+          data => {
+            this.getcredenciales(data,form);
+          },
+          err => {
+            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
           }
-        },
-        err => {
-          this.mensajeIncorrecto("Algo Salio mal", "Error con el Pago de su Tarjeta");
-          this.router.navigate([''])
-        }
-      );
-      */
-      
-      
+        );
   }
 
   async guardarPedido(form, transaccion, autorizacion) {
