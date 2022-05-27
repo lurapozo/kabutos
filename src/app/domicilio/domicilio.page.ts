@@ -47,7 +47,7 @@ export class DomicilioPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    
+    //this.showLoading2();
     this.storage.get('id').then((val) => {
       if (val != null) {
         this.id = val;
@@ -56,11 +56,15 @@ export class DomicilioPage implements OnInit {
     this.storage.get('total').then((val) => {
       this.total = val;
     });
-    
-    this.initMap()  
+   
+    this.initMap();
     this.Marker();
+    setTimeout(() => {
+      this.addMarker(this.map);
+    }, 1200);
 
-    if(this.direccion!=""){
+
+    if (this.direccion != "") {
       location.reload();
     }
   }
@@ -76,14 +80,40 @@ export class DomicilioPage implements OnInit {
       .subscribe(
         data => {
           this.zonas = data;
-          this.drawPolygon();
-        },
+          this.drawPolygon();        },
         err => {
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
       );
   }
-
+  verificarPosicionActual(){
+    var seEncuentra=false;
+    var color="blue"
+    //this.showLoading2();
+    this.coberturaService.getCobertura().subscribe(
+      (data:any)=>{
+        data.forEach((element: any) => {
+          if (element.zona!="" && seEncuentra==false) {
+            //console.log("element", element)
+            var coords = JSON.parse(element.zona);
+            var poligono = this.makePolygon(coords, "blue");
+            poligono.setMap(this.map);
+            seEncuentra = google.maps.geometry.poly.containsLocation(this.map.getCenter(), poligono);
+            color = seEncuentra ? "blue" : "red";
+            //seEncuentra? this.loading.dismiss(): console.log("pensando..")
+            this.verificarPosicion(this.map.getCenter(), color);
+            var $this = this;
+            google.maps.event.addListener(poligono, 'click', function (e) {
+              $this.verificarPosicion(e.latLng, "blue");
+              $this.envio = element.envio;
+            });
+          }
+    
+        });
+      }
+    )
+   
+  }
   initMap(): void {
     setTimeout(() => {
       this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -91,16 +121,19 @@ export class DomicilioPage implements OnInit {
         zoom: 12
       });
       google.maps.event.addListener(this.map, 'click', (event) => {
+        console.log("Cambiando location a ", event.latLng);
         this.verificarPosicion(event.latLng, "red");
       })
 
-      this.addMarker(this.map);
     }, 200);
   }
 
-  Marker(){
+  Marker() {
+    console.log("marker")
     var latlng = new google.maps.LatLng(this.latitud, this.longitud);
-    this.marker.setPosition(latlng);
+    if(this.marker){
+      this.marker.setPosition(latlng);
+    }
   }
 
   addMarker(map: any) {
@@ -109,7 +142,9 @@ export class DomicilioPage implements OnInit {
         this.latitud = resp.coords.latitude;
         this.longitud = resp.coords.longitude;
         this.map.setCenter({ lat: this.latitud, lng: this.longitud });
-        this.datos();
+        this.verificarPosicionActual()
+        //this.datos();
+
       }).catch((error) => {
         console.log('Error getting location', error);
       });
@@ -118,25 +153,30 @@ export class DomicilioPage implements OnInit {
 
   drawPolygon() {
     var color = "blue";
-    this.zonas.forEach(element => {
-      var coords = JSON.parse(element.zona);
-      var poligono = this.makePolygon(coords, "blue");
-      poligono.setMap(this.map);
-      var contain = google.maps.geometry.poly.containsLocation(
-        this.map.getCenter(), poligono);
-      color = (contain ? "blue" : "red");
-      this.verificarPosicion(this.map.getCenter(), color);
-      var $this = this;
-      google.maps.event.addListener(poligono, 'click', function (e) {
-        $this.verificarPosicion(e.latLng, "blue");
-        $this.envio = element.envio;
-      });
+    this.zonas.forEach((element: any) => {
+      if (element.zona!="") {
+        console.log("element", element)
+        var coords = JSON.parse(element.zona);
+
+        var poligono = this.makePolygon(coords, "blue");
+        poligono.setMap(this.map);
+        var contain = google.maps.geometry.poly.containsLocation(
+          this.map.getCenter(), poligono);
+        color = (contain ? "blue" : "red");
+        this.verificarPosicion(this.map.getCenter(), color);
+        var $this = this;
+        google.maps.event.addListener(poligono, 'click', function (e) {
+          $this.verificarPosicion(e.latLng, "blue");
+          $this.envio = element.envio;
+        });
+      }
+
     });
   }
+ 
 
-  
   verificarPosicion(event, color) {
-    console.log(color);
+    //console.log(color);
     if (this.marker != undefined) {
       this.marker.setMap(null);
     }
@@ -154,6 +194,7 @@ export class DomicilioPage implements OnInit {
     }
 
   }
+
 
 
   addInfoWindow(marker, content) {
