@@ -99,13 +99,18 @@ export class DomicilioPage implements OnInit {
             var poligono = this.makePolygon(coords, "blue");
             poligono.setMap(this.map);
             seEncuentra = google.maps.geometry.poly.containsLocation(this.map.getCenter(), poligono);
+            //console.log("se Encuentra? ", seEncuentra)
             color = seEncuentra ? "blue" : "red";
             //seEncuentra? this.loading.dismiss(): console.log("pensando..")
             this.verificarPosicion(this.map.getCenter(), color);
+            if(color!="red"){
+              this.envio = element.envio;
+            }
             var $this = this;
             google.maps.event.addListener(poligono, 'click', function (e) {
               $this.verificarPosicion(e.latLng, "blue");
               $this.envio = element.envio;
+              console.log("verificando Posicion Actual, envio", this.envio)
             });
           }
     
@@ -139,6 +144,7 @@ export class DomicilioPage implements OnInit {
   addMarker(map: any) {
     this.platform.ready().then(() => {
       this.geolocation.getCurrentPosition().then((resp) => {
+        console.log("coordenadas al entrar a domicilio/ add marker",resp.coords)
         this.latitud = resp.coords.latitude;
         this.longitud = resp.coords.longitude;
         this.map.setCenter({ lat: this.latitud, lng: this.longitud });
@@ -183,16 +189,21 @@ export class DomicilioPage implements OnInit {
     this.marker = new google.maps.Marker({
       position: event,
       map: this.map
-    })
+    });
     if (color == "red") {
       let content = "<p>Aún no existe cobertura para esta zona!</p>";
       this.addInfoWindow(this.marker, content);
       this.envio = "";
+
     } else {
+      //this.envio=null;
       this.latitud = event.lat();
       this.longitud = event.lng();
+      setTimeout(() => {
+        console.log("envio blue", this.envio)
+      }, 500);
     }
-
+    
   }
 
 
