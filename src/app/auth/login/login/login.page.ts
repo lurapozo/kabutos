@@ -15,6 +15,8 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';  
+
 
 @Component({
   selector: 'app-login',
@@ -47,7 +49,9 @@ export class LoginPage implements OnInit {
     private fcm: FcmService,
     private firebase: FirebaseX,
     private perfilService: PerfilService,
-    private shoppingService: ShoppingCartService) { }
+    private shoppingService: ShoppingCartService,
+    private signInWithApple: SignInWithApple
+    ) { }
 	
   ngOnInit() {
   }
@@ -259,6 +263,27 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     await alert.present();
   }
 
+  AppleConect() {
+
+    this.signInWithApple.signin({
+      requestedScopes: [
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+      ]
+    })
+    .then((res: AppleSignInResponse) => {
+      // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
+      alert('Send token to apple for verification: ' + res.identityToken);
+      console.log(res);
+    })
+    .catch((error: AppleSignInErrorResponse) => {
+      alert(error.code + ' ' + error.localizedDescription);
+      console.error(error);
+    });
+
+    
+  }
+
   facebook(){
     this.authService.loginwithFacebook().then(res=>{
       console.log(res)
@@ -407,6 +432,19 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
                  }, 1000 );   
                 });  
               }
+  
+  showLoadingApple(){
+    this.loading.create({  
+      message: 'Loading.....'   
+      }).then((loading) => {  
+       loading.present();{
+        this.AppleConect();
+      } 
+       setTimeout(() => {   
+         loading.dismiss();  
+       }, 1000 );   
+      });  
+  }
 
               
   show(form){

@@ -16,7 +16,7 @@ import {ProductoService} from '../app/servicios/producto.service';
 import { AuthModule } from  './auth/auth.module';
 
 import { ServiciosModule } from  './auth/servicios/servicios.module';
-
+import { SignInWithApple } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
 import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Firestore (BD)
 import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
 import { AngularFireModule } from "@angular/fire";            //Modulo para inicializar y que todo funcione bien vergas
@@ -51,6 +51,7 @@ driverOrder: ['indexeddb', 'sqlite', 'websql']
     FirebaseX,
     NativeStorage,
     HTTP,
+    SignInWithApple,
     FooterPage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

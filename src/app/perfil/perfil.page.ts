@@ -104,6 +104,10 @@ export class PerfilPage implements OnInit {
     this.router.navigate(['/footer/perfil/editar-perfil']);
   }
 
+  eliminar_credenciales() {
+    console.log("ya valio madres");
+  }
+
   imageURL():any {
     const getImageOrFallback = (path, fallback) => {
       return new Promise(resolve => {
