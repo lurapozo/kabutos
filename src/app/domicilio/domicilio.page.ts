@@ -99,9 +99,13 @@ export class DomicilioPage implements OnInit {
             var poligono = this.makePolygon(coords, "blue");
             poligono.setMap(this.map);
             seEncuentra = google.maps.geometry.poly.containsLocation(this.map.getCenter(), poligono);
+            //console.log('se encuentra', seEncuentra)
             color = seEncuentra ? "blue" : "red";
             //seEncuentra? this.loading.dismiss(): console.log("pensando..")
             this.verificarPosicion(this.map.getCenter(), color);
+            if(color!="red"){
+              this.envio=element.envio;
+            }
             var $this = this;
             google.maps.event.addListener(poligono, 'click', function (e) {
               $this.verificarPosicion(e.latLng, "blue");
@@ -188,9 +192,14 @@ export class DomicilioPage implements OnInit {
       let content = "<p>Aún no existe cobertura para esta zona!</p>";
       this.addInfoWindow(this.marker, content);
       this.envio = "";
+
     } else {
+      //this.envio= null;
       this.latitud = event.lat();
       this.longitud = event.lng();
+      setTimeout(()=>{
+        console.log("envio blue", this.envio)
+      }, 500);
     }
 
   }
