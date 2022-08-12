@@ -59,6 +59,7 @@ export class RegistroPage implements OnInit {
     const foto = {
       'url': this.formData.getAll('file')
     }
+    
     const formR = {
       'cedula': form.cedula,
       'nombre': form.nombre,

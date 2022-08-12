@@ -272,15 +272,73 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       ]
     })
     .then((res: AppleSignInResponse) => {
-      // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
-      alert('Send token to apple for verification: ' + res.identityToken);
-      console.log(res);
+
+      const contra = res.user.split('.');
+      const logR = {
+        'cedula': " ",
+        'email': res.email,
+        'nombre': res.fullName.givenName,
+        'apellido': res.fullName.familyName,
+        'contrasena': contra[1],
+        'confirmar': contra[1]
+      }
+
+      const mail = this.storage.get('correo');
+      const logV = {
+        'correo': mail+"",
+        'contrasena': contra[1]
+      }
+
+
+      this.authService.VerificarUser(logV).subscribe(data=> {
+
+        if (data.valid == "OK"){
+
+          var nombre = data.nombre;
+          var apellido = data.apellido;
+          
+          login.login = true;
+          this.storage.set('name', nombre);
+          this.storage.set('apellido', apellido);
+          this.storage.set('correo', mail);
+          this.storage.set('number', "");
+
+          this.component.name=nombre;
+          this.component.lastname = apellido;
+          this.component.action="Cerrar Sesión";
+          this.router.navigateByUrl('/');
+        }else{
+          this.authService.addUser(logR).subscribe(data=> {
+            
+            if(data.valid == "OK"){
+
+              var nombre = data.nombre;
+              var apellido = data.apellido;
+              
+              login.login = true;
+              this.storage.set('name', nombre);
+              this.storage.set('apellido', apellido);
+              this.storage.set('correo', res.email);
+              this.storage.set('number', "");
+
+              this.component.name=nombre;
+              this.component.lastname = apellido;
+
+              this.router.navigateByUrl('/registro-exitoso');
+            }else{
+              this.mensajeIncorrecto("Error de Registro","Parece que algo ha ocurrido");
+              this.router.navigateByUrl('/'); 
+            }
+          });
+        }
+      });
+
+      // el catch de apple 
     })
     .catch((error: AppleSignInErrorResponse) => {
-      alert(error.code + ' ' + error.localizedDescription);
+      alert("Ocurrio un error con las credennciales presentadas por Apple ID");
       console.error(error);
     });
-
     
   }
 
@@ -295,6 +353,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       console.log(nombre)
       console.log(foto)
       var contra = usuario.displayName;
+
       const logR ={
         'cedula': " ",
         'email': mail,
@@ -302,13 +361,14 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         'apellido': " ",
         'contrasena': contra,
         'confirmar': contra
-
       }
       
       //this.router.navigateByUrl('/producto');
-      const log=  {'correo': mail,
+      const log=  {
+        'correo': mail,
         'contrasena': contra
       }
+
       this.authService.VerificarUser(log).subscribe(data=> {
         console.log(data.valid)
         console.log("holaaaa ajajaajja")

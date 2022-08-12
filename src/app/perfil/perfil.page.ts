@@ -105,7 +105,18 @@ export class PerfilPage implements OnInit {
   }
 
   eliminar_credenciales() {
-    console.log("ya valio madres");
+    
+    const user = {
+      "correo": this.perfil.correo
+    }
+
+    this.perfilService.eliminar_perfil(user).subscribe(data =>{
+      if(data.valid == "OK"){
+        this.mensajeIncorrecto("Cuenta de usuario eliminada","Cuenta eliminada definitivamente, ya no podra hacer uso de esta sesion");
+        this.router.navigateByUrl('/');
+      }
+    })
+    
   }
 
   imageURL():any {
