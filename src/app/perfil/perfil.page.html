@@ -39,6 +39,12 @@
           <ion-input type="text" [value]="perfil.fechaNac | date:'dd/MM/yyyy'" readonly></ion-input>
         </ion-item>
 
+        <div class="button-content" (click)="eliminar_credenciales()">
+          <ion-button class="btn-registro" size="large">
+            <p class="registro">Eliminar cuenta</p>
+          </ion-button>
+        </div>
+
       </div>
     </div>
   </div>

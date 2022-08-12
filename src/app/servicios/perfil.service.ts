@@ -30,6 +30,16 @@ export class PerfilService {
     return this.http.post(this.baseUrl+`editarCliente/`,user);
   }
 
+  eliminar_perfil(user):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(user);
+    return this.http.post(this.baseUrl+'quitarusuario/',user,{'headers': headers});
+
+  }
+
 
   //pruebas de guardado de tarjeta
   //se supone que ya funciona al 100%

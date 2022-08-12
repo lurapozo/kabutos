@@ -59,6 +59,10 @@ ion-item{
     }
   }
 
+  ion-button{
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
+  }
   
   .btn-establecimiento{
   vertical-align: middle;
@@ -120,4 +124,20 @@ ion-item{
         font-weight: bolder;
         font-size: 0.6rem;
     }
+}
+
+.button-content{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-registro {
+    width: 55%;
+    line-height: 0px;
+}
+
+.registro{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

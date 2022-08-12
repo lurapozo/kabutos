@@ -104,6 +104,21 @@ export class PerfilPage implements OnInit {
     this.router.navigate(['/footer/perfil/editar-perfil']);
   }
 
+  eliminar_credenciales(){
+    const user = {
+      "correo": this.perfil.correo
+    }
+
+    this.perfilService.eliminar_perfil(user).subscribe(data =>{
+       if(data.valid == "OK"){
+          this.mensajeIncorrecto("Cuenta de usuario eliminada","Cuenta eliminada definitivamente, ya no podra hacer uso de esta sesión");
+          this.router.navigateByUrl('/');
+
+       }
+    });
+  }
+  
+
   imageURL():any {
     const getImageOrFallback = (path, fallback) => {
       return new Promise(resolve => {
