@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { login } from 'src/app/global';
+import { AppComponent } from '../app.component';
+
 
 @Component({
   selector: 'app-perfil',
@@ -30,7 +32,7 @@ export class PerfilPage implements OnInit {
     public modalController: ModalController,
     private http: HttpClient,
     private router: Router,
-
+    private component: AppComponent,
   ) { }
 
   ngOnInit() {
@@ -93,6 +95,7 @@ export class PerfilPage implements OnInit {
     });
     return await modal.present();
   }
+
   async showLoading2() {
     this.loading = await this.loadingCtrl.create({
       message: 'Loading.....'
@@ -104,17 +107,24 @@ export class PerfilPage implements OnInit {
     this.router.navigate(['/footer/perfil/editar-perfil']);
   }
 
-  eliminar_credenciales() {
-    
+  async eliminar_credenciales() {
+
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading.....'
+    });
+
+    await this.loading.present();
+
     const user = {
       "correo": this.perfil.correo
     }
 
     this.perfilService.eliminar_perfil(user).subscribe(data =>{
       if(data.valid == "OK"){
-        this.mensajeIncorrecto("Cuenta de usuario eliminada","Cuenta eliminada definitivamente, ya no podra hacer uso de esta sesion");
-        this.router.navigateByUrl('/');
-      }
+        this.loading.dismiss();
+        this.mensajeIncorrecto("Cuenta de usuario eliminada","Cuenta eliminada, debera crear otro usuario");
+        this.component.logout();
+       }
     })
     
   }

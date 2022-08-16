@@ -30,6 +30,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 
+
 @NgModule({
   declarations: [AppComponent],
 //  declarations: [AppComponent],

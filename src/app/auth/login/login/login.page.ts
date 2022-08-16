@@ -15,8 +15,8 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
-import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';  
-
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';  
+import jwtDecode from "jwt-decode"
 
 @Component({
   selector: 'app-login',
@@ -26,6 +26,7 @@ import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAutho
 
 
 export class LoginPage implements OnInit {
+  loading: any;
 	validacion : {};
   public alertShown: boolean = false;
   picture:string ;
@@ -37,7 +38,10 @@ export class LoginPage implements OnInit {
   public type = "password"; 
   passwordToggleIcon = 'eye';
   public showPass = false; 
-  constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
+  constructor(
+    private  authService:  AuthService, 
+    private  router:  Router, 
+    private loadingCtrl: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
     private navCtrlr: NavController,
@@ -79,6 +83,12 @@ export class LoginPage implements OnInit {
   }
 
   async verificarB(form){
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading.....'
+    });
+
+    await this.loading.present();
+
     this.authService.VerificarUser(form).subscribe(data=> {
       console.log(data.valid)
       if (data.valid == "OK"){
@@ -126,6 +136,9 @@ export class LoginPage implements OnInit {
           });
         });
         console.log(login)
+
+        this.loading.dismiss();
+
         if(login.categoria == true){
           this.router.navigateByUrl('/footer/categorias/detalle-categoria');
         }else if(login.oferta == true && (login.producto =false)){
@@ -266,74 +279,33 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
   AppleConect() {
 
     this.signInWithApple.signin({
-      requestedScopes: [
-        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
-      ]
+      requestedScopes: [0,1]
     })
     .then((res: AppleSignInResponse) => {
 
       const contra = res.user.split('.');
+      const decoded = jwtDecode(res.identityToken);
+
       const logR = {
         'cedula': " ",
-        'email': res.email,
+        'email': decoded['email'],
         'nombre': res.fullName.givenName,
         'apellido': res.fullName.familyName,
         'contrasena': contra[1],
         'confirmar': contra[1]
       }
 
-      const mail = this.storage.get('correo');
       const logV = {
-        'correo': mail+"",
+        'correo': decoded['email'],
         'contrasena': contra[1]
       }
 
+      if(res.email.length === 0){
+        this.verificarB(logV)
+      }else {
+        this.Apple_sig_in(logR, decoded['email'], logV);
+      }
 
-      this.authService.VerificarUser(logV).subscribe(data=> {
-
-        if (data.valid == "OK"){
-
-          var nombre = data.nombre;
-          var apellido = data.apellido;
-          
-          login.login = true;
-          this.storage.set('name', nombre);
-          this.storage.set('apellido', apellido);
-          this.storage.set('correo', mail);
-          this.storage.set('number', "");
-
-          this.component.name=nombre;
-          this.component.lastname = apellido;
-          this.component.action="Cerrar Sesión";
-          this.router.navigateByUrl('/');
-        }else{
-          this.authService.addUser(logR).subscribe(data=> {
-            
-            if(data.valid == "OK"){
-
-              var nombre = data.nombre;
-              var apellido = data.apellido;
-              
-              login.login = true;
-              this.storage.set('name', nombre);
-              this.storage.set('apellido', apellido);
-              this.storage.set('correo', res.email);
-              this.storage.set('number', "");
-
-              this.component.name=nombre;
-              this.component.lastname = apellido;
-
-              this.router.navigateByUrl('/registro-exitoso');
-            }else{
-              this.mensajeIncorrecto("Error de Registro","Parece que algo ha ocurrido");
-              this.router.navigateByUrl('/'); 
-            }
-          });
-        }
-      });
-
-      // el catch de apple 
     })
     .catch((error: AppleSignInErrorResponse) => {
       alert("Ocurrio un error con las credennciales presentadas por Apple ID");
@@ -341,6 +313,45 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     });
     
   }
+
+
+  async Apple_sig_in(user, correo, logV,){
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading.....'
+    });
+
+    await this.loading.present();
+
+
+
+    this.authService.addUser(user).subscribe(data=> {
+            
+      if(data.valid == "OK"){
+
+        var nombre = data.nombre;
+        var apellido = data.apellido;
+        
+        login.login = true;
+        this.storage.set('name', nombre);
+        this.storage.set('apellido', apellido);
+        this.storage.set('correo', correo);
+        this.storage.set('number', "");
+
+        this.component.name=nombre;
+        this.component.lastname = apellido;
+
+        this.loading.dismiss();
+        
+        this.verificarB(logV);
+      }else{
+        this.loading.dismiss();
+      
+        this.mensajeIncorrecto("Error de Registro","Parece que algo ha ocurrido");
+        this.router.navigateByUrl('/'); 
+      }
+    });
+  }
+
 
   facebook(){
     this.authService.loginwithFacebook().then(res=>{
@@ -441,7 +452,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
 
 
        showLoading(form) {  
-        this.loading.create({  
+        this.loadingCtrl.create({  
           message: 'Loading.....'   
           }).then((loading) => {  
            loading.present();{
@@ -454,7 +465,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         }
 
         showLoadingC() {  
-          this.loading.create({  
+          this.loadingCtrl.create({  
             message: 'Loading.....'   
             }).then((loading) => {  
              loading.present();{
@@ -467,7 +478,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           }
 
           showLoadingF() {  
-            this.loading.create({  
+            this.loadingCtrl.create({  
               message: 'Loading.....'   
               }).then((loading) => {  
                loading.present();{
@@ -481,7 +492,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
 
 
             showLoadingR() {  
-              this.loading.create({  
+              this.loadingCtrl.create({  
                 message: 'Loading.....'   
                 }).then((loading) => {  
                  loading.present();{
@@ -494,7 +505,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
               }
   
   showLoadingApple(){
-    this.loading.create({  
+    this.loadingCtrl.create({  
       message: 'Loading.....'   
       }).then((loading) => {  
        loading.present();{
@@ -508,7 +519,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
 
               
   show(form){
-    this.loading.create({
+    this.loadingCtrl.create({
       message: 'Loading.....'
     }).then((loading) => {
       loading.present();{
