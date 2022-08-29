@@ -15,7 +15,7 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
-import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';  
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';  
 import jwtDecode from "jwt-decode"
 
 @Component({
@@ -83,6 +83,7 @@ export class LoginPage implements OnInit {
   }
 
   async verificarB(form){
+
     this.loading = await this.loadingCtrl.create({
       message: 'Loading.....'
     });
@@ -96,6 +97,7 @@ export class LoginPage implements OnInit {
           'correo': form.correo,
           'contrasena': 'xxxxx'
         };
+
         this.shoppingService.showCart(info)
           .subscribe(data => {
             console.log(data)
@@ -106,7 +108,9 @@ export class LoginPage implements OnInit {
               this.footer.cosas=data.total
               this.storage.set('cosas', this.footer.cosas)
             }
+
           }, (error) => {
+            this.loading.dismiss();
             console.error(error);
           });    
         //this.router.navigateByUrl('/producto');
@@ -125,6 +129,7 @@ export class LoginPage implements OnInit {
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
         this.perfilS(form.correo)
+
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,
@@ -150,6 +155,7 @@ export class LoginPage implements OnInit {
         }
       }
       else{
+        this.loading.dismiss();
         //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
         this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
         this.router.navigateByUrl('/login');
@@ -279,7 +285,10 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
   AppleConect() {
 
     this.signInWithApple.signin({
-      requestedScopes: [0,1]
+      requestedScopes: [
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+      ]
     })
     .then((res: AppleSignInResponse) => {
 
