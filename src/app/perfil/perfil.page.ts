@@ -23,6 +23,7 @@ export class PerfilPage implements OnInit {
   loading: any;
   url;
   date = "";
+  id;
 
 
   constructor(
@@ -40,8 +41,20 @@ export class PerfilPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.storage.get('perfil').then((val) => {
+    //console.log("didEnter");
+    this.storage.get('id').then((val) => {
+      if (val != null) {
+        this.id = val;
+        this.datos();
+      } else {
+        this.perfil=null;
+        this.mensajeIncorrecto("Inicie sesión", "Debe iniciar sesión para consultar los datos de perfil")
+      }
+    });
+  }
 
+  datos() {
+    this.storage.get('perfil').then((val) => {
       if (val == null) {
         this.storage.get('correo').then((val) => {
           this.correo = val;
@@ -94,6 +107,10 @@ export class PerfilPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  login_page(){
+    this.router.navigateByUrl('/login');
   }
 
   async showLoading2() {

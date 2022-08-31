@@ -17,6 +17,7 @@ import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';  
 import jwtDecode from "jwt-decode"
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-login',
@@ -282,7 +283,13 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     await alert.present();
   }
 
-  AppleConect() {
+  async AppleConect() {
+
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading.....'
+    });
+
+    await this.loading.present();
 
     this.signInWithApple.signin({
       requestedScopes: [
@@ -291,6 +298,8 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       ]
     })
     .then((res: AppleSignInResponse) => {
+
+
 
       const contra = res.user.split('.');
       const decoded = jwtDecode(res.identityToken);
@@ -309,11 +318,16 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         'contrasena': contra[1]
       }
 
-      if(res.email.length === 0){
-        this.verificarB(logV)
-      }else {
-        this.Apple_sig_in(logR, decoded['email'], logV);
-      }
+
+      this.authService.VerificarUser(logV).subscribe(data => {
+
+        this.loading.dismiss();
+        if(data.valid == "OK"){
+          this.verificarB(logV)
+        }else{
+          this.Apple_sig_in(logR, decoded['email'], logV);
+        }
+      })
 
     })
     .catch((error: AppleSignInErrorResponse) => {
