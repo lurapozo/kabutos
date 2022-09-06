@@ -124,8 +124,21 @@ export class DetalleCategoriaPage implements OnInit {
 
       this.producto = data;
       console.log(this.producto);
-      if (Object.keys(this.producto).length === 0) {
+      if (Object.keys(this.producto).length === 0 && this.productoInput != null) {
         this.mensajeIncorrecto("Producto no encontrado", "No se ha podido encontrar el producto, intente de nuevo")
+      }
+      if(this.productoInput ==null) {
+        this.productoService.getProductosCategoria(this.categoria)
+        .pipe(
+          finalize(async () => {
+            await this.loader.dismiss();
+          })
+        )
+        .subscribe(data => {
+          this.producto=data
+        }, (error) => {
+          console.error(error);
+        });
       }
 
     }, (error) => {
