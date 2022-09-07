@@ -33,6 +33,7 @@ export class InfoTarjetaPage implements OnInit {
   ionViewDidEnter() {
     //console.log("didEnter");
     this.storage.get('id').then((val) => {
+      console.log(val);
       if (val != null) {
         this.id = val;
         this.datos();
