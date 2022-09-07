@@ -24,6 +24,8 @@ import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 
 export class LoginPage implements OnInit {
+
+  loading: any;
 	validacion : {};
   public alertShown: boolean = false;
   picture:string ;
@@ -35,7 +37,10 @@ export class LoginPage implements OnInit {
   public type = "password"; 
   passwordToggleIcon = 'eye';
   public showPass = false; 
-  constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
+  constructor(
+    private  authService:  AuthService, 
+    private  router:  Router, 
+    private loadingCtrl: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
     private navCtrlr: NavController,
@@ -75,6 +80,13 @@ export class LoginPage implements OnInit {
   }
 
   async verificarB(form){
+
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading.....'
+    });
+
+    await this.loading.present();
+
     this.authService.VerificarUser(form).subscribe(data=> {
       console.log(data.valid)
       if (data.valid == "OK"){
@@ -82,6 +94,7 @@ export class LoginPage implements OnInit {
           'correo': form.correo,
           'contrasena': 'xxxxx'
         };
+
         this.shoppingService.showCart(info)
           .subscribe(data => {
             console.log(data)
@@ -92,7 +105,9 @@ export class LoginPage implements OnInit {
               this.footer.cosas=data.total
               this.storage.set('cosas', this.footer.cosas)
             }
+
           }, (error) => {
+            this.loading.dismiss();
             console.error(error);
           });    
         //this.router.navigateByUrl('/producto');
@@ -110,7 +125,8 @@ export class LoginPage implements OnInit {
         this.component.name=nombre;
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
-        this.perfilS(form.correo)
+        this.perfilS(form.correo);
+
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,
@@ -121,7 +137,10 @@ export class LoginPage implements OnInit {
           console.log(data.valid);
           });
         });
-        console.log(login)
+        console.log(login);
+
+        this.loading.dismiss();
+
         if(login.categoria == true){
           this.router.navigateByUrl('/footer/categorias/detalle-categoria');
         }else if(login.oferta == true && (login.producto =false)){
@@ -133,6 +152,7 @@ export class LoginPage implements OnInit {
         }
       }
       else{
+        this.loading.dismiss();
         //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
         this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
         this.router.navigateByUrl('/login');
@@ -356,7 +376,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
 
 
        showLoading(form) {  
-        this.loading.create({  
+        this.loadingCtrl.create({  
           message: 'Loading.....'   
           }).then((loading) => {  
            loading.present();{
@@ -369,7 +389,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         }
 
         showLoadingC() {  
-          this.loading.create({  
+          this.loadingCtrl.create({  
             message: 'Loading.....'   
             }).then((loading) => {  
              loading.present();{
@@ -382,7 +402,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           }
 
           showLoadingF() {  
-            this.loading.create({  
+            this.loadingCtrl.create({  
               message: 'Loading.....'   
               }).then((loading) => {  
                loading.present();{
@@ -396,7 +416,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
 
 
             showLoadingR() {  
-              this.loading.create({  
+              this.loadingCtrl.create({  
                 message: 'Loading.....'   
                 }).then((loading) => {  
                  loading.present();{
@@ -410,7 +430,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
 
               
   show(form){
-    this.loading.create({
+    this.loadingCtrl.create({
       message: 'Loading.....'
     }).then((loading) => {
       loading.present();{

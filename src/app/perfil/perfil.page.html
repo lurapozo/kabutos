@@ -3,7 +3,7 @@
   <div class="contenedor-page">
     <div class="contenedor-titulo">
       <ion-label class="titulo">Perfil</ion-label>
-      <ion-label class="editar" (click)="editar()" >Editar Perfil</ion-label>
+      <ion-label  *ngIf="perfil" class="editar" (click)="editar()" >Editar Perfil</ion-label>
     </div>
     <div class="contenedor">
       <div class="contener-perfil" *ngIf="perfil">
@@ -39,13 +39,21 @@
           <ion-input type="text" [value]="perfil.fechaNac | date:'dd/MM/yyyy'" readonly></ion-input>
         </ion-item>
 
+
         <div class="button-content" (click)="eliminar_credenciales()">
           <ion-button class="btn-registro" size="large">
             <p class="registro">Eliminar cuenta</p>
           </ion-button>
         </div>
-
       </div>
+
+      <div class="contener-perfil"  *ngIf="!perfil"  >
+        <div class="button-content" (click)="login_page()">
+          <ion-button class="btn-registro" size="large" >
+            <p class="registro">Iniciar Sesión</p>
+          </ion-button>
+        </div>
+      </div>  
     </div>
   </div>
 </ion-content>
