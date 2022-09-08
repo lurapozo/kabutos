@@ -38,6 +38,7 @@ export class InfoTarjetaPage implements OnInit {
         this.id = val;
         this.datos();
       } else {
+        this.id = null;
         this.mensajeIncorrecto("Inicie sesión", "Debe iniciar sesión para consultar sus tarjetas.")
       }
     });
