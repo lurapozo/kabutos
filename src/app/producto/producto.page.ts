@@ -186,7 +186,6 @@ export class ProductoPage implements OnInit {
     var num = cantidad[0].innerHTML
     if ((parseInt(num) - 1) < 0) {
       cantidad[0].innerHTML = String(parseInt(cantidad[0].innerHTML));
-
     } else {
       cantidad[0].innerHTML = String(parseInt(cantidad[0].innerHTML) - 1);
     }
