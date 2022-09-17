@@ -1,6 +1,6 @@
 {
   "appId": "io.cabutos.starter.v1",
-  "appName": "cabuto",
+  "appName": "Cabutos",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
