@@ -20,9 +20,7 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    return this.http.get(this.baseUrl+'producto/',{'headers':headers})      
-          
-      
+    return this.http.get(this.baseUrl+'producto/',{'headers':headers})
   }
 
   getInicio() {
@@ -33,6 +31,13 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
     return this.http.get(this.baseUrl+'inicio/',{'headers':headers})      
   }
 
+  getProductosParciales(page) {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'producto/'+ page,{'headers':headers})
+  }
   getInicioBuscar(busqueda) {
     let parametro= new HttpParams().set('nombre',busqueda);
     const headers = {
@@ -77,22 +82,22 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
  }
 
 
-  getProductosByFiltro(filtro: String){
+  getProductosByFiltro(filtro: String, page: number){
     switch (filtro) {
       case "vendidos":
-        return this.http.get(this.baseUrl+'producto/orderAsc')      
+        return this.http.get(this.baseUrl+'producto/'+page)      
         break;
       case "menor":
-      return this.http.get(this.baseUrl+'producto/precioMayor')      
+      return this.http.get(this.baseUrl+'producto/precioMayor/'+page)      
         break;
       case "mayor":
-      return this.http.get(this.baseUrl+'producto/precioMenor')      
+      return this.http.get(this.baseUrl+'producto/precioMenor/'+page)      
         break;
       case "ascendente":
-      return this.http.get(this.baseUrl+'producto/orderAsc')
+      return this.http.get(this.baseUrl+'producto/orderAsc/'+page)
         break;
       case "descendente":
-      return this.http.get(this.baseUrl+'producto/orderDesc')      
+      return this.http.get(this.baseUrl+'producto/orderDesc/'+page)      
         break;
       default:
        return this.http.get(this.baseUrl+'producto/')      
@@ -104,7 +109,6 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   getProductoBuscar(filtro: string){
     let parametro= new HttpParams().set('nombre',filtro);
-
     console.log("este es el filtro",filtro);
     console.log(this.baseUrl+'producto/?nombre='+filtro)
     const httpOptions = {

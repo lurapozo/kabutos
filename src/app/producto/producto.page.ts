@@ -5,7 +5,7 @@ import { Producto_Carrito } from '../modelo/producto_carrito';
 import { Observable, Subject } from 'rxjs';
 import { login } from './../global'
 import 'rxjs/add/operator/map';
-import { Router } from '@angular/router';
+import { ChildActivationStart, Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
@@ -13,6 +13,7 @@ import { ShoppingCartService } from '../servicios/shopping-cart.service';
 import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { NavParamsService } from '../servicios/nav-params.service';
+
 declare var window;
 @Component({
   selector: 'app-producto',
@@ -23,7 +24,13 @@ export class ProductoPage implements OnInit {
   opcion: string = '0';
   textInput: string = null;
   productoInput: string = '';
-  producto: {};
+  producto: Array<Producto> = [];
+  productoParcialAZ: Array<Producto> = [];
+  productoParcialZA: Array<Producto> = [];
+  productoParcialMayor: Array<Producto> = [];
+  productoParcialMenor: Array<Producto> = [];
+  productoParcial: Array<Producto> = [];
+
   verSeleccion: string = '';
   dataFromCart: {};
   n = 0;
@@ -32,9 +39,16 @@ export class ProductoPage implements OnInit {
   almacenado: {};
   private correo: String = "";
   public cantidad: string = "0";
+  public page: number = 0;
+  public pageAZ: number = 0;
+  public pageZA: number = 0;
+  public pageMayor: number = 0;
+  public pageMenor: number = 0;
+
+  public filtro: String = "vendidos";
 
   constructor(
-    public productoService: ProductoService, private router: Router, private alert: AlertController,
+    public productoService:   ProductoService, private router: Router, private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
     public modalCtrl: ModalController,
@@ -51,21 +65,81 @@ export class ProductoPage implements OnInit {
 
   ionViewWillEnter() {
     console.log("refresh");
-    this.datos(null)
+    this.datos(null, this.filtro);
     this.loadData();
   }
 
-  datos(event){
-    this.productoService.getProducto().subscribe(data => {
-      this.producto = data;
-      console.log(this.producto);
-      if (event)
-          event.target.complete();
-    }, (error) => {
-      console.error(error);
-      if (event)
-          event.target.complete();
-    });
+  datos(event, filtro){
+    if (filtro == "vendidos") {
+      this.page += 1;
+      this.productoService.getProductosByFiltro(filtro, this.page).subscribe((data: Array<Producto>) => {
+        this.productoParcial.push(...data);
+        this.producto = this.productoParcial;
+        console.log(data);
+        if (event)
+            event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+            event.target.complete();
+      });
+    }
+    else if (filtro == "descendente"){
+      this.pageZA += 1;
+      this.productoService.getProductosByFiltro(filtro, this.pageZA).subscribe((data: Array<Producto>) => {
+        this.productoParcialZA.push(...data);
+        this.producto = this.productoParcialZA;
+        console.log(data);
+        if (event)
+            event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+            event.target.complete();
+      });
+    }                                                     
+    else if (filtro == "ascendente"){
+      this.pageAZ += 1;
+      this.productoService.getProductosByFiltro(filtro, this.pageAZ).subscribe((data: Array<Producto>) => {
+        this.productoParcialAZ.push(...data);
+        this.producto = this.productoParcialAZ;
+        console.log(data);
+        if (event)
+            event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+            event.target.complete();
+      });
+    }
+    else if(filtro == "menor"){
+      this.pageMenor += 1;
+      this.productoService.getProductosByFiltro(filtro, this.pageMenor).subscribe((data: Array<Producto>) => {
+        this.productoParcialMenor.push(...data);
+        this.producto = this.productoParcialMenor;
+        console.log(data);
+        if (event)
+            event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+            event.target.complete();
+      });
+    }
+    else if(filtro == "mayor"){
+      this.pageMayor += 1;
+      this.productoService.getProductosByFiltro(filtro, this.pageMayor).subscribe((data: Array<Producto>) => {
+        this.productoParcialMayor.push(...data);
+        this.producto = this.productoParcialMayor;
+        console.log(data);
+        if (event)
+            event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+            event.target.complete();
+      });
+    }
   }
 
   ionViewDidEnter() {
@@ -93,8 +167,8 @@ export class ProductoPage implements OnInit {
       message: 'Loading.....'
     }).then((loading) => {
       loading.present(); {
+        
         this.ionViewWillEnter();
-
       }
       setTimeout(() => {
         loading.dismiss();
@@ -102,51 +176,36 @@ export class ProductoPage implements OnInit {
     });
   }
 
-  ordenarDescendente(data) { 
-
-    let orderedListZA = data.sort(function(a,b){
-      if(a.nombre>b.nombre){
-        return -1
-      }
-      else if(a.nombre < b.nombre){
-          return 1
-      }
-      else{return 0}
-    })
-    this.producto = orderedListZA;
+  ordenar(data) { 
+    this.productoService.getProductosByFiltro(data, 1).subscribe((data: Array<Producto>) => {
+      this.producto = data;
+    }
+    );
   }
 
   capturar() {
     let data = JSON.parse(JSON.stringify(this.producto));
     console.log(this.opcion)
     if (this.opcion.localeCompare("descendente")==0){
-      console.log("entra")
-      this.ordenarDescendente(data);
-    }
+      this.filtro = "descendente";
+      this.datos(null, this.filtro);
+    }                                                     
     else if (this.opcion.localeCompare("ascendente")==0){
-      this.producto = data.sort(function(a,b){
-        
-        if(a.nombre<b.nombre){
-          return -1
-        }
-        else if(a.nombre > b.nombre){
-            return 1
-        }
-        else{return 0}
-      })
+      this.filtro = "ascendente";
+      this.datos(null, this.filtro);
     }
     else if(this.opcion.localeCompare("menor")==0){
-      this.producto = data.sort(function(a,b){
-        return a.precio - b.precio
-      });
+      this.filtro = "menor";
+      this.datos(null, this.filtro);
     }
     else if(this.opcion.localeCompare("mayor")==0){
-      this.producto = data.sort(function(a,b){
-        console.log(a)
-        return b.precio - a.precio
-      });
+      this.filtro = "mayor";
+      this.datos(null, this.filtro);
     }
-    
+    else if(this.opcion.localeCompare("vendidos")==0){
+      this.filtro = "vendidos";
+      this.datos(null, this.filtro);
+    }    
   }
 
 
@@ -154,7 +213,7 @@ export class ProductoPage implements OnInit {
 
     this.productoInput = this.textInput;
     console.log(this.productoInput)
-    this.productoService.getProductoBuscar(this.productoInput).subscribe(data => {
+    this.productoService.getProductoBuscar(this.productoInput).subscribe((data: Array<Producto>) => {
 
       this.producto = data;
       console.log(this.producto);
@@ -465,6 +524,12 @@ export class ProductoPage implements OnInit {
     }
   }
 
+  cargandoSiguientes(event){
+    setTimeout(() => {
+      event.target.complete();
+      this.datos(event, this.filtro);
+    })
+  }
 }
 
 
