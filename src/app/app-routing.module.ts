@@ -59,6 +59,7 @@ const routes: Routes = [
     path: 'calificar',
     loadChildren: () => import('./calificar/calificar.module').then( m => m.CalificarPageModule)
   },
+ 
   
   
 ];

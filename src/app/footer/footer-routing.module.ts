@@ -133,6 +133,10 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'codigos',
+        loadChildren: () => import('../codigos/codigos.module').then( m => m.CodigosPageModule)
+      },
     ]
   },
   {
