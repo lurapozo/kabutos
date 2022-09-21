@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PerfilService } from '../servicios/perfil.service';
 import { CodigosService } from '../servicios/codigos.service';
 import { LoadingController } from '@ionic/angular';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
@@ -23,11 +24,14 @@ export class CodigosPage implements OnInit {
 
   public fileUploader: FileUploader = new FileUploader({});
   formData = new FormData();
+  perfil:any;
   codigo: any;
   loading: any;
 
 
   constructor(
+    private storage: Storage,
+    public perfilService: PerfilService,
     public codigosService: CodigosService,
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
@@ -35,8 +39,16 @@ export class CodigosPage implements OnInit {
     private navCtrlr: NavController, private router: Router
   ) {
 
+    this.storage.get('perfil').then((val)=>{
+      if(val!=null){
+        this.perfil=val;
+      }
+    });
+
   }
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   atras(){
     let animations:AnimationOptions={
@@ -80,14 +92,18 @@ export class CodigosPage implements OnInit {
   }
 
   canjear(form){
-    let Data = {"codigo": form.value.codigo}
+    let Data = {"codigo": form.value.codigo, "id_cliente":this.perfil.id}
     this.codigosService.getCodigos(Data).subscribe(
       data => {
+        console.log(Data)
         if(data.valid == "NO"){
           this.mensajeIncorrecto('Código incorrecto','El código ingresado no es válido, ingrese otro código')
         }
-        else {
+        else if (data.valid == "OK"){
           this.mensajeCorrecto('Código canjeado', 'Encontrará el premio en la sección de cupones')
+        }
+        else if (data.valid == "talvez"){
+          this.mensajeIncorrecto('Código ya canjeado','Ya has canjeado este código anteriormente')
         }
       })
     //this.enviarForm(formData)
