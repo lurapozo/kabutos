@@ -16,7 +16,7 @@ declare var window;
   styleUrls: ['./cupones.page.scss'],
 })
 export class CuponesPage implements OnInit {
-
+  perfil:any;
   cupon : {};
   url= '' ;
   valor = 0;
@@ -25,7 +25,13 @@ export class CuponesPage implements OnInit {
     public loadingCtrl: LoadingController,
     private storage: Storage,
     public modalCtrl: ModalController,
-    private shoppingCart: ShoppingCartService) { }
+    private shoppingCart: ShoppingCartService) { 
+      this.storage.get('perfil').then((val)=>{
+        if(val!=null){
+          this.perfil=val;
+        }
+      });
+    }
 
   ngOnInit() {
   }
@@ -37,7 +43,7 @@ export class CuponesPage implements OnInit {
 
   pantalla(event){
     console.log("refresh");
-     this.cuponesService.getCupon().subscribe(data => {
+     this.cuponesService.getCuponesPersonales(this.perfil.id).subscribe(data => {
        //console.log("esta es la data "+data["nombre"])
        this.cupon=data;
        var tol =Object.entries(this.cupon).length
@@ -173,4 +179,5 @@ export class CuponesPage implements OnInit {
       doc.style.visibility = "visible";
     }
   }
+  
 }

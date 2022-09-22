@@ -32,4 +32,12 @@ export class CuponesService {
    return this.http.get(this.baseUrl+'cupones/',{headers:headers})      
 
  }
+ getCuponesPersonales( id: number) {
+  const headers = {
+    'Accept': 'application/json, text/plain',
+    'Content-Type': 'application/json'
+  }
+
+   return this.http.get(this.baseUrl+'cupones/' + id,{headers:headers})
+  }
 }
