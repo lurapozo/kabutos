@@ -37,6 +37,8 @@ export class ShoppingCartPage implements OnInit {
   oferLen: number = 0;
   comLen: number = 0;
   cupLen: number = 0;
+  esValidoProducto: string = "";
+  totalNecesarioMonto: number = 0;
   private correo: string = "";
   currentTimeHours:any;
   open=false;
@@ -95,12 +97,14 @@ export class ShoppingCartPage implements OnInit {
           this.products = this.cart[0]['productos'];
         this.oferts = this.cart[0]['ofertas'];
         this.combos = this.cart[0]['combos'];
-        this.cupon = this.cart[0]['cupon']
+        this.cupon = this.cart[0]['cupon'];
         this.comLen = this.getComboLen();
         this.prodLen = this.getProductLen();
         this.oferLen = this.getOfertaLen();
         this.cupLen = this.getCuponLen();
         this.total = this.getTotal();
+        this.esValidoProducto = this.cart[0]['esValidoProducto'];
+        this.totalNecesarioMonto = this.cart[0]['totalNecesarioMonto'];
         var divTotal = document.querySelectorAll("[id='A_pagar']");
         divTotal[0].innerHTML=""+this.total+"";
         }else{
@@ -462,8 +466,30 @@ export class ShoppingCartPage implements OnInit {
   }
 
   pagar() {
+    /*if (this.cupLen > 0){
+      this.revisionCupon();
+    }*/
+    console.log('Es valido Producto?')
+    console.log(this.esValidoProducto)
+    console.log('Cuanto Monto se necesita?')
+    console.log(this.totalNecesarioMonto)
+
     this.horario();
   }  
+
+  async revisionCupon(){
+    console.log(this.cupon)
+    this.shoppingService.checkCupones(this.cupon).subscribe(data =>{
+      console.log(data)
+      if(data.valid == "OK"){
+        this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
+      }else if (data.valid == "IN"){
+        this.mensajeIncorrecto("Agregar Cupón","Cupón ya existe en carrito");
+      }else if (data.valid == "NOT"){
+        this.mensajeIncorrecto("Agregar Cupón","Ha ocurrido un error, revise su conexión");
+      }
+    })
+  }
 
   saveData(estado: any) {
     //console.log("Estoy en el saveData");

@@ -89,4 +89,13 @@ export class ShoppingCartService {
     //console.log(body)
     return this.http.post(this.baseUrl+'addCupon/',cupon_carrito,{'headers':headers})
   }
+
+  checkCupones(codigoStr):Observable<any> {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(codigoStr);
+    return this.http.post(this.baseUrl+'checkcupones/',body,{'headers':headers})            
+  }
 }

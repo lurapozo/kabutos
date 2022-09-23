@@ -137,9 +137,12 @@ export class CuponesPage implements OnInit {
           const cupxcant={
             'nombre': id,
             'cantidad': parseInt(cantidad),
-            'correo': this.correo
+            'correo': this.correo,
+            'cliente':86
           }
+          console.log(cupxcant)
           this.shoppingCart.addCupon(cupxcant).subscribe(data =>{
+            console.log(data)
             if(data.valid == "OK"){
               this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
             }else if (data.valid == "IN"){
