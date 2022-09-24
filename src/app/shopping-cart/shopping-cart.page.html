@@ -29,11 +29,11 @@
             </div>
             <div class="producto-carrito">
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
-                (click)=quitar(productos.id_unico)>
+                (click)=quitar(productos.id_unico,productos.nombre_producto)>
             
               <div id="{{productos.id_unico}}" class="cantidad">{{productos.cantidad}}</div>
               <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
-                (click)=agregar(productos.id_unico,productos.suma)>
+                (click)=agregar(productos.id_unico,productos.suma,productos.nombre_producto)>
       
               </div>
             <div class="precio">

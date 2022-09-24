@@ -13,6 +13,7 @@ import { NavParamsService } from '../servicios/nav-params.service'
 import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { exit } from 'process';
+import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
 declare var window;
 
 @Component({
@@ -38,6 +39,8 @@ export class ShoppingCartPage implements OnInit {
   comLen: number = 0;
   cupLen: number = 0;
   esValidoProducto: any = "";
+  productoNecesario: any = "";
+  validador: true;
   totalNecesarioMonto: number = 0;
   private correo: string = "";
   currentTimeHours: any;
@@ -104,6 +107,7 @@ export class ShoppingCartPage implements OnInit {
           this.cupLen = this.getCuponLen();
           this.total = this.getTotal();
           this.esValidoProducto = this.cart[0]['esValidoProducto'];
+          this.productoNecesario = this.cart[0]['productoNecesario']
           this.totalNecesarioMonto = this.cart[0]['totalNecesarioMonto'];
           var divTotal = document.querySelectorAll("[id='A_pagar']");
           divTotal[0].innerHTML = "" + this.total + "";
@@ -252,12 +256,21 @@ export class ShoppingCartPage implements OnInit {
     }
   }
 
-  agregar(id: string, max) {
+  agregar(id: string, max, nombre) {
     this.modificado = true;
     var precio_unitario = this.getPrecioUnitario(id);
     var cantidad = document.querySelectorAll("[id='" + id + "']");
 
     if ((parseInt(cantidad[0].innerHTML) + 1) <= max) {
+
+      for (let i = 0; i < this.getProductLen(); i++) {
+        let nom = this.products[i].nombre_producto
+        if (this.products[i].nombre_producto == nombre) {
+          this.products[i].cantidad = this.products[i].cantidad + 1
+        }
+        console.log("agregar")
+        console.log(this.products[i].cantidad)
+      }
       if (parseInt(cantidad[0].innerHTML) >= 0) {
         cantidad[0].innerHTML = String(parseInt(cantidad[0].innerHTML) + 1);
       }
@@ -279,12 +292,20 @@ export class ShoppingCartPage implements OnInit {
 
   }
 
-  quitar(id: string) {
+  quitar(id: string, nombre) {
     this.modificado = true;
     var precio_unitario = this.getPrecioUnitario(id);
     var cantidad = document.querySelectorAll("[id='" + id + "']");
 
     if ((parseInt(cantidad[0].innerHTML) - 1) <= 0) {
+      for (let i = 0; i < this.getProductLen(); i++) {
+        let nom = this.products[i].nombre_producto
+        if (this.products[i].nombre_producto == nombre) {
+          this.products[i].cantidad = 0
+        }
+        console.log("quitar")
+        console.log(this.products[i].cantidad)
+      }
       cantidad[0].innerHTML = "0";
       cantidad[1].innerHTML = "0.00";
       this.total = this.getTotalCart();
@@ -292,6 +313,14 @@ export class ShoppingCartPage implements OnInit {
       divTotal[0].innerHTML = "" + this.total + "";
     }
     else {
+      for (let i = 0; i < this.getProductLen(); i++) {
+        let nom = this.products[i].nombre_producto
+        if (this.products[i].nombre_producto == nombre) {
+          this.products[i].cantidad = this.products[i].cantidad - 1
+        }
+        console.log("quitar")
+        console.log(this.products[i].cantidad)
+      }
       cantidad[0].innerHTML = String(parseInt(cantidad[0].innerHTML) - 1);
       var subtotal = precio_unitario * parseInt(cantidad[0].innerHTML);
       if (precio_unitario <= subtotal) {
@@ -445,12 +474,51 @@ export class ShoppingCartPage implements OnInit {
             this.open = false;
           }
         });
-        if (this.esValidoProducto != true) {
-          this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
-          
-        }
-        else if (this.totalNecesarioMonto > this.total) {
+        
+        if (this.totalNecesarioMonto > this.total) {
           this.mensajeIncorrecto('Canjeo invalido', 'Te falta $' + (this.totalNecesarioMonto - this.total).toString() + ' para reclamar el cupon')
+        }
+        else if (this.productoNecesario != false) {
+          console.log(this.productoNecesario)
+          if (this.esValidoProducto != true){
+            let cantidad = this.esValidoProducto.split(" ")[2]
+            let contador = 0
+            for (let i = 0; i < this.getProductLen(); i++) {
+              let nom = this.products[i].nombre_producto
+              if (nom == this.productoNecesario){
+                contador = 1
+                let can = this.products[i].cantidad
+                console.log("gg")
+
+                console.log(can)
+                console.log(cantidad)
+                if (can < cantidad){ 
+                  this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
+                  
+                }
+                else {
+                  if (this.oferLen + this.prodLen + this.comLen > 0) {
+                    //console.log(this.open);
+                    if (this.open) {
+                      this.storage.set('total', this.total);
+                      this.router.navigate(['/footer/pagar']);
+                    } else {
+                      this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
+                    }
+                  } 
+                  else {
+                    this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
+                    this.router.navigate(['']);
+                  }
+                }
+              } 
+            }
+            if(contador == 0){
+              this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
+
+            }
+            
+          } 
         }
         //console.log(this.open);
         else if (this.oferLen + this.prodLen + this.comLen > 0) {
@@ -465,7 +533,6 @@ export class ShoppingCartPage implements OnInit {
         else {
           this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
           this.router.navigate(['']);
-
         }
       }, (error) => {
         console.error(error);
