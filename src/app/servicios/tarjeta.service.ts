@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class TarjetaService {
 
-  baseUrl :string= "https://ccapi.paymentez.com/v2/";
+  baseUrl :string= "https://ccapi.paymentez.com/v2/";   // producion
+  //baseUrl :string= "https://ccapi-stg.paymentez.com/v2/";   // desarrollo
 
   constructor(
     private http: HttpClient

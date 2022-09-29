@@ -1,0 +1,42 @@
+<div class="contenedor">
+<div class="titulo_atras">
+    <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+  </div>
+</div>
+<ion-content >
+  <div class="contenedor-page">
+    <div class="contenedor-titulo">
+      <ion-label class="titulo">¿Desea hacer un regalo?</ion-label>
+    </div>
+    <div class="button-content">
+      <button ion-button size="large" (click)="regalar()">
+        Hacer regalo
+        <img src="../assets/img/continuar.png" width="10" height="15">
+      </button>
+    </div>
+  </div>
+  
+  <ion-content >
+    <ion-refresher slot="fixed">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="contenedor">
+      <div class="contenedor-titulo">
+        <ion-label class="titulo">Tarjeta de regalo</ion-label>
+      </div>
+      <div class="contenedor-tarjetas" *ngFor="let tarjeta of tarjetas">
+        <div class="agregar-imagen" id="Tarjeta{{tarjeta.id}}">
+          <img name="agregar" src="../assets/img/agregar_2.png">
+        </div>
+        <div class="nombre">Regalo de: {{tarjeta.emisor}}</div>
+        <div class="contenedor" id={{tarjeta.nombre}}>
+          <div class="descripcion">Descripcion: {{tarjeta.descripcion}}</div>
+          <br>
+          <div class="monto">Monto: ${{tarjeta.monto}}</div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-content>
+
+
