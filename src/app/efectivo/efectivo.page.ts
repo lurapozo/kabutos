@@ -356,7 +356,9 @@ export class EfectivoPage implements OnInit {
             if (this.tipoPago == "Tarjeta") {
               this.pagado(data.pedido, transaccion, autorizacion);
             }
-
+            if (this.tipoPago == "Efectivo"){
+              this.pagado(data.pedido, null, null)
+            }
             this.storage.get("tipoEntrega").then((val) => {
               if (val != null) {
                 if (val === "Local") {
@@ -396,17 +398,15 @@ export class EfectivoPage implements OnInit {
       )
       .subscribe(
         (data) => {
-          this.mensajeCorrecto(
-            "Pago exitoso",
-            "Su pedido ha sido pagado con exito"
-          );
+          if (transaccion != null || autorizacion != null){
+            this.mensajeCorrecto("Pago exitoso", "Su pedido ha sido pagado con exito");
+          }   
           this.router.navigate([""]);
         },
         (err) => {
-          this.mensajeIncorrecto(
-            "Algo Salio mal",
-            "Error con el Pago de su Tarjetao"
-          );
+          if (transaccion != null || autorizacion != null){
+            this.mensajeIncorrecto("Algo Salio mal", "Error con el Pago de su Tarjeta")
+          }
           this.router.navigate([""]);
         }
       );
