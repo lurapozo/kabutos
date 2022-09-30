@@ -55,11 +55,17 @@
           <ion-label class="left">Total a pagar: </ion-label>
           <ion-label class="right">${{pago | number : '1.2-2'}}</ion-label>
         </div>
+        <td></td>
+        <div class="mensaje">
+          <ion-label class="center">Mensaje para el repartidor (opcional)</ion-label>
+          <td></td>
+          <textarea class="center" #txt cols="10" rows="10" maxlength="150"></textarea>
+        </div>
 
       </div>
 
       <div class="button-content">
-        <ion-button class="btn-registro" size="large" type="submit">
+        <ion-button class="btn-registro" size="large" type="submit" (click)="getText(txt)">
           <p class="registro">Confirmar</p>
         </ion-button>
       </div>

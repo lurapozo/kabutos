@@ -478,48 +478,6 @@ export class ShoppingCartPage implements OnInit {
         if (this.totalNecesarioMonto > this.total) {
           this.mensajeIncorrecto('Canjeo invalido', 'Te falta $' + (this.totalNecesarioMonto - this.total).toString() + ' para reclamar el cupon')
         }
-        else if (this.productoNecesario != false) {
-          console.log(this.productoNecesario)
-          if (this.esValidoProducto != true){
-            let cantidad = this.esValidoProducto.split(" ")[2]
-            let contador = 0
-            for (let i = 0; i < this.getProductLen(); i++) {
-              let nom = this.products[i].nombre_producto
-              if (nom == this.productoNecesario){
-                contador = 1
-                let can = this.products[i].cantidad
-                console.log("gg")
-
-                console.log(can)
-                console.log(cantidad)
-                if (can < cantidad){ 
-                  this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
-                  
-                }
-                else {
-                  if (this.oferLen + this.prodLen + this.comLen > 0) {
-                    //console.log(this.open);
-                    if (this.open) {
-                      this.storage.set('total', this.total);
-                      this.router.navigate(['/footer/pagar']);
-                    } else {
-                      this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
-                    }
-                  } 
-                  else {
-                    this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
-                    this.router.navigate(['']);
-                  }
-                }
-              } 
-            }
-            if(contador == 0){
-              this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
-
-            }
-            
-          } 
-        }
         //console.log(this.open);
         else if (this.oferLen + this.prodLen + this.comLen > 0) {
           //console.log(this.open);

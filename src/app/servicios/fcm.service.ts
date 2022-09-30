@@ -6,7 +6,8 @@ import { Observable, BehaviorSubject } from  'rxjs';
   providedIn: 'root'
 })
 export class FcmService {
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  /// baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "http://127.0.0.1:8000/movil/";
 
   constructor(private http: HttpClient) { }
 

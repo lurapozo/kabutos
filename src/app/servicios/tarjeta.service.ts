@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class TarjetaService {
 
-  baseUrl :string= "https://ccapi.paymentez.com/v2/";
+  /// baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "http://127.0.0.1:8000/movil/";
 
   constructor(
     private http: HttpClient

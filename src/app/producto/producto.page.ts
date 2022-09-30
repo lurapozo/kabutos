@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductoService } from '../servicios/producto.service';
 import { Producto } from '../modelo/producto';
 import { Producto_Carrito } from '../modelo/producto_carrito';
@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { login } from './../global'
 import 'rxjs/add/operator/map';
 import { ChildActivationStart, Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, IonToggle, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
@@ -161,6 +161,7 @@ export class ProductoPage implements OnInit {
     this.saveData(datos);
   }
 
+  
 
   cargaPantalla() {
     this.loadingCtrl.create({

@@ -27,6 +27,7 @@ export class EfectivoPage implements OnInit {
   iva: any;
   loading: any;
   envio: any;
+  mensaje: any;
   numero: any;
   id_direccion;
   token = "";
@@ -254,7 +255,9 @@ export class EfectivoPage implements OnInit {
     });
     return await modal.present();
   }
-
+  getText(item){
+    this.mensaje=(item.value)
+  }
   confirmar(form) {
     var form = form.value;
     form.tipoPago = this.tipoPago;
@@ -263,6 +266,7 @@ export class EfectivoPage implements OnInit {
     form.envio = this.envio;
     form.direccion = this.id_direccion;
     form.descuento = 0;
+    form.mensaje= this.mensaje;
     this.storage.get('tipoEntrega').then((val) => {
       if (val != null) {
         form.tipoEntrega = (val);
@@ -303,6 +307,7 @@ export class EfectivoPage implements OnInit {
         );
   }
 
+  
   async guardarPedido(form, transaccion, autorizacion) {
     await this.showLoading2();
     this.pedidoService.nuevoPedido(form)
