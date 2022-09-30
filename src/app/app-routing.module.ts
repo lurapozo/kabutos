@@ -59,7 +59,19 @@ const routes: Routes = [
     path: 'calificar',
     loadChildren: () => import('./calificar/calificar.module').then( m => m.CalificarPageModule)
   },
- 
+  {
+    path: 'tarjetas-de-regalo',
+    loadChildren: () => import('./tarjetas-de-regalo/tarjetas-de-regalo.module').then( m => m.TarjetasDeRegaloPageModule)
+  },
+  {
+    path: 'hacer-regalo',
+    loadChildren: () => import('./hacer-regalo/hacer-regalo.module').then( m => m.HacerRegaloPageModule)
+  },  {
+    path: 'hacer-regalo-monto',
+    loadChildren: () => import('./hacer-regalo-monto/hacer-regalo-monto.module').then( m => m.HacerRegaloMontoPageModule)
+  },
+
+
   
   
 ];

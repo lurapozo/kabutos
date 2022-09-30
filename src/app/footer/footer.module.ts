@@ -13,6 +13,7 @@ import { ContactoPageModule } from 'src/app/contacto/contacto.module';
 import { EstablecimientoPageModule } from 'src/app/establecimiento/establecimiento.module';
 import { ShoppingCartPageModule } from 'src/app/shopping-cart/shopping-cart.module';
 import { OfertasPageModule } from 'src/app/ofertas/ofertas.module';
+import { TarjetasDeRegaloPageModule } from 'src/app//tarjetas-de-regalo/tarjetas-de-regalo.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { OfertasPageModule } from 'src/app/ofertas/ofertas.module';
     ContactoPageModule ,
     EstablecimientoPageModule,
     ShoppingCartPageModule ,
-    OfertasPageModule
+    OfertasPageModule,
+    TarjetasDeRegaloPageModule
   ],
   declarations: [FooterPage]
 })
