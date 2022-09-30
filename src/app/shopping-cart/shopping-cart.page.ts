@@ -132,6 +132,10 @@ export class ShoppingCartPage implements OnInit {
   }
 
   ionViewWillLeave() {
+    this.actualizarCarrito()
+  }
+
+  actualizarCarrito(){
     if (this.modificado) {
       var cantidades = document.querySelectorAll('.cantidad');
       let datos = {
@@ -260,7 +264,6 @@ export class ShoppingCartPage implements OnInit {
     this.modificado = true;
     var precio_unitario = this.getPrecioUnitario(id);
     var cantidad = document.querySelectorAll("[id='" + id + "']");
-
     if ((parseInt(cantidad[0].innerHTML) + 1) <= max) {
 
       for (let i = 0; i < this.getProductLen(); i++) {
@@ -455,6 +458,7 @@ export class ShoppingCartPage implements OnInit {
         })
       )
       .subscribe(data => {
+
         this.currentTimeHours = currentDate.getHours();
         this.currentTimeHours = this.currentTimeHours < 10 ? "0" + this.currentTimeHours : this.currentTimeHours;
         var currentTimeMinutes = currentDate.getMinutes();
@@ -474,9 +478,45 @@ export class ShoppingCartPage implements OnInit {
             this.open = false;
           }
         });
-        
+        console.log("probando")
+        console.log(this.productoNecesario)
+        console.log(this.esValidoProducto)
         if (this.totalNecesarioMonto > this.total) {
           this.mensajeIncorrecto('Canjeo invalido', 'Te falta $' + (this.totalNecesarioMonto - this.total).toString() + ' para reclamar el cupon')
+        }
+
+        //FALTA VALIDAR PRODUCTO
+        else if (this.productoNecesario != false) {
+          if (this.esValidoProducto != true) {
+            let cantidadNecesaria = this.esValidoProducto.split(" ")[2]
+            let c = ""
+            let cantidades = document.querySelectorAll('.cantidad')
+            let producto = "Producto_" + this.productoNecesario
+            for (let i = 0; i < cantidades.length; i++){
+              let id = cantidades[i].getAttribute("id")
+              if (producto == id ) {
+                c = cantidades[i].innerHTML
+              }
+            }
+            if (c != cantidadNecesaria) {
+              this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
+            }
+            else {
+              if (this.oferLen + this.prodLen + this.comLen > 0) {
+                //console.log(this.open);
+                if (this.open) {
+                  this.storage.set('total', this.total);
+                  this.router.navigate(['/footer/pagar']);
+                } else {
+                  this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
+                }
+              } 
+              else {
+                this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
+                this.router.navigate(['']);
+              }
+            }
+          }
         }
         //console.log(this.open);
         else if (this.oferLen + this.prodLen + this.comLen > 0) {
@@ -502,6 +542,8 @@ export class ShoppingCartPage implements OnInit {
     /*if (this.cupLen > 0){
       this.revisionCupon();
     }*/
+    console.log("hola")
+    this.actualizarCarrito()
     this.horario();
     
 
@@ -526,6 +568,7 @@ export class ShoppingCartPage implements OnInit {
     //console.log("Estoy en el saveData");
     //console.log(estado);
     this.shoppingService.updateCart(estado).subscribe(data => {
+      console.log(estado);
 
     }, (error) => {
 
