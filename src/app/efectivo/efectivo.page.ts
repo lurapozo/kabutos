@@ -287,12 +287,8 @@ export class EfectivoPage implements OnInit {
     form.envio = this.envio;
     form.direccion = this.id_direccion;
     form.descuento = 0;
-<<<<<<< HEAD
     form.mensaje= this.mensaje;
     this.storage.get('tipoEntrega').then((val) => {
-=======
-    this.storage.get("tipoEntrega").then((val) => {
->>>>>>> eada023dd0de8419ff5aaf174dc14db9c8254872
       if (val != null) {
         form.tipoEntrega = val;
         if (val === "Local") {
@@ -307,7 +303,7 @@ export class EfectivoPage implements OnInit {
     });
 
     this.storage.get("tarjetaRegaloMonto").then((val) => {
-      if (val != null) {
+      if (val != null && val=='si') {
         let infoTarjeta = {"total": this.total, "id_cliente":this.perfil.id, "receptor":this.receptor, "descripcion":"Esta tarjeta de regalo se puede utilizar para descontar el monto fijado en su próxima compra."}
         console.log(infoTarjeta)
         this.perfilService.crearTarjetaRegaloMonto(infoTarjeta).subscribe(
@@ -318,6 +314,7 @@ export class EfectivoPage implements OnInit {
               }
               else if (data.valid == "OK"){
                 console.log("BIEN")
+                this.storage.set("tarjetaRegaloMonto",'no')
               }
             })
       }
