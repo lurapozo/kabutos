@@ -22,13 +22,12 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="contenedor">
-    
     <div class="contenedor-tarjetas" *ngFor="let tarjeta of tarjetas">
       <div class="agregar-imagen" id="Tarjeta{{tarjeta.id}}">
         <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(tarjeta.monto,tarjeta.id)>
       </div>
       <div class="nombre">Regalo de: {{tarjeta.emisor}}</div>
-      <div class="contenedor" id={{tarjeta.nombre}}>
+      <div class="contenedor" (click)=mostrar(tarjeta.id) id={{tarjeta.nombre}}>
         <div class="descripcion">Descripcion: {{tarjeta.descripcion}}</div>
         <br>
         <div class="monto">Monto: ${{tarjeta.monto}}</div>

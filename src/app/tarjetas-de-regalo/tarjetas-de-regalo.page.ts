@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {login} from  './../global'
+import { login } from "./../global";
 import { PerfilService } from "../servicios/perfil.service";
 import { TarjetasDeRegaloService } from "../servicios/tarjetas-de-regalo.service";
 import { LoadingController } from "@ionic/angular";
@@ -8,7 +8,7 @@ import { CorrectoPage } from "../aviso/correcto/correcto.page";
 import { NavController, ModalController } from "@ionic/angular";
 import { FileUploader } from "ng2-file-upload";
 import { Router } from "@angular/router";
-import {ShoppingCartService} from '../servicios/shopping-cart.service';
+import { ShoppingCartService } from "../servicios/shopping-cart.service";
 import { Storage } from "@ionic/storage";
 import { finalize } from "rxjs/operators";
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
@@ -32,7 +32,7 @@ export class TarjetasDeRegaloPage implements OnInit {
     public modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
     private storage: Storage,
-    private navCtrlr: NavController, 
+    private navCtrlr: NavController,
     private router: Router,
     private shoppingCart: ShoppingCartService
   ) {
@@ -68,14 +68,14 @@ export class TarjetasDeRegaloPage implements OnInit {
     });
   }
 
-  async mensajeCorrecto(titulo:string,mensaje:string){
+  async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: CorrectoPage,
-      cssClass: 'CorrectoProducto',
+      cssClass: "CorrectoProducto",
       componentProps: {
-        'titulo': titulo,
-        'mensaje': mensaje
-      }
+        titulo: titulo,
+        mensaje: mensaje,
+      },
     });
     return await modal.present();
   }
@@ -110,50 +110,73 @@ export class TarjetasDeRegaloPage implements OnInit {
     this.router.navigate(["/footer/hacer-regalo"]);
   }
 
-  agregar(id:string,id2:string){
+  agregar(monto: string, id: string) {
     this.getCorreo();
-    var doc=document.getElementById(id)
-    var doc2=document.getElementById("Tarjeta"+id2)
+    var doc = document.getElementById(monto);
+    var doc2 = document.getElementById("Tarjeta" + id);
     doc2.style.visibility = "hidden";
-    this.storage.get('name').then((nombre) => {
-      console.log('Name is', nombre);
-      if(login.login ==false && nombre == null ){
+    this.storage.get("name").then((nombre) => {
+      console.log("Name is", nombre);
+      if (login.login == false && nombre == null) {
         login.producto = true;
-        this.router.navigateByUrl('/login');  
-      }else{
+        this.router.navigateByUrl("/login");
+      } else {
         var cantidad = "1";
         console.log("La cantidad que se agrega al carrito es: ", cantidad);
-        if(parseInt(cantidad) > 0){
-          const cupxcant={
-            'nombre': id,
-            'cantidad': parseInt(cantidad),
-            'correo': this.correo,
-            'cliente':86
-          }
-          console.log(cupxcant)
-          this.shoppingCart.addCupon(cupxcant).subscribe(data =>{
-            console.log(data)
-            if(data.valid == "OK"){
-              this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
-            }else if (data.valid == "IN"){
-              this.mensajeIncorrecto("Agregar Cupón","Cupón ya existe en carrito");
-            }else if (data.valid == "NOT"){
-              this.mensajeIncorrecto("Agregar Cupón","Ha ocurrido un error, revise su conexión");
+        if (parseInt(cantidad) > 0) {
+          const tarjetaxcant = {
+            monto: monto,
+            cantidad: parseInt(cantidad),
+            correo: this.correo,
+            cliente: 86,
+          };
+          console.log(tarjetaxcant);
+          this.shoppingCart.addTarjetaRegaloMonto(tarjetaxcant).subscribe((data) => {
+            console.log(data);
+            if (data.valid == "OK") {
+              this.mensajeCorrecto(
+                "Cupón Agregado",
+                "Cupón Agregado Exitosamente"
+              );
+            } else if (data.valid == "IN") {
+              this.mensajeIncorrecto(
+                "Agregar Cupón",
+                "Cupón ya existe en carrito"
+              );
+            } else if (data.valid == "NOT") {
+              this.mensajeIncorrecto(
+                "Agregar Cupón",
+                "Ha ocurrido un error, revise su conexión"
+              );
             }
-          })
+          });
           window.footer.datos();
-        }else{
-          this.mensajeIncorrecto("Agregar Cupón","No ha escogido la cantidad para agregar");
+        } else {
+          this.mensajeIncorrecto(
+            "Agregar Cupón",
+            "No ha escogido la cantidad para agregar"
+          );
         }
       }
-      });
+    });
   }
-  getCorreo(){
-    console.log(login.login)  
-		this.storage.get('correo').then((val) => {
-      this.correo=val;
-      console.log('name: ',this.correo);
-      
-  });
-}
+  getCorreo() {
+    console.log(login.login);
+    this.storage.get("correo").then((val) => {
+      this.correo = val;
+      console.log("name: ", this.correo);
+    });
+  }
+
+  mostrar(id: string) {
+    console.log("esto en mostrar y el id que tengo es", id);
+    var doc = document.getElementById("Tarjeta" + id);
+    console.log(doc);
+    console.log(doc.style.visibility);
+    if (doc.style.visibility === "visible") {
+      doc.style.visibility = "hidden";
+    } else {
+      doc.style.visibility = "visible";
+    }
+  }
 }
