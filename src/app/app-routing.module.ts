@@ -70,6 +70,14 @@ const routes: Routes = [
     path: 'hacer-regalo-monto',
     loadChildren: () => import('./hacer-regalo-monto/hacer-regalo-monto.module').then( m => m.HacerRegaloMontoPageModule)
   },
+  {
+    path: 'hacer-regalo-escoger',
+    loadChildren: () => import('./hacer-regalo-escoger/hacer-regalo-escoger.module').then( m => m.HacerRegaloEscogerPageModule)
+  },
+  {
+    path: 'hacer-regalo-producto',
+    loadChildren: () => import('./hacer-regalo-producto/hacer-regalo-producto.module').then( m => m.HacerRegaloProductoPageModule)
+  },
 
 
   

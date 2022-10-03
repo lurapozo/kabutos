@@ -10,32 +10,30 @@ import { Storage } from "@ionic/storage";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-hacer-regalo",
-  templateUrl: "./hacer-regalo.page.html",
-  styleUrls: ["./hacer-regalo.page.scss"],
+  selector: 'app-hacer-regalo-escoger',
+  templateUrl: './hacer-regalo-escoger.page.html',
+  styleUrls: ['./hacer-regalo-escoger.page.scss'],
 })
-export class HacerRegaloPage implements OnInit {
+export class HacerRegaloEscogerPage implements OnInit {
   perfil: any;
   loading: any;
   correo: any;
-
-  constructor(
-    private storage: Storage,
+  constructor(private storage: Storage,
     public perfilService: PerfilService,
     public hacerRegaloService: HacerRegaloService,
     private navCtrlr: NavController,
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
-    private router: Router
-  ) {
-    this.storage.get("perfil").then((val) => {
+    private router: Router) {
+      this.storage.get("perfil").then((val) => {
       if (val != null) {
         this.perfil = val;
       }
-    });
+    }); 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   atras() {
     let animations: AnimationOptions = {
@@ -76,25 +74,10 @@ export class HacerRegaloPage implements OnInit {
     return await modal.present();
   }
 
-  canjear(form) {
-    let Data = { correo: form.value.correo, id_cliente: this.perfil.id };
-    this.hacerRegaloService.getClienteCorreo(Data).subscribe((data) => {
-      console.log(Data);
-      if (data.valid == "NO") {
-        this.mensajeIncorrecto(
-          "Correo Incorrecto",
-          "No se encuentran ususarios con el correo que acaba de escribir."
-        );
-      } else if (data.valid == "OK") {
-        this.storage.set("correoTemp",form.value.correo)
-        this.router.navigate(["/footer/hacer-regalo-escoger"]);
-      } else if (data.valid == "talvez") {
-        this.mensajeIncorrecto(
-          "Código ya canjeado",
-          "Ya has canjeado este código anteriormente"
-        );
-      }
-    });
-    //this.enviarForm(formData)
+  monto() {
+    this.router.navigate(["/footer/hacer-regalo-monto"]);
+  }
+  producto() {
+    this.router.navigate(["/footer/hacer-regalo-producto"]);
   }
 }
