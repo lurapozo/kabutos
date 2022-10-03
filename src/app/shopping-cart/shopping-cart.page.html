@@ -134,6 +134,35 @@
         </div>
       </div>
     </div>
+
+    <div *ngIf="tarMontLen > 0">
+      <div class="contener-producto" *ngFor="let tarjeta of tarjetas">
+        <div class="div-producto" id="{{tarjeta.id_tarjeta}}">
+          <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
+              (click)="eliminar(tarjeta.id_tarjeta,tarjeta.id_unico,tarjeta.cantidad_tarjeta)"></div>
+            <div class="producto">
+              <img name="imagen" src="https://cdn-icons-png.flaticon.com/512/3663/3663716.png">
+            </div>
+          <div class="contener-columna">
+            <div class="nombre">
+              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}usd.</h6>
+            </div>
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" style="visibility:hidden" width="10" height="10" class="btn-producto"
+                id="mas" (click)=agregar(tarjeta.id_unico,1)>
+              <div id="{{tarjeta.id_unico}}" class="cantidad">1</div>
+              <img src="../assets/img/restar.png" style="visibility:hidden" width="10" height="3" class="btn-producto" id="menos" (click)=quitar(tarjeta.id_unico)>
+            </div>
+            <div class="precio" >
+              <p>$</p>
+              <h4 name="precio" class="subtotal" id="{{tarjeta.id_unico}}">{{tarjeta.subtotal_tarjeta| number : '1.2-2'}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="btns">
       <button ion-button icon-end (click)="pagar()">
         Continuar 

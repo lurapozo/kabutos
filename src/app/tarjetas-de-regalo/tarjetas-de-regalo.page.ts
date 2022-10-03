@@ -128,24 +128,24 @@ export class TarjetasDeRegaloPage implements OnInit {
             monto: monto,
             cantidad: parseInt(cantidad),
             correo: this.correo,
-            cliente: 86,
+            id_tarjeta: id,
           };
           console.log(tarjetaxcant);
           this.shoppingCart.addTarjetaRegaloMonto(tarjetaxcant).subscribe((data) => {
             console.log(data);
             if (data.valid == "OK") {
               this.mensajeCorrecto(
-                "Cupón Agregado",
-                "Cupón Agregado Exitosamente"
+                "Tarjeta de regalo Agregada",
+                "Tarjeta de regalo Agregado Exitosamente"
               );
             } else if (data.valid == "IN") {
               this.mensajeIncorrecto(
-                "Agregar Cupón",
-                "Cupón ya existe en carrito"
+                "Agregar Tarjeta de regalo",
+                "Tarjeta de regalo ya existe en carrito"
               );
             } else if (data.valid == "NOT") {
               this.mensajeIncorrecto(
-                "Agregar Cupón",
+                "Agregar Tarjeta de regalo",
                 "Ha ocurrido un error, revise su conexión"
               );
             }
@@ -160,6 +160,8 @@ export class TarjetasDeRegaloPage implements OnInit {
       }
     });
   }
+
+  
   getCorreo() {
     console.log(login.login);
     this.storage.get("correo").then((val) => {

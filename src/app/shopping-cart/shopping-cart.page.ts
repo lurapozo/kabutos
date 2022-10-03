@@ -30,6 +30,7 @@ export class ShoppingCartPage implements OnInit {
   oferts: {};
   combos: {};
   cupon: {};
+  tarjetas: {};
   loader: any;
   user: any;
   modificado = false;
@@ -38,6 +39,7 @@ export class ShoppingCartPage implements OnInit {
   oferLen: number = 0;
   comLen: number = 0;
   cupLen: number = 0;
+  tarMontLen: number = 0;
   esValidoProducto: any = "";
   productoNecesario: any = "";
   validador: true;
@@ -101,10 +103,12 @@ export class ShoppingCartPage implements OnInit {
           this.oferts = this.cart[0]['ofertas'];
           this.combos = this.cart[0]['combos'];
           this.cupon = this.cart[0]['cupon'];
+          this.tarjetas = this.cart[0]['tarjeta'];
           this.comLen = this.getComboLen();
           this.prodLen = this.getProductLen();
           this.oferLen = this.getOfertaLen();
           this.cupLen = this.getCuponLen();
+          this.tarMontLen = this.getTarjetasMontoLen();
           this.total = this.getTotal();
           this.esValidoProducto = this.cart[0]['esValidoProducto'];
           this.productoNecesario = this.cart[0]['productoNecesario']
@@ -116,6 +120,7 @@ export class ShoppingCartPage implements OnInit {
           this.prodLen = 0;
           this.oferLen = 0;
           this.cupLen = 0;
+          this.tarMontLen = 0;
         }
 
       }, (error) => {
@@ -200,7 +205,13 @@ export class ShoppingCartPage implements OnInit {
     for (let i = 0; i < this.getCuponLen(); i++) {
       ototal = ototal + parseFloat((this.cupon[i]['subtotal_cupon']));
     }
+    for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
+      ototal = ototal + parseFloat((this.tarjetas[i]['subtotal_tarjeta']));
+    }
     ttotal = ototal + ctotal + ptotal;
+    if(ttotal<0){
+      ttotal=0
+    }
     return Number.parseFloat(ttotal).toFixed(2);
 
   }
@@ -236,6 +247,13 @@ export class ShoppingCartPage implements OnInit {
     }
     return oindex;
   }
+  getTarjetasMontoLen() {
+    var oindex = 0;
+    for (let o in this.tarjetas) {
+      oindex = +o + 1;
+    }
+    return oindex;
+  }
 
   getPrecioUnitario(id: string) {
     for (let i = 0; i < this.getProductLen(); i++) {
@@ -256,6 +274,11 @@ export class ShoppingCartPage implements OnInit {
     for (let i = 0; i < this.getCuponLen(); i++) {
       if (id === this.cupon[i]['id_unico']) {
         return this.cupon[i]['precio_cupon'];
+      }
+    }
+    for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
+      if (id === this.tarjetas[i]['id_unico']) {
+        return this.tarjetas[i]['monto_tarjeta'];
       }
     }
   }
@@ -346,6 +369,9 @@ export class ShoppingCartPage implements OnInit {
       this.total = 0.00;
       return 0.00;
     } else {
+      if(tot<0){
+        tot=0
+      }
       return tot.toFixed(2);
     }
   }
@@ -379,6 +405,7 @@ export class ShoppingCartPage implements OnInit {
       }
     }
     const prodxcant = {
+      
       'nombre': this.getNombre(c),
       'cantidad': parseInt(cantidad),
       'correo': this.correo
@@ -387,6 +414,14 @@ export class ShoppingCartPage implements OnInit {
   }
 
   async mensajeEliminar(nombre: string, cantidad: string, div: object, valor: object, tot: string, subtotal: object, compara: string) {
+    console.log(nombre)
+    console.log(parseInt(cantidad))
+    console.log(this.correo)
+    console.log(div)
+    console.log(valor)
+    console.log(tot)
+    console.log(subtotal)
+    console.log(compara)
     const modal = await this.modalCtrl.create({
       component: PreguntaPage,
       cssClass: 'pregunta',
@@ -425,7 +460,11 @@ export class ShoppingCartPage implements OnInit {
         return this.cupon[i]['nombre_cupon'];
       }
     }
-
+    for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
+      if (id === this.tarjetas[i]['id_unico']) {
+        return this.tarjetas[i]['id_tarjeta'];
+      }
+    }
   }
 
   getId(id: string) {
@@ -445,10 +484,19 @@ export class ShoppingCartPage implements OnInit {
         return this.combos[i]['id_unico'];
       }
     }
+    for (let i = 0; i < this.getCuponLen(); i++) {
+      if (id === this.cupon[i]['id_unico']) {
+        return this.cupon[i]['id_unico'];
+      }
+    }
+    for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
+      if (id === this.tarjetas[i]['id_unico']) {
+        return this.tarjetas[i]['id_unico'];
+      }
+    }
   }
 
   async horario() {
-
     await this.showLoading2();
     var currentDate = new Date();
     this.shoppingService.getHorario(1, currentDate.getDay())
@@ -506,6 +554,12 @@ export class ShoppingCartPage implements OnInit {
                 //console.log(this.open);
                 if (this.open) {
                   this.storage.set('total', this.total);
+                  if (this.tarMontLen>0){
+                    this.storage.set('usaTarMont', 'si');
+                  }else{
+                    this.storage.set('usaTarMont', 'no');
+                  }
+                  this.storage.set('tarjetaRegaloMonto', 'no');
                   this.router.navigate(['/footer/pagar']);
                 } else {
                   this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
@@ -523,6 +577,12 @@ export class ShoppingCartPage implements OnInit {
           //console.log(this.open);
           if (this.open) {
             this.storage.set('total', this.total);
+            if (this.tarMontLen>0){
+              this.storage.set('usaTarMont', 'si');
+            }else{
+              this.storage.set('usaTarMont', 'no');
+            }
+            this.storage.set('tarjetaRegaloMonto', 'no');
             this.router.navigate(['/footer/pagar']);
           } else {
             this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");

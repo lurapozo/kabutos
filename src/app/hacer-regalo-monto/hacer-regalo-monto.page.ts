@@ -85,6 +85,10 @@ export class HacerRegaloMontoPage implements OnInit {
     } else{
       this.storage.set("total",form.value.monto)
       this.storage.set("tarjetaRegaloMonto",'si')
+      this.storage.set("tipoPago",'Tarjeta')
+      this.storage.set("tipoEntrega",'Local')
+      this.storage.set("usaTarMont",'no')
+      this.storage.set("direccionEntrega",1)
       this.router.navigate(["/footer/tarjeta"]);
     }
     //this.enviarForm(formData)
