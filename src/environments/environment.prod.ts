@@ -9,7 +9,6 @@ export const firebaseConfig = {
   storageBucket: "cabutos.appspot.com",
   messagingSenderId: "535520824503",
   appId: "1:535520824503:android:2bd9590883c1e09137d132"
-
 };
 
 export const login = {
