@@ -1,6 +1,7 @@
 export const environment = {
   production: true
 };
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBHNQjXsH7nxkpzOMTJ1w8L0nFW1mR6noY",
   authDomain: "cabutos.firebaseapp.com",
