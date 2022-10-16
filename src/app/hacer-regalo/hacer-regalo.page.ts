@@ -18,6 +18,7 @@ export class HacerRegaloPage implements OnInit {
   perfil: any;
   loading: any;
   correo: any;
+  usuarios: any;
 
   constructor(
     private storage: Storage,
@@ -35,7 +36,11 @@ export class HacerRegaloPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.perfilService.getPerfiles().subscribe((data) => {
+      this.usuarios=(data)
+    });
+  }
 
   atras() {
     let animations: AnimationOptions = {
@@ -87,6 +92,8 @@ export class HacerRegaloPage implements OnInit {
         );
       } else if (data.valid == "OK") {
         this.storage.set("correoTemp",form.value.correo)
+
+        this.storage.set("receptor",data.receptor)
         this.router.navigate(["/footer/hacer-regalo-escoger"]);
       } else if (data.valid == "talvez") {
         this.mensajeIncorrecto(

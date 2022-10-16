@@ -18,6 +18,8 @@ export class HacerRegaloEscogerPage implements OnInit {
   perfil: any;
   loading: any;
   correo: any;
+  receptor: any;
+
   constructor(private storage: Storage,
     public perfilService: PerfilService,
     public hacerRegaloService: HacerRegaloService,
@@ -29,6 +31,11 @@ export class HacerRegaloEscogerPage implements OnInit {
       if (val != null) {
         this.perfil = val;
       }
+    }); 
+      this.storage.get("receptor").then((val) => {
+        if (val != null) {
+          this.receptor = val;
+        }
     }); 
   }
 
@@ -75,9 +82,13 @@ export class HacerRegaloEscogerPage implements OnInit {
   }
 
   monto() {
+    this.storage.set("tarjetaRegaloMonto",'si')
+    this.storage.set("tarjetaRegaloproducto",'no')
     this.router.navigate(["/footer/hacer-regalo-monto"]);
   }
   producto() {
+    this.storage.set("tarjetaRegaloMonto",'no')
+    this.storage.set("tarjetaRegaloproducto",'si')
     this.router.navigate(["/footer/hacer-regalo-producto"]);
   }
 }

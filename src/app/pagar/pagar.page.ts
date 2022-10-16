@@ -101,6 +101,11 @@ export class PagarPage implements OnInit {
     this.router.navigate(['/footer/perfil/editar-perfil'], navigationExtras);
   }
   confirmar(){
+    this.storage.get('tarjetaRegaloproducto').then((val) => {
+      if(val=='si'){
+        this.router.navigate(['/footer/tarjeta']);
+      }
+    });
     this.router.navigate(['/footer/entrega']);
   
   }

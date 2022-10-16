@@ -33,5 +33,18 @@
         <div class="monto">Monto: ${{tarjeta.monto}}</div>
       </div>
     </div>
+
+    <div class="contenedor-tarjetas" *ngFor="let tarjeta2 of tarjetas2">
+      <div class="agregar-imagen" id="Tarjeta2{{tarjeta2.id}}">
+        <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar2(tarjeta2.id)>
+      </div>
+      <div class="nombre">Regalo de: {{tarjeta2.emisor}}</div>
+      <div class="contenedor" (click)=mostrar2(tarjeta2.id) id={{tarjeta2.nombre}}>
+        <div class="descripcion">Descripcion: {{tarjeta2.descripcion}}</div>
+        <br>
+        <div class="productos">Productos: {{tarjeta2.listaprod}}</div>
+        <!--<div class="monto">Monto: ${{tarjeta2.monto}}</div>-->
+      </div>
+    </div>
   </div>
 </ion-content>

@@ -55,6 +55,11 @@
           <ion-label class="left">Total a pagar: </ion-label>
           <ion-label class="right">${{pago | number : '1.2-2'}}</ion-label>
         </div>
+        <div class="campos" *ngIf="pago" hidden>
+          <ion-label class="left">Tarjeta de regalo: </ion-label>
+          <ion-label class="right">{{tarjetaRegalo}}</ion-label>
+          <ion-input name="tarjetaRegalo" type="text" [(ngModel)]="tarjetaRegalo" hidden required></ion-input>
+        </div>
         <td></td>
         <div class="mensaje">
           <ion-label class="center">Mensaje para el repartidor (opcional)</ion-label>

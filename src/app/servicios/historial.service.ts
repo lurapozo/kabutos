@@ -70,4 +70,12 @@ export class HistorialService {
     const body = JSON.stringify(info);
     return this.http.post(this.baseUrl+'calificarPedido/',body,{'headers':headers})
   }
+  eliminarCarrito(info):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(info);
+    return this.http.post(this.baseUrl+'eliminarCarrito/',body,{'headers':headers})
+  }
 }

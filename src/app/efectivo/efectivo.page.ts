@@ -38,6 +38,7 @@ export class EfectivoPage implements OnInit {
   id: any;
   cvc: any;
   receptor: any;
+  tarjetaRegalo= "";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -138,7 +139,16 @@ export class EfectivoPage implements OnInit {
         this.pago = this.total;
       }
     });
-
+    this.storage.get("tarjetaRegaloMonto").then((val) => {
+      if (val != null && val=='si') {
+        this.tarjetaRegalo='si'
+      }
+    });
+    this.storage.get("tarjetaRegaloproducto").then((val) => {
+      if (val != null && val=='si') {
+        this.tarjetaRegalo='si'
+      }
+    });
     this.storage.get("correoTemp").then((val) => {
       if (val != null) {
         this.receptor = val;
@@ -314,7 +324,32 @@ export class EfectivoPage implements OnInit {
               }
               else if (data.valid == "OK"){
                 console.log("BIEN")
+                this.tarjetaRegalo='si'
                 this.storage.set("tarjetaRegaloMonto",'no')
+              }
+            })
+      }
+    });
+
+    this.storage.get("tarjetaRegaloproducto").then((val) => {
+      if (val != null && val=='si') {
+        let infoTarjeta = {
+          "id_cliente":this.perfil.id, 
+          "carrito": form.carrito,
+          "receptor":this.receptor, 
+          "descripcion":"Esta tarjeta de regalo se puede utilizar para añadir algunos productos a tu carrito."
+        }
+        console.log(infoTarjeta)
+        this.perfilService.crearTarjetaRegaloproducto(infoTarjeta).subscribe(
+            data => {
+              console.log(infoTarjeta)
+              if(data.valid == "NO"){
+                console.log("Nel")
+              }
+              else if (data.valid == "OK"){
+                console.log("BIEN")
+                this.tarjetaRegalo='si'
+                this.storage.set("tarjetaRegaloproducto",'no')
               }
             })
       }

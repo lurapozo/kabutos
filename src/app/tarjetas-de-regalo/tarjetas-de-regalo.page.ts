@@ -22,6 +22,7 @@ declare var window;
 export class TarjetasDeRegaloPage implements OnInit {
   perfil: any;
   tarjetas: {};
+  tarjetas2: {};
   url = "";
   loader: any;
   valor = 0;
@@ -48,15 +49,29 @@ export class TarjetasDeRegaloPage implements OnInit {
     this.storage.get("perfil").then((val) => {
       if (val != null) {
         id = val.id;
-        console.log("refresh");
         this.TarjetasDeRegaloService.getTarjetasRegalo(id).subscribe(
           (data) => {
             //console.log("esta es la data "+data["nombre"])
             this.tarjetas = data;
-            var tol = Object.entries(this.tarjetas).length;
+            /*var tol = Object.entries(this.tarjetas).length;
             if (tol == 0) {
-              this.mensajeIncorrecto("No hay tarjetaaas de regalo", "Si");
-            }
+              this.mensajeIncorrecto("No hay tarjetas de regalo", "Si");
+            }*/
+          },
+          (error) => {
+            console.log("algo salio mal");
+            this.mensajeIncorrecto("Algo salió mal", "error de conexión");
+            console.error(error);
+          }
+        );
+        this.TarjetasDeRegaloService.getTarjetasRegaloP(id).subscribe(
+          (data) => {
+            console.log("esta es la data "+data["listaprod"])
+            this.tarjetas2 = data;
+            /*var tol = Object.entries(this.tarjetas2).length;
+            if (tol == 0) {
+              this.mensajeIncorrecto("No hay tarjetas de regalo", "Si");
+            }*/
           },
           (error) => {
             console.log("algo salio mal");
@@ -161,6 +176,55 @@ export class TarjetasDeRegaloPage implements OnInit {
     });
   }
 
+  agregar2(id: string) {
+    this.getCorreo();
+    var doc2 = document.getElementById("Tarjeta2" + id);
+    doc2.style.visibility = "hidden";
+    this.storage.get("name").then((nombre) => {
+      console.log("Name is", nombre);
+      if (login.login == false && nombre == null) {
+        login.producto = true;
+        this.router.navigateByUrl("/login");
+      } else {
+        var cantidad = "1";
+        console.log("La cantidad que se agrega al carrito es: ", cantidad);
+        if (parseInt(cantidad) > 0) {
+          const tarjetaxcant = {
+            cantidad: parseInt(cantidad),
+            correo: this.correo,
+            id_tarjeta: id,
+          };
+          console.log(tarjetaxcant);
+          this.shoppingCart.addTarjetaRegaloproducto(tarjetaxcant).subscribe((data) => {
+            console.log(data);
+            if (data.valid == "OK") {
+              this.mensajeCorrecto(
+                "Tarjeta de regalo Agregada",
+                "Tarjeta de regalo Agregado Exitosamente"
+              );
+            } else if (data.valid == "IN") {
+              this.mensajeIncorrecto(
+                "Agregar Tarjeta de regalo",
+                "Tarjeta de regalo ya existe en carrito"
+              );
+            } else if (data.valid == "NOT") {
+              this.mensajeIncorrecto(
+                "Agregar Tarjeta de regalo",
+                "Ha ocurrido un error, revise su conexión"
+              );
+            }
+          });
+          window.footer.datos();
+        } else {
+          this.mensajeIncorrecto(
+            "Agregar Cupón",
+            "No ha escogido la cantidad para agregar"
+          );
+        }
+      }
+    });
+  }
+
   
   getCorreo() {
     console.log(login.login);
@@ -173,6 +237,17 @@ export class TarjetasDeRegaloPage implements OnInit {
   mostrar(id: string) {
     console.log("esto en mostrar y el id que tengo es", id);
     var doc = document.getElementById("Tarjeta" + id);
+    console.log(doc);
+    console.log(doc.style.visibility);
+    if (doc.style.visibility === "visible") {
+      doc.style.visibility = "hidden";
+    } else {
+      doc.style.visibility = "visible";
+    }
+  }
+  mostrar2(id: string) {
+    console.log("esto en mostrar y el id que tengo es", id);
+    var doc = document.getElementById("Tarjeta2" + id);
     console.log(doc);
     console.log(doc.style.visibility);
     if (doc.style.visibility === "visible") {

@@ -18,5 +18,12 @@ export class TarjetasDeRegaloService {
       }
       return this.http.get(this.baseUrl+'tarjetasRegalo/'+ id,{'headers':headers})            
     }
+    getTarjetasRegaloP(id: number) {
+      const headers = {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json'
+      }
+      return this.http.get(this.baseUrl+'tarjetasRegaloP/'+ id,{'headers':headers})            
+    }
   
 }

@@ -2,10 +2,14 @@
 
 </style>
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="datos($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="datos($event,'')">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+    
     <div class="contenedor-page">
+        <div class="titulo_atras">
+            <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+        </div>
       <ion-label class="titulo">Escoja el producto que va a regalar</ion-label>
 
         <div class="contenedor">

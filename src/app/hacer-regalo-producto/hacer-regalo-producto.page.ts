@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../servicios/producto.service';
+import { finalize } from "rxjs/operators";
 import { Producto } from '../modelo/producto';
 import { Producto_Carrito } from '../modelo/producto_carrito';
 import { Observable, Subject } from 'rxjs';
 import { login } from './../global'
 import 'rxjs/add/operator/map';
 import { ChildActivationStart, Router } from '@angular/router';
-import { AlertController, IonToggle, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, IonToggle, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
 import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { NavParamsService } from '../servicios/nav-params.service';
+import {HistorialService} from '../servicios/historial.service';
+import { info } from 'console';
+import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
 declare var window;
 @Component({
   selector: 'app-hacer-regalo-producto',
@@ -44,6 +48,9 @@ export class HacerRegaloProductoPage implements OnInit {
   public pageZA: number = 0;
   public pageMayor: number = 0;
   public pageMenor: number = 0;
+  public id: any;
+  public idCarrito: any;
+  loading: any;
 
   public filtro: String = "vendidos";
 
@@ -54,6 +61,8 @@ export class HacerRegaloProductoPage implements OnInit {
     public modalCtrl: ModalController,
     private shoppingCart: ShoppingCartService,
     private navParamsService: NavParamsService,
+    private HistorialService: HistorialService,
+    private navCtrlr: NavController,
   ) { }
 
 
@@ -62,9 +71,51 @@ export class HacerRegaloProductoPage implements OnInit {
     this.getCorreo();
   }
 
-
+  atras() {
+    let animations: AnimationOptions = {
+      animated: true,
+      animationDirection: "back",
+    };
+    this.navCtrlr.back(animations);
+  }
 
   ionViewWillEnter() {
+    this.storage.get("id").then((val) => {
+        this.id = Number(val);
+        console.log(val)
+      
+    });
+    this.storage.get("id_carrito").then((val) => {
+
+        this.idCarrito = Number(val);
+        console.log(val)
+      
+    });
+
+    let  datsCLiente = {
+      id: 86,
+      carrito: 97,
+    };
+
+    console.log("datsCLiente")
+    console.log(datsCLiente)
+    this.HistorialService.eliminarCarrito(datsCLiente).pipe(
+      finalize(async () => {
+        await this.loading.dismiss();
+      })
+    )
+    .subscribe(
+      (data) => {
+        console.log("data")
+        console.log(data)
+          
+        
+      },
+      (err) => {
+        
+        console.log("data")
+      }
+    );
     console.log("refresh");
     this.datos(null, this.filtro);
     this.loadData();
@@ -276,7 +327,7 @@ export class HacerRegaloProductoPage implements OnInit {
               //this.actualizarNum(number);
               this.mensajeCorrecto("Agregar Producto", "El producto se ha agregado al carrito");
               //borrar carrito
-              this.router.navigate(["/footer/shopping-cart"]);
+              //this.router.navigate(["/footer/shopping-cart"]);
             } else if (data.valid == "NOT") {
               this.mensajeIncorrecto("Agregar Producto", "Ha ocurrido un error, revise su conexión");
 

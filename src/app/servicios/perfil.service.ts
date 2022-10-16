@@ -25,6 +25,17 @@ export class PerfilService {
     return this.http.get(this.baseUrl+'cliente/',{params:parametro, headers:httpOptions.headers});
 
   }
+  getPerfiles(){
+  
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'Accept': 'application/json, text/plain',
+          'Content-Type':  'application/json',
+        })
+      };
+    return this.http.get(this.baseUrl+'cliente/',{headers:httpOptions.headers});
+
+  }
 
   editPerfil(user):Observable<any>{
     return this.http.post(this.baseUrl+`editarCliente/`,user);
@@ -82,5 +93,14 @@ export class PerfilService {
     }
     const body = JSON.stringify(infoTarjeta);
     return this.http.post(this.baseUrl+'crearTarjetaRegaloMonto/',infoTarjeta,{'headers': headers});
+  }
+
+  crearTarjetaRegaloproducto(infoTarjeta):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(infoTarjeta);
+    return this.http.post(this.baseUrl+'crearTarjetaRegaloproducto/',infoTarjeta,{'headers': headers});
   }
 }

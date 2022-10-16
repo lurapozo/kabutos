@@ -11,9 +11,18 @@
     <form #form="ngForm" (ngSubmit)="canjear(form)">
       <div class="form">
         <ion-label>Correo</ion-label>
-        <ion-item>
-          <ion-input id="1" name="correo" type="text" [(ngModel)]="correo" required></ion-input>
-        </ion-item>
+        <br><ion-item>
+        <input list="brow" id="1" name="correo" [(ngModel)]="correo" required style="width: 100%; background-color: white;">
+          <datalist id="brow" name="producto" required>
+          <div class="contenedor-tarjetas" *ngFor="let usuario of usuarios">
+            <option class="input" value={{usuario.correo}} name="producto">{{usuario.nombre}} {{usuario.apellido}}
+              / {{usuario.correo}}</option>
+          </div>
+          </datalist>
+          </ion-item>
+
+          <!--<ion-input id="1" name="correo" type="text" [(ngModel)]="correo" required></ion-input>-->
+        
       </div>
       <div class="button-content">
         <ion-button class="btn-registro" size="large" type="submit">

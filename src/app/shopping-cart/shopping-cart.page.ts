@@ -31,6 +31,7 @@ export class ShoppingCartPage implements OnInit {
   combos: {};
   cupon: {};
   tarjetas: {};
+  tarjetas2: {};
   loader: any;
   user: any;
   modificado = false;
@@ -40,6 +41,7 @@ export class ShoppingCartPage implements OnInit {
   comLen: number = 0;
   cupLen: number = 0;
   tarMontLen: number = 0;
+  tarMontLen2: number = 0;
   esValidoProducto: any = "";
   productoNecesario: any = "";
   validador: true;
@@ -104,11 +106,13 @@ export class ShoppingCartPage implements OnInit {
           this.combos = this.cart[0]['combos'];
           this.cupon = this.cart[0]['cupon'];
           this.tarjetas = this.cart[0]['tarjeta'];
+          this.tarjetas2 = this.cart[0]['tarjeta2'];
           this.comLen = this.getComboLen();
           this.prodLen = this.getProductLen();
           this.oferLen = this.getOfertaLen();
           this.cupLen = this.getCuponLen();
           this.tarMontLen = this.getTarjetasMontoLen();
+          this.tarMontLen2 = this.getTarjetasMontoLen2();
           this.total = this.getTotal();
           this.esValidoProducto = this.cart[0]['esValidoProducto'];
           this.productoNecesario = this.cart[0]['productoNecesario']
@@ -121,6 +125,7 @@ export class ShoppingCartPage implements OnInit {
           this.oferLen = 0;
           this.cupLen = 0;
           this.tarMontLen = 0;
+          this.tarMontLen2 = 0;
         }
 
       }, (error) => {
@@ -208,6 +213,10 @@ export class ShoppingCartPage implements OnInit {
     for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
       ototal = ototal + parseFloat((this.tarjetas[i]['subtotal_tarjeta']));
     }
+    for (let i = 0; i < this.getTarjetasMontoLen2(); i++) {
+      ototal = ototal + parseFloat((this.tarjetas2[i]['subtotal_tarjeta']));
+    }
+    
     ttotal = ototal + ctotal + ptotal;
     if(ttotal<0){
       ttotal=0
@@ -254,7 +263,13 @@ export class ShoppingCartPage implements OnInit {
     }
     return oindex;
   }
-
+  getTarjetasMontoLen2(){
+    var oindex = 0;
+    for (let o in this.tarjetas2) {
+      oindex = +o + 1;
+    }
+    return oindex;
+  }
   getPrecioUnitario(id: string) {
     for (let i = 0; i < this.getProductLen(); i++) {
       if (id === this.products[i]['id_unico']) {
@@ -279,6 +294,11 @@ export class ShoppingCartPage implements OnInit {
     for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
       if (id === this.tarjetas[i]['id_unico']) {
         return this.tarjetas[i]['monto_tarjeta'];
+      }
+    }
+    for (let i = 0; i < this.getTarjetasMontoLen2(); i++) {
+      if (id === this.tarjetas2[i]['id_unico']) {
+        return this.tarjetas2[i]['monto_tarjeta'];
       }
     }
   }
@@ -465,6 +485,11 @@ export class ShoppingCartPage implements OnInit {
         return this.tarjetas[i]['id_tarjeta'];
       }
     }
+    for (let i = 0; i < this.getTarjetasMontoLen2(); i++) {
+      if (id === this.tarjetas2[i]['id_unico']) {
+        return this.tarjetas2[i]['id_tarjeta'];
+      }
+    }
   }
 
   getId(id: string) {
@@ -492,6 +517,11 @@ export class ShoppingCartPage implements OnInit {
     for (let i = 0; i < this.getTarjetasMontoLen(); i++) {
       if (id === this.tarjetas[i]['id_unico']) {
         return this.tarjetas[i]['id_unico'];
+      }
+    }
+    for (let i = 0; i < this.getTarjetasMontoLen2(); i++) {
+      if (id === this.tarjetas2[i]['id_unico']) {
+        return this.tarjetas2[i]['id_unico'];
       }
     }
   }
@@ -559,6 +589,11 @@ export class ShoppingCartPage implements OnInit {
                   }else{
                     this.storage.set('usaTarMont', 'no');
                   }
+                  if (this.tarMontLen2>0){
+                    this.storage.set('usaTarProd', 'si');
+                  }else{
+                    this.storage.set('usaTarProd', 'no');
+                  }
                   this.storage.set('tarjetaRegaloMonto', 'no');
                   this.router.navigate(['/footer/pagar']);
                 } else {
@@ -582,6 +617,11 @@ export class ShoppingCartPage implements OnInit {
             }else{
               this.storage.set('usaTarMont', 'no');
             }
+            if (this.tarMontLen2>0){
+              this.storage.set('usaTarProd', 'si');
+            }else{
+              this.storage.set('usaTarProd', 'no');
+            }
             this.storage.set('tarjetaRegaloMonto', 'no');
             this.router.navigate(['/footer/pagar']);
           } else {
@@ -602,7 +642,6 @@ export class ShoppingCartPage implements OnInit {
     /*if (this.cupLen > 0){
       this.revisionCupon();
     }*/
-    console.log("hola")
     this.actualizarCarrito()
     this.horario();
     

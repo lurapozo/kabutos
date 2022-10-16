@@ -103,6 +103,19 @@ export class ShoppingCartService {
     return this.http.post(this.baseUrl+'addTarjetaRegaloMonto/',tarjetaRegalo,{'headers':headers})
   }
 
+  addTarjetaRegaloproducto(tarjetaRegalo):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    //console.log("sin transformar")
+    //console.log(cupon_carrito)
+    const body = JSON.stringify(tarjetaRegalo);
+    //console.log("Transformar")
+    //console.log(body)
+    return this.http.post(this.baseUrl+'addTarjetaRegaloproducto/',tarjetaRegalo,{'headers':headers})
+  }
+
   checkCupones(codigoStr):Observable<any> {
     const headers = {
       'Accept': 'application/json, text/plain',
