@@ -10,6 +10,10 @@
         <label class="hoverable perfil" for="fileInput">
           <img [src]="url ? url : '../assets/img/avatar_perfil2.png'"> 
         </label>
+        <ion-label>Codigo de Usuario</ion-label>
+        <ion-item >
+          <ion-input type="text" [value]="codigo_unico" readonly></ion-input>
+        </ion-item>
         <ion-label>Nombres</ion-label>
         <ion-item >
           <ion-input type="text" [value]="perfil.nombre" readonly></ion-input>

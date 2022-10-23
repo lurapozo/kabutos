@@ -9,10 +9,23 @@ import { Tarjeta } from '../modelo/tarjeta'
 })
 export class PerfilService {
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
+  ///baseUrl :string= "http://127.0.0.1:8000/movil/";
 
   constructor(
     private http: HttpClient
   ) { }
+
+  getCodigo(id:string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'Accept': 'application/json, text/plain',
+          'Content-Type':  'application/json',
+        })
+      };
+    let parametro= new HttpParams().set('id',id);
+    console.log(id)
+    return this.http.get(this.baseUrl+'getCodigo/',{params:parametro, headers:httpOptions.headers});
+  }
 
   getPerfil(correo: string){
     let parametro= new HttpParams().set('correo',correo);
@@ -23,17 +36,6 @@ export class PerfilService {
         })
       };
     return this.http.get(this.baseUrl+'cliente/',{params:parametro, headers:httpOptions.headers});
-
-  }
-  getPerfiles(){
-  
-    const httpOptions = {
-      headers: new HttpHeaders({
-          'Accept': 'application/json, text/plain',
-          'Content-Type':  'application/json',
-        })
-      };
-    return this.http.get(this.baseUrl+'cliente/',{headers:httpOptions.headers});
 
   }
 
@@ -93,14 +95,5 @@ export class PerfilService {
     }
     const body = JSON.stringify(infoTarjeta);
     return this.http.post(this.baseUrl+'crearTarjetaRegaloMonto/',infoTarjeta,{'headers': headers});
-  }
-
-  crearTarjetaRegaloproducto(infoTarjeta):Observable<any>{
-    const headers = {
-      'Accept': 'application/json, text/plain',
-      'Content-Type': 'application/json'
-    }
-    const body = JSON.stringify(infoTarjeta);
-    return this.http.post(this.baseUrl+'crearTarjetaRegaloproducto/',infoTarjeta,{'headers': headers});
   }
 }
