@@ -15,7 +15,7 @@ import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { NavParamsService } from '../servicios/nav-params.service';
 import {HistorialService} from '../servicios/historial.service';
-import { info } from 'console';
+//import { info } from 'console';
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
 declare var window;
 @Component({
@@ -86,15 +86,14 @@ export class HacerRegaloProductoPage implements OnInit {
       
     });
     this.storage.get("id_carrito").then((val) => {
-
         this.idCarrito = Number(val);
         console.log(val)
       
     });
 
-    let  datsCLiente = {
-      id: 86,
-      carrito: 97,
+    let datsCLiente = {
+      id: this.id ,
+      carrito: this.idCarrito,
     };
 
     console.log("datsCLiente")

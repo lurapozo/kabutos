@@ -8,6 +8,8 @@ import { CorrectoPage } from "../aviso/correcto/correcto.page";
 import { NavController, ModalController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 import { Router } from "@angular/router";
+import {HistorialService} from '../servicios/historial.service';
+import { finalize } from "rxjs/operators";
 
 @Component({
   selector: "app-hacer-regalo-monto",
@@ -18,24 +20,73 @@ export class HacerRegaloMontoPage implements OnInit {
   perfil: any;
   loading: any;
   monto: any;
+  public id: any;
+  public idCarrito: any;
 
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
-    
+    private HistorialService: HistorialService,
     private navCtrlr: NavController,
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
     private router: Router
   ) {
-    this.storage.get("perfil").then((val) => {
-      if (val != null) {
-        this.perfil = val;
+    
+  }
+
+  ngOnInit() {
+    this.cargaPantalla();
+  }
+
+  cargaPantalla() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        
+        this.ionViewWillEnter();
       }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
     });
   }
 
-  ngOnInit() {}
+  ionViewWillEnter() {
+    console.log("id")
+    this.storage.get("id").then((val) => {
+        this.id = Number(val);
+        console.log(val)
+    });
+    console.log("id_carrito")
+    this.storage.get("id_carrito").then((val) => {
+        this.idCarrito = Number(val);
+        console.log(val)
+    });
+    let datsCLiente = {
+      id: this.id ,
+      carrito: this.idCarrito,
+    };
+
+    console.log("datsCLiente")
+    console.log(datsCLiente)
+    this.HistorialService.eliminarCarrito(datsCLiente).pipe(
+      finalize(async () => {
+        await this.loading.dismiss();
+      })
+    )
+    .subscribe(
+      (data) => {
+        console.log("data")
+        console.log(data)
+      },
+      (err) => {
+        console.log("data")
+      }
+    );
+    console.log("refresh");
+  }
 
   atras() {
     let animations: AnimationOptions = {

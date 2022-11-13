@@ -45,6 +45,13 @@ export class TarjetasDeRegaloPage implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+  ionViewDidEnter(){
+    this.mostrarTarjetas();
+  }
+
+  async mostrarTarjetas(){
     let id: number;
     this.storage.get("perfil").then((val) => {
       if (val != null) {

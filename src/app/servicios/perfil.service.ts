@@ -97,21 +97,4 @@ export class PerfilService {
     return this.http.post(this.baseUrl+'tarjeta/del/',credencial,{'headers': headers});
   }
 
-  crearTarjetaRegaloMonto(infoTarjeta):Observable<any>{
-    const headers = {
-      'Accept': 'application/json, text/plain',
-      'Content-Type': 'application/json'
-    }
-    const body = JSON.stringify(infoTarjeta);
-    return this.http.post(this.baseUrl+'crearTarjetaRegaloMonto/',infoTarjeta,{'headers': headers});
-  }
-
-  crearTarjetaRegaloproducto(infoTarjeta):Observable<any>{
-    const headers = {
-      'Accept': 'application/json, text/plain',
-      'Content-Type': 'application/json'
-    }
-    const body = JSON.stringify(infoTarjeta);
-    return this.http.post(this.baseUrl+'crearTarjetaRegaloproducto/',infoTarjeta,{'headers': headers});
-  }
 }

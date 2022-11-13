@@ -38,7 +38,7 @@ export class EfectivoPage implements OnInit {
   id: any;
   cvc: any;
   receptor: any;
-  tarjetaRegalo= "";
+  tarjetaRegalo= "no";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -56,6 +56,7 @@ export class EfectivoPage implements OnInit {
 
   ionViewWillEnter() {
     this.envio = false;
+    this.tarjetaRegalo='no        '
     //console.log("didEnter");
     this.storage.get("total").then((val) => {
       this.total = Number(val);
@@ -312,49 +313,6 @@ export class EfectivoPage implements OnInit {
       }
     });
 
-    this.storage.get("tarjetaRegaloMonto").then((val) => {
-      if (val != null && val=='si') {
-        let infoTarjeta = {"total": this.total, "id_cliente":this.perfil.id, "receptor":this.receptor, "descripcion":"Esta tarjeta de regalo se puede utilizar para descontar el monto fijado en su próxima compra."}
-        console.log(infoTarjeta)
-        this.perfilService.crearTarjetaRegaloMonto(infoTarjeta).subscribe(
-            data => {
-              console.log(infoTarjeta)
-              if(data.valid == "NO"){
-                console.log("Nel")
-              }
-              else if (data.valid == "OK"){
-                console.log("BIEN")
-                this.tarjetaRegalo='si'
-                this.storage.set("tarjetaRegaloMonto",'no')
-              }
-            })
-      }
-    });
-
-    this.storage.get("tarjetaRegaloproducto").then((val) => {
-      if (val != null && val=='si') {
-        let infoTarjeta = {
-          "id_cliente":this.perfil.id, 
-          "carrito": form.carrito,
-          "receptor":this.receptor, 
-          "descripcion":"Esta tarjeta de regalo se puede utilizar para añadir algunos productos a tu carrito."
-        }
-        console.log(infoTarjeta)
-        this.perfilService.crearTarjetaRegaloproducto(infoTarjeta).subscribe(
-            data => {
-              console.log(infoTarjeta)
-              if(data.valid == "NO"){
-                console.log("Nel")
-              }
-              else if (data.valid == "OK"){
-                console.log("BIEN")
-                this.tarjetaRegalo='si'
-                this.storage.set("tarjetaRegaloproducto",'no')
-              }
-            })
-      }
-    });
-
     if (this.tipoPago == "Tarjeta") {
       this.pagar(form);
     } else {
@@ -384,42 +342,158 @@ export class EfectivoPage implements OnInit {
   
   async guardarPedido(form, transaccion, autorizacion) {
     await this.showLoading2();
-    this.pedidoService
-      .nuevoPedido(form)
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        (data) => {
-          if (data.valid == "ok") {
-            if (this.tipoPago == "Tarjeta") {
-              this.pagado(data.pedido, transaccion, autorizacion);
-            }
-            if (this.tipoPago == "Efectivo"){
-              this.pagado(data.pedido, null, null)
-            }
-            this.storage.get("tipoEntrega").then((val) => {
-              if (val != null) {
-                if (val === "Local") {
-                  this.mensajeCorrecto("Estaremos esperando por Usted", "");
-                } else {
-                  this.mensajeCorrecto("Su pedido será enviado en breve", "");
-                }
-              }
-            });
-
-            this.router.navigate([""]);
-          } else {
-            this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
-            this.router.navigate([""]);
-          }
-        },
-        (err) => {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+    
+    this.storage.get("tarjetaRegaloMonto").then((val) => {
+      if (val != null && val=='si') {
+        let infoTarjeta = {
+          "total": this.total, 
+        "id_cliente":this.perfil.id, 
+        "receptor":this.receptor, 
+        "descripcion":"Esta tarjeta de regalo se puede utilizar para descontar el monto fijado en su próxima compra.",
+        "id": this.perfil.id, 
+        "tipoEntrega": "Local",
+        "direccion": this.id_direccion,
+        "tipoPago": this.tipoPago,
+        "subtotal": this.total,
+        "envio": this.envio,
+        "descuento": 0
         }
-      );
+        console.log(infoTarjeta)
+
+        this.pedidoService
+        .crearTarjetaRegaloMonto(infoTarjeta)
+        .pipe(
+          finalize(async () => {
+            await this.loading.dismiss();
+          })
+        )
+        .subscribe(
+            (data) => {
+              console.log(infoTarjeta)
+              if(data.valid == "NO"){
+                console.log("Nel")
+              }
+              else if (data.valid == "OK"){
+                this.pagado(data.pedido, transaccion, autorizacion);
+                console.log("BIEN")
+                this.tarjetaRegalo='si'
+                this.storage.set("tarjetaRegaloMonto",'no')
+                this.storage.get("tipoEntrega").then((val) => {
+                  if (val != null) {
+                    if (val === "Local") {
+                      this.mensajeCorrecto("Estaremos esperando por Usted", "");
+                    } else {
+                      this.mensajeCorrecto("Su pedido será enviado en breve", "");
+                    }
+                  }
+                });
+    
+                this.router.navigate([""]);
+              }else {
+                this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
+                this.router.navigate([""]);
+              }
+            },
+            (err) => {
+              this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+            })
+      }
+    });
+
+    this.storage.get("tarjetaRegaloproducto").then((val) => {
+      if (val != null && val=='si') {
+        let infoTarjeta = {
+          "id_cliente":this.perfil.id, 
+          "carrito": form.carrito,
+          "receptor":this.receptor, 
+          "descripcion":"Esta tarjeta de regalo se puede utilizar para añadir algunos productos a tu carrito.",
+          "id": this.perfil.id, 
+          "tipoEntrega": "Local",
+          "direccion": this.id_direccion,
+          "tipoPago": this.tipoPago,
+          "subtotal": this.total,
+          "envio": this.envio,
+          "descuento": 0
+        }
+        console.log(infoTarjeta)
+        this.pedidoService
+        .crearTarjetaRegaloproducto(infoTarjeta)
+        .pipe(
+          finalize(async () => {
+            await this.loading.dismiss();
+          })
+        )
+        .subscribe(
+            data => {
+              console.log(infoTarjeta)
+              if(data.valid == "NO"){
+                console.log("Nel")
+              }
+              else if (data.valid == "OK"){
+                this.pagado(data.pedido, transaccion, autorizacion);
+                console.log("BIEN")
+                this.tarjetaRegalo='si'
+                this.storage.set("tarjetaRegaloproducto",'no')
+                this.storage.get("tipoEntrega").then((val) => {
+                  if (val != null) {
+                    if (val === "Local") {
+                      this.mensajeCorrecto("Estaremos esperando por Usted", "");
+                    } else {
+                      this.mensajeCorrecto("Su pedido será enviado en breve", "");
+                    }
+                    
+                  }
+                });
+                this.router.navigate([""]);
+              }else {
+                    this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
+                    this.router.navigate([""]);
+                  }
+            },
+            (err) => {
+              this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+            })
+      }
+    });
+
+    if(this.tarjetaRegalo!='si'){
+      this.pedidoService
+        .nuevoPedido(form)
+        .pipe(
+          finalize(async () => {
+            await this.loading.dismiss();
+          })
+        )
+        .subscribe(
+          (data) => {
+            if (data.valid == "ok") {
+              if (this.tipoPago == "Tarjeta") {
+                this.pagado(data.pedido, transaccion, autorizacion);
+              }
+              if (this.tipoPago == "Efectivo"){
+                this.pagado(data.pedido, null, null)
+              }
+              this.storage.get("tipoEntrega").then((val) => {
+                if (val != null) {
+                  if (val === "Local") {
+                    this.mensajeCorrecto("Estaremos esperando por Usted", "");
+                  } else {
+                    this.mensajeCorrecto("Su pedido será enviado en breve", "");
+                  }
+                }
+              });
+
+              this.router.navigate([""]);
+            } else {
+              this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
+              this.router.navigate([""]);
+            }
+          },
+          (err) => {
+            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+          }
+        );
+      }
   }
 
   async pagado(id_pedido, transaccion, autorizacion) {
