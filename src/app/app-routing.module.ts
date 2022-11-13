@@ -66,7 +66,8 @@ const routes: Routes = [
   {
     path: 'hacer-regalo',
     loadChildren: () => import('./hacer-regalo/hacer-regalo.module').then( m => m.HacerRegaloPageModule)
-  },  {
+  },
+  {
     path: 'hacer-regalo-monto',
     loadChildren: () => import('./hacer-regalo-monto/hacer-regalo-monto.module').then( m => m.HacerRegaloMontoPageModule)
   },
@@ -78,7 +79,10 @@ const routes: Routes = [
     path: 'hacer-regalo-producto',
     loadChildren: () => import('./hacer-regalo-producto/hacer-regalo-producto.module').then( m => m.HacerRegaloProductoPageModule)
   },
-
+  {
+    path: 'cupones-carrito',
+    loadChildren: () => import('./cupones-carrito/cupones-carrito.module').then( m => m.CuponesCarritoPageModule)
+  },
 
   
   

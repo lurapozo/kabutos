@@ -430,7 +430,9 @@ export class ShoppingCartPage implements OnInit {
       'cantidad': parseInt(cantidad),
       'correo': this.correo
     }
+    this.actualizarCarrito()
     this.mensajeEliminar(this.getNombre(c), cantidad, div, total2[0], String(tot), subtotal, String(pos));
+    this.actualizarCarrito()
   }
 
   async mensajeEliminar(nombre: string, cantidad: string, div: object, valor: object, tot: string, subtotal: object, compara: string) {
@@ -527,6 +529,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   async horario() {
+    this.carrito()
     await this.showLoading2();
     var currentDate = new Date();
     this.shoppingService.getHorario(1, currentDate.getDay())
@@ -549,24 +552,26 @@ export class ShoppingCartPage implements OnInit {
           //console.log(timeNow);
           //console.log(openTimex)
           //console.log(closeTimex)
-
           if (this.open || timeNow >= openTimex && timeNow <= closeTimex) {
             this.open = true;
           } else {
             this.open = false;
           }
         });
+        this.carrito()
         console.log("probando")
         console.log(this.productoNecesario)
         console.log(this.esValidoProducto)
+        this.total = this.getTotalCart();
         if (this.totalNecesarioMonto > this.total) {
-          this.mensajeIncorrecto('Canjeo invalido', 'Te falta $' + (this.totalNecesarioMonto - this.total).toString() + ' para reclamar el cupon')
+          this.mensajeIncorrecto('Canje inválido', 'Te falta $' + (this.totalNecesarioMonto - this.total).toString() + ' para reclamar el cupon')
         }
 
         //FALTA VALIDAR PRODUCTO
         else if (this.productoNecesario != false) {
           if (this.esValidoProducto != true) {
             let cantidadNecesaria = this.esValidoProducto.split(" ")[2]
+            console.log("cant necesaria", cantidadNecesaria)
             let c = ""
             let cantidades = document.querySelectorAll('.cantidad')
             let producto = "Producto_" + this.productoNecesario
@@ -576,8 +581,8 @@ export class ShoppingCartPage implements OnInit {
                 c = cantidades[i].innerHTML
               }
             }
-            if (c != cantidadNecesaria) {
-              this.mensajeIncorrecto('Canjeo invalido', this.esValidoProducto)
+            if (c < cantidadNecesaria) {
+              this.mensajeIncorrecto('Canje inválido', this.esValidoProducto)
             }
             else {
               if (this.oferLen + this.prodLen + this.comLen > 0) {
@@ -698,12 +703,13 @@ export class ShoppingCartPage implements OnInit {
 
     }
     this.navParamsService.setNavData(datos);
-    this.router.navigateByUrl('/ofertas', { replaceUrl: true });
+    this.router.navigateByUrl('/footer/ofertas', { replaceUrl: true });
 
   }
 
-
-
-
+  cupones(){
+    this.storage.set('total', this.total);
+    this.router.navigateByUrl('/footer/cupones-carrito', { replaceUrl: true });
+  }
 }
 
