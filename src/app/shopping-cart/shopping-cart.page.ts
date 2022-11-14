@@ -118,7 +118,7 @@ export class ShoppingCartPage implements OnInit {
           this.productoNecesario = this.cart[0]['productoNecesario']
           this.totalNecesarioMonto = this.cart[0]['totalNecesarioMonto'];
           var divTotal = document.querySelectorAll("[id='A_pagar']");
-          divTotal[0].innerHTML = "" + this.total + "";
+          divTotal[0].innerHTML = "" + this.total.toFixed(2) + "";
         } else {
           this.comLen = 0;
           this.prodLen = 0;

@@ -22,8 +22,8 @@ export class CuponesCarritoPage implements OnInit {
   private correo:String="";
 
 
-  productoNecesario: any = "ACEITE GIRASOL LA FAVORITA 900 ML";
-  totalProductoNecesario: any = 2;
+  productoNecesario: any;
+  totalProductoNecesario: any;
   
   
   constructor(public cuponesService: CuponesService, private  router:  Router,private alert: AlertController,
@@ -127,60 +127,68 @@ export class CuponesCarritoPage implements OnInit {
 
   agregar(id:string,id2:string){
     this.getCorreo();
-    var doc=document.getElementById(id)
     var doc2=document.getElementById("Cupon"+id2)
-    doc2.style.visibility = "hidden";
-    this.storage.get('name').then((nombre) => {
-      console.log('Name is', nombre);
-      if(login.login ==false && nombre == null ){
-        login.producto = true;
-        this.router.navigateByUrl('/login');  
-      }else{
-        var cantidad = "1";
-        console.log("La cantidad que se agrega al carrito es: ", cantidad);
-        if(parseInt(cantidad) > 0){
-          const cupxcant={
-            'nombre': id,
-            'cantidad': parseInt(cantidad),
-            'correo': this.correo,
-            'cliente':86
-          }
-          console.log(cupxcant)
-          this.shoppingCart.addCupon(cupxcant).subscribe(data =>{
-            console.log(data)
-            if(data.valid == "OK"){   
-              console.log('prodNecesario', this.productoNecesario)
-              if(id=="Tortolines"){
-                this.carrito()
-              }
-              else if(id == "PRIMERA COMPRA") {
-                this.storage.get('total').then((total) => {
-                  if ((20.0 - total) > 0) {
-                    this.mensajeCorrecto("Cupón Agregado","Te falta $" + (20.0 - total).toString() + " para canjear el cupón. Continúa comprando");
-                    this.router.navigateByUrl('/footer/producto');
-                  }
-                  else {
-                    this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
-                  }
-                })
-                
-              }
-              else {
-                this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
-              }
-            }else if (data.valid == "IN"){
-              this.mensajeIncorrecto("Cupón agregado","Cupón ya existe en carrito");
-            }
-            else if (data.valid == "NOT"){
-              this.mensajeIncorrecto("Agregar Cupón","Ha ocurrido un error, revise su conexión");
-            }
-          })
-          window.footer.datos();
+    let nombreCupon: string = id.split(" ").join("%20")
+    this.cuponesService.getDatosCupones(nombreCupon).subscribe((datos:any)=> {
+      doc2.style.visibility = "hidden";
+      this.storage.get('name').then((nombre) => {
+        console.log('Name is', nombre);
+        if(login.login ==false && nombre == null ){
+          login.producto = true;
+          this.router.navigateByUrl('/login');  
         }else{
-          this.mensajeIncorrecto("Agregar Cupón","No ha escogido la cantidad para agregar");
+          var cantidad = "1";
+          if(parseInt(cantidad) > 0){
+            const cupxcant={
+              'nombre': id,
+              'cantidad': parseInt(cantidad),
+              'correo': this.correo,
+              'cliente':86
+            }
+            console.log(cupxcant)
+            this.shoppingCart.addCupon(cupxcant).subscribe(data =>{
+              console.log(data)
+              //Validacion
+              if(data.valid == "OK"){   
+                console.log('prodNecesario', this.productoNecesario)
+                if(datos.tipo == "P"){
+                  this.productoNecesario = datos.nombreProducto
+                  this.totalProductoNecesario = datos.cantidad
+                  this.carrito()
+                }
+                else if(datos.tipo == "M") {
+                  this.storage.get('total').then((total) => {
+                    if ((datos.monto - total) > 0) {
+                      this.mensajeCorrecto("Cupón Agregado","Te falta $" + (datos.monto - total).toFixed(2).toString() + " para canjear el cupón. Continúa comprando");
+                      this.router.navigateByUrl('/footer/producto');
+                    }
+                    else {
+                      this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
+                    }
+                  })
+                  
+                }
+                else {
+                  this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
+                }
+              }else if (data.valid == "IN"){
+                this.mensajeIncorrecto("Cupón agregado","Cupón ya existe en carrito");
+              }
+              else if (data.valid == "NOT"){
+                this.mensajeIncorrecto("Agregar Cupón","Ha ocurrido un error, revise su conexión");
+              }
+            })
+            window.footer.datos();
+          }else{
+            this.mensajeIncorrecto("Agregar Cupón","No ha escogido la cantidad para agregar");
+          }
         }
-      }
-      });
+        });
+      },(error)=>{
+        console.log("algo salio mal")
+        this.mensajeIncorrecto("Algo salió mal","error de conexión");
+        console.error(error);
+      }) 
   }
 
   carrito() {
