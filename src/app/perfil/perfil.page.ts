@@ -53,6 +53,11 @@ export class PerfilPage implements OnInit {
     });
 
   }
+  copiar(codigo){
+    console.log("funciona el click",codigo);
+    navigator.clipboard.writeText(codigo);
+    alert("Copiado al Portapapeles!")
+  }
 
   datos() {
     this.storage.get('perfil').then((val) => {

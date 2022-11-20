@@ -12,7 +12,7 @@
         </label>
         <ion-label>Codigo de Usuario</ion-label>
         <ion-item >
-          <ion-input type="text" [value]="codigo_unico" readonly></ion-input>
+          <ion-input type="text" [value]="codigo_unico"  id="codigo" (click)="copiar(codigo_unico)"readonly><i class="fa-solid fa-clipboard"></i></ion-input>
         </ion-item>
         <ion-label>Nombres</ion-label>
         <ion-item >
