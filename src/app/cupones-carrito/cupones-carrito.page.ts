@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController,ModalController} from '@ionic/angular';
+import { AlertController, LoadingController,ModalController,NavController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import {CuponesService} from '../servicios/cupones.service';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 declare var window;
 @Component({
   selector: 'app-cupones-carrito',
@@ -30,6 +31,7 @@ export class CuponesCarritoPage implements OnInit {
     public loadingCtrl: LoadingController,
     private storage: Storage,
     public modalCtrl: ModalController,
+    private navCtrlr: NavController,
     private shoppingCart: ShoppingCartService) { 
       this.storage.get('perfil').then((val)=>{
         if(val!=null){
@@ -239,6 +241,9 @@ export class CuponesCarritoPage implements OnInit {
     }else{
       doc.style.visibility = "visible";
     }
+  }
+  atras() {
+    this.router.navigateByUrl('/footer/cupones', { replaceUrl: true });
   }
   
 }
