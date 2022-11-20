@@ -35,7 +35,7 @@ export class ShoppingCartPage implements OnInit {
   loader: any;
   user: any;
   modificado = false;
-  total: any = 0.00;
+  total: number = 0.00;
   prodLen: number = 0;
   oferLen: number = 0;
   comLen: number = 0;
@@ -113,7 +113,7 @@ export class ShoppingCartPage implements OnInit {
           this.cupLen = this.getCuponLen();
           this.tarMontLen = this.getTarjetasMontoLen();
           this.tarMontLen2 = this.getTarjetasMontoLen2();
-          this.total = this.getTotal();
+          this.total = parseFloat(this.getTotal());
           this.esValidoProducto = this.cart[0]['esValidoProducto'];
           this.productoNecesario = this.cart[0]['productoNecesario']
           this.totalNecesarioMonto = this.cart[0]['totalNecesarioMonto'];
@@ -420,6 +420,7 @@ export class ShoppingCartPage implements OnInit {
       var name = subtotal[i].getAttribute('id')
       if (String(name) == c) {
         tot = tot - parseFloat(subtotal[i].innerHTML);
+        tot = parseFloat(tot).toFixed(2)
         subtot = subtot + parseFloat(subtotal[i].innerHTML);
         pos = i;
       }
@@ -588,7 +589,7 @@ export class ShoppingCartPage implements OnInit {
               if (this.oferLen + this.prodLen + this.comLen > 0) {
                 //console.log(this.open);
                 if (this.open) {
-                  this.storage.set('total', this.total);
+                  this.storage.set('total', this.total.toFixed(2));
                   if (this.tarMontLen>0){
                     this.storage.set('usaTarMont', 'si');
                   }else{
@@ -616,7 +617,7 @@ export class ShoppingCartPage implements OnInit {
         else if (this.oferLen + this.prodLen + this.comLen > 0) {
           //console.log(this.open);
           if (this.open) {
-            this.storage.set('total', this.total);
+            this.storage.set('total', this.total.toFixed(2));
             if (this.tarMontLen>0){
               this.storage.set('usaTarMont', 'si');
             }else{
@@ -708,8 +709,8 @@ export class ShoppingCartPage implements OnInit {
   }
 
   cupones(){
-    this.storage.set('total', this.total);
-    this.router.navigateByUrl('/footer/cupones-carrito', { replaceUrl: true });
+    this.carrito()
+    this.storage.set('total', this.total.toFixed(2));
+    this.router.navigateByUrl('/footer/cupones', { replaceUrl: true });
   }
 }
-

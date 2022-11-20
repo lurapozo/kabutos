@@ -48,14 +48,14 @@ export class CuponesCarritoPage implements OnInit {
 
   pantalla(event){
     console.log("refresh");
-     this.cuponesService.getCuponesPersonales(this.perfil.id).subscribe(data => {
+     this.cuponesService.getCuponesHistorial(this.perfil.id).subscribe(data => {
        //console.log("esta es la data "+data["nombre"])
        this.cupon=data;
        var tol =Object.entries(this.cupon).length
        console.log(this.cupon);
        console.log(tol)
        if(tol==0){
-        this.mensajeIncorrecto("No existen cupones disponibles","Agregaramos nuevos más adelante");
+        this.mensajeIncorrecto("No existen cupones disponibles","No has realizado compras con cupones");
        }
        if (event)
           event.target.complete();

@@ -65,6 +65,22 @@ ion-header{
     z-index: 1;
 }
 
+.btns{
+    justify-content: flex-start;
+    display: flex;
+    margin-top: 2rem;
+}
+
+button{
+    height: 1.5rem;
+    background: var(--ion-color-naranja-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color:white;
+}
+
 /*
 .agregar:hover {
     visibility: visible;

@@ -42,6 +42,14 @@ export class CuponesService {
    return this.http.get(this.baseUrl+'cupones/' + id,{headers:headers})
   }
 
+  getCuponesHistorial( id: number) {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+  
+     return this.http.get(this.baseUrl+'cuponesH/' + id,{headers:headers})
+    }
   getDatosCupones( name: string) {
     const headers = {
       'Accept': 'application/json, text/plain',
