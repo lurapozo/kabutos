@@ -35,7 +35,7 @@ export class ShoppingCartPage implements OnInit {
   loader: any;
   user: any;
   modificado = false;
-  total: number = 0.00;
+  total: number  = 0.00;
   prodLen: number = 0;
   oferLen: number = 0;
   comLen: number = 0;
@@ -118,7 +118,7 @@ export class ShoppingCartPage implements OnInit {
           this.productoNecesario = this.cart[0]['productoNecesario']
           this.totalNecesarioMonto = this.cart[0]['totalNecesarioMonto'];
           var divTotal = document.querySelectorAll("[id='A_pagar']");
-          divTotal[0].innerHTML = "" + this.total.toFixed(2) + "";
+          divTotal[0].innerHTML = "" + this.total + "";
         } else {
           this.comLen = 0;
           this.prodLen = 0;
@@ -392,7 +392,7 @@ export class ShoppingCartPage implements OnInit {
       if(tot<0){
         tot=0
       }
-      return tot.toFixed(2);
+      return tot;
     }
   }
 
@@ -589,7 +589,7 @@ export class ShoppingCartPage implements OnInit {
               if (this.oferLen + this.prodLen + this.comLen > 0) {
                 //console.log(this.open);
                 if (this.open) {
-                  this.storage.set('total', this.total.toFixed(2));
+                  this.storage.set('total', this.total);
                   if (this.tarMontLen>0){
                     this.storage.set('usaTarMont', 'si');
                   }else{
@@ -617,7 +617,7 @@ export class ShoppingCartPage implements OnInit {
         else if (this.oferLen + this.prodLen + this.comLen > 0) {
           //console.log(this.open);
           if (this.open) {
-            this.storage.set('total', this.total.toFixed(2));
+            this.storage.set('total', this.total);
             if (this.tarMontLen>0){
               this.storage.set('usaTarMont', 'si');
             }else{
@@ -710,7 +710,7 @@ export class ShoppingCartPage implements OnInit {
 
   cupones(){
     this.carrito()
-    this.storage.set('total', this.total.toFixed(2));
+    this.storage.set('total', this.total);
     this.router.navigateByUrl('/footer/cupones', { replaceUrl: true });
   }
 }
