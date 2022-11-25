@@ -33,11 +33,7 @@ export class CuponesCarritoPage implements OnInit {
     public modalCtrl: ModalController,
     private navCtrlr: NavController,
     private shoppingCart: ShoppingCartService) { 
-      this.storage.get('perfil').then((val)=>{
-        if(val!=null){
-          this.perfil=val;
-        }
-      });
+
     }
 
   ngOnInit() {
@@ -49,25 +45,33 @@ export class CuponesCarritoPage implements OnInit {
   }
 
   pantalla(event){
-    console.log("refresh");
-     this.cuponesService.getCuponesHistorial(this.perfil.id).subscribe(data => {
-       //console.log("esta es la data "+data["nombre"])
-       this.cupon=data;
-       var tol =Object.entries(this.cupon).length
-       console.log(this.cupon);
-       console.log(tol)
-       if(tol==0){
-        this.mensajeIncorrecto("No existen cupones disponibles","No has realizado compras con cupones");
-       }
-       if (event)
-          event.target.complete();
-       },(error)=>{
-         console.log("algo salio mal")
-         this.mensajeIncorrecto("Algo salió mal","error de conexión");
-         console.error(error);
-         if (event)
-          event.target.complete();
-       }) 
+    this.storage.get('perfil').then((val)=>{
+      if(val!=null){
+        this.perfil=val;
+        console.log("refresh");
+         this.cuponesService.getCuponesHistorial(this.perfil.id).subscribe(data => {
+           //console.log("esta es la data "+data["nombre"])
+           this.cupon=data;
+           var tol =Object.entries(this.cupon).length
+           console.log(this.cupon);
+           console.log(tol)
+           if(tol==0){
+            this.mensajeIncorrecto("No existen cupones disponibles","No has realizado compras con cupones");
+           }
+           if (event)
+              event.target.complete();
+           },(error)=>{
+             console.log("algo salio mal")
+             this.mensajeIncorrecto("Algo salió mal","error de conexión");
+             console.error(error);
+             if (event)
+              event.target.complete();
+           })
+      }
+      else {
+        this.mensajeIncorrecto("Perfil no encontrado","Inicie sesión para poder ver sus cupones");
+      }
+    });
   }
   
   cargaPantalla() {  

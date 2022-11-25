@@ -100,7 +100,7 @@ export class CodigosPage implements OnInit {
           this.mensajeIncorrecto('Código incorrecto','El código ingresado no es válido, ingrese otro código')
         }
         else if (data.valid == "OK"){
-          this.mensajeCorrecto('Código canjeado', 'Encontrará el premio en la sección de cupones')
+          this.mensajeCorrecto('Código canjeado', 'Encontrará el premio en la sección de cupones, será válido solo el día de hoy')
         }
         else if (data.valid == "talvez"){
           this.mensajeIncorrecto('Código ya canjeado','Ya has canjeado este código anteriormente')
