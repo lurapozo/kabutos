@@ -1,29 +1,41 @@
-<ion-content>
+<div>
   <ion-refresher slot="fixed" (ionRefresh)="pantalla($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="contenedor">
+  <div class="contenedor3">
     <div class="contenedor-titulo">
       <ion-label class="titulo">Cupones</ion-label>
     </div>
-    <div class="contenedor-cupones" *ngFor="let cupones of cupon">
-      <div class="agregar-imagen" id="Cupon{{cupones.id}}">
-        <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(cupones.nombre,cupones.id)>
-      </div>
-      <div class="nombre">{{cupones.nombre}}</div>
-      <div class="contenedor-imagen" (click)=mostrar(cupones.id) id={{cupones.nombre}}>
-        <div class="descripcion">{{cupones.descripcion}}</div>
-        <img class="imagen" src="http://cabutoshop.pythonanywhere.com{{cupones.imagen}}">
+  </div>
+</div>
 
+<ion-content>
+  <div class="contenedor">
+      <div class="contenedor-cupones" *ngFor="let cupones of cupon">
+        <div class="agregar-imagen" id="Cupon{{cupones.id}}">
+          <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(cupones.nombre,cupones.id)>
+        </div>
+        <div class="interior">
+          <div class="nombre">{{cupones.nombre}}</div>
+          <div class="descripcion">{{cupones.descripcion}}</div>
+        </div>
+        
+        <div class="contenedor-imagen" (click)=mostrar(cupones.id) id={{cupones.nombre}}>
+          <img class="imagen" src="http://cabutoshop.pythonanywhere.com{{cupones.imagen}}">
+        </div>
       </div>
-    </div>
+  </div>
+</ion-content>
+
+<div class="divv">
+  <div class="contenedor2">
     <div class="btns">
       <button ion-button size="large" (click)="historial()">
-        Historial de canje
+        Historial de Canje
       </button>
     </div>
   </div>
-</ion-content>
+</div>
 
 
 <!--<img name="imagen" src="../assets/img/cupon1.png"  >-->

@@ -10,14 +10,16 @@
       <ion-label class="titulo">Historial de Cupones</ion-label>
     </div>
     <div class="contenedor-cupones" *ngFor="let cupones of cupon">
-      <div class="agregar-imagen" id="Cupon{{cupones.id}}">
-        <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(cupones.nombre,cupones.id)>
-      </div>
+      <div class="interior">
       <div class="nombre">{{cupones.nombre}}</div>
+      <div class="descripcion">{{cupones.descripcion}}</div>
+      <div class="descripcion">
+          <h2>Canjeado el:</h2> <h6>{{ cupones.fecha | date:'dd/MM/yyyy' }}</h6>
+          
+        </div>
+</div>
       <div class="contenedor-imagen" id={{cupones.nombre}}>
-        <div class="descripcion">{{cupones.descripcion}}</div>
         <img class="imagen" src="http://cabutoshop.pythonanywhere.com{{cupones.imagen}}">
-        <div class="descripcion">{{cupones.fecha}}</div>
       </div>
     </div>
   </div>
