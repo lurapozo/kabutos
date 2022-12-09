@@ -19,6 +19,8 @@ export class HacerRegaloPage implements OnInit {
   loading: any;
   correo: any;
   usuarios: any;
+  input:any;
+  datalist:any;
 
   constructor(
     private storage: Storage,
@@ -40,6 +42,9 @@ export class HacerRegaloPage implements OnInit {
     this.perfilService.getPerfiles().subscribe((data) => {
       this.usuarios=(data)
     });
+    this.input = document.querySelector("correo") as HTMLInputElement | null // Selects the input.
+    this.datalist = document.getElementById("brow")as HTMLDataListElement | null; // Selects the datalist.
+    this.datalist.setAttribute("id", "");
   }
 
   atras() {
@@ -103,5 +108,17 @@ export class HacerRegaloPage implements OnInit {
       }
     });
     //this.enviarForm(formData)
+  }
+  
+
+  
+  lista(e){
+    
+     // If input value is longer or equal than 2 chars, adding "users" on ID attribute.
+    if (e.target.value.length >= 3) {
+      this.datalist.setAttribute("id", "brow");
+    } else {
+      this.datalist.setAttribute("id", "");
+    }
   }
 }

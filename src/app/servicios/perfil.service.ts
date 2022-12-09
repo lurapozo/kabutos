@@ -8,8 +8,9 @@ import { Tarjeta } from '../modelo/tarjeta'
   providedIn: 'root'
 })
 export class PerfilService {
+
+  //baseUrl :string= "http://127.0.0.1:8000/movil/";
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
-  ///baseUrl :string= "http://127.0.0.1:8000/movil/";
 
   constructor(
     private http: HttpClient
@@ -34,7 +35,7 @@ export class PerfilService {
           'Content-Type':  'application/json',
         })
       };
-    return this.http.get(this.baseUrl+'cliente/',{headers:httpOptions.headers});
+    return this.http.get(this.baseUrl+'cliente2/',{headers:httpOptions.headers});
 
   }
 

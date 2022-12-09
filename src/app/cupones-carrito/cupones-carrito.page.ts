@@ -133,10 +133,10 @@ export class CuponesCarritoPage implements OnInit {
 
   agregar(id:string,id2:string){
     this.getCorreo();
-    var doc2=document.getElementById("Cupon"+id2)
+    //var doc2=document.getElementById("Cupon"+id2)
     let nombreCupon: string = id.split(" ").join("%20")
     this.cuponesService.getDatosCupones(nombreCupon).subscribe((datos:any)=> {
-      doc2.style.visibility = "hidden";
+      //doc2.style.visibility = "hidden";
       this.storage.get('name').then((nombre) => {
         console.log('Name is', nombre);
         if(login.login ==false && nombre == null ){
@@ -235,7 +235,7 @@ export class CuponesCarritoPage implements OnInit {
   });
 }
 
-  mostrar(id:string){
+  /*mostrar(id:string){
     console.log("esto en mostrar y el id que tengo es",id)
     var doc=document.getElementById("Cupon"+id)
     console.log(doc)
@@ -245,7 +245,7 @@ export class CuponesCarritoPage implements OnInit {
     }else{
       doc.style.visibility = "visible";
     }
-  }
+  }*/
   atras() {
     this.router.navigateByUrl('/footer/cupones', { replaceUrl: true });
   }

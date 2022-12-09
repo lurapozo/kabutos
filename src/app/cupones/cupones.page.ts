@@ -133,7 +133,7 @@ export class CuponesPage implements OnInit {
     var doc2=document.getElementById("Cupon"+id2)
     let nombreCupon: string = id.split(" ").join("%20")
     this.cuponesService.getDatosCupones(nombreCupon).subscribe((datos:any)=> {
-      doc2.style.visibility = "hidden";
+      //doc2.style.visibility = "  ";
       this.storage.get('name').then((nombre) => {
         console.log('Name is', nombre);
         if(login.login ==false && nombre == null ){

@@ -134,9 +134,9 @@ export class TarjetasDeRegaloPage implements OnInit {
 
   agregar(monto: string, id: string) {
     this.getCorreo();
-    var doc = document.getElementById(monto);
-    var doc2 = document.getElementById("Tarjeta" + id);
-    doc2.style.visibility = "hidden";
+    //var doc = document.getElementById(monto);
+    //var doc2 = document.getElementById("Tarjeta" + id);
+    //doc2.style.visibility = "hidden";
     this.storage.get("name").then((nombre) => {
       console.log("Name is", nombre);
       if (login.login == false && nombre == null) {
@@ -185,8 +185,8 @@ export class TarjetasDeRegaloPage implements OnInit {
 
   agregar2(id: string) {
     this.getCorreo();
-    var doc2 = document.getElementById("Tarjeta2" + id);
-    doc2.style.visibility = "hidden";
+    //var doc2 = document.getElementById("Tarjeta2" + id);
+    //doc2.style.visibility = "hidden";
     this.storage.get("name").then((nombre) => {
       console.log("Name is", nombre);
       if (login.login == false && nombre == null) {
@@ -241,7 +241,7 @@ export class TarjetasDeRegaloPage implements OnInit {
     });
   }
 
-  mostrar(id: string) {
+  /*mostrar(id: string) {
     console.log("esto en mostrar y el id que tengo es", id);
     var doc = document.getElementById("Tarjeta" + id);
     console.log(doc);
@@ -262,5 +262,5 @@ export class TarjetasDeRegaloPage implements OnInit {
     } else {
       doc.style.visibility = "visible";
     }
-  }
+  }*/
 }

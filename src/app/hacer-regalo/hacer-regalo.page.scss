@@ -25,6 +25,7 @@
         font-size: larger;
         font-size: 1.5rem;
         margin-bottom: 0px;
+        text-align: center;
     }
 }
   
@@ -153,4 +154,43 @@ ion-item{
     margin: 0 auto;
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+  .mensaje{
+    display: flex;
+    justify-content: center;
+    p{
+      color: #ff0000;
+      font-size: 16pt;
+      width:75%;
+      text-align: center;
+    }
+  }
+  .regalito{
+    display: flex;
+    justify-content: end;
+    img{
+      width:30%;
+      text-align: center;
+      margin-right: 2em;
+    }
+  }
+  input {
+    border:  transparent;
+    background-color: #ffffff;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+    cursor: pointer;
   }

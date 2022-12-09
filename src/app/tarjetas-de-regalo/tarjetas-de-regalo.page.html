@@ -5,15 +5,23 @@
   <div class="contenedor-titulo">
     <ion-label class="titulo">¿Desea hacer un regalo?</ion-label>
   </div>
+  <br>
   <div class="button-content">
     <button ion-button size="large" (click)="regalar()">
-      Hacer regalo
-      <img src="../assets/img/continuar.png" width="10" height="15">
+      <div class="imggg">
+        <img src="../assets/img/wgift.png" width="20" height="20">
+      </div>
+      <div class="texxxttt">
+        Hacer regalo
+      </div>
+      <div class="imggg">
+        <img src="../assets/img/continuar.png" width="10" height="15">
+      </div>
     </button>
   </div>
   <br>
-  <div class="contenedor-titulo">
-    <ion-label class="titulo">Tus tarjetas de regalo</ion-label>
+  <div class="contenedor-titulo2">
+    <ion-label class="titulo2">¡Tus tarjetas de regalo!</ion-label>
   </div>
 </div>
 
@@ -21,13 +29,17 @@
   <ion-refresher slot="fixed">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="contenedor">
+  <div class="contenedor1">
+    
     <div class="contenedor-tarjetas" *ngFor="let tarjeta of tarjetas">
       <div class="agregar-imagen" id="Tarjeta{{tarjeta.id}}">
-        <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(tarjeta.monto,tarjeta.id)>
+        <img name="agregar" src="../assets/img/agregar_3.png" (click)=agregar(tarjeta.monto,tarjeta.id)>
       </div>
-      <div class="nombre">Regalo de: {{tarjeta.emisor}}</div>
-      <div class="contenedor" (click)=mostrar(tarjeta.id) id={{tarjeta.nombre}}>
+      <div class="nombre">
+        <img src="../assets/img/OWgift.png" >
+        <p>Regalo de {{tarjeta.emisor}}:</p>
+      </div>
+      <div class="contenedor2"  id={{tarjeta.nombre}}>
         <div class="descripcion">Descripcion: {{tarjeta.descripcion}}</div>
         <br>
         <div class="monto">Monto: ${{tarjeta.monto}}</div>
@@ -36,10 +48,10 @@
 
     <div class="contenedor-tarjetas" *ngFor="let tarjeta2 of tarjetas2">
       <div class="agregar-imagen" id="Tarjeta2{{tarjeta2.id}}">
-        <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar2(tarjeta2.id)>
+        <img name="agregar" src="../assets/img/agregar_3.png" (click)=agregar2(tarjeta2.id)>
       </div>
-      <div class="nombre">Regalo de: {{tarjeta2.emisor}}</div>
-      <div class="contenedor" (click)=mostrar2(tarjeta2.id) id={{tarjeta2.nombre}}>
+      <div class="nombre"><p>Regalo de: {{tarjeta2.emisor}}</p></div>
+      <div class="contenedor2"  id={{tarjeta2.nombre}}>
         <div class="descripcion">Descripcion: {{tarjeta2.descripcion}}</div>
         <br>
         <div class="productos">Productos: {{tarjeta2.listaprod}}</div>

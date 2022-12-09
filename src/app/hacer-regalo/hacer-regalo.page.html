@@ -5,21 +5,24 @@
       <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
     </div>
     <div class="contenedor-titulo">
-      <ion-label class="titulo">Escriba el correo del usuario al que desea enviar un regalo</ion-label>
+      <ion-label class="titulo">¿A quién le enviarás un regalo?</ion-label>
     </div>
     
     <form #form="ngForm" (ngSubmit)="canjear(form)">
       <div class="form">
-        <ion-label>Correo</ion-label>
-        <br><ion-item>
-        <input list="brow" id="1" name="correo" [(ngModel)]="correo" required style="width: 100%; background-color: white;">
-          <datalist id="brow" name="producto" required>
-          <div class="contenedor-tarjetas" *ngFor="let usuario of usuarios">
-            <option class="input" value={{usuario.correo}} name="producto">{{usuario.nombre}} {{usuario.apellido}}
-              / {{usuario.correo}}</option>
-          </div>
+        <ion-label>(Código, Correo o Nombre)</ion-label>
+        <br>
+        <ion-item>
+        <input list="brow" minlength="3" id="1" name="correo" [(ngModel)]="correo" required style="width: 100%; background-color: rgb(255, 255, 255);" (keyup)="lista($event)">
+          
+          <datalist id="brow" name="brow" required>
+
+            <div class="contenedor-tarjetas" *ngFor="let usuario of usuarios">
+              <option class="input" value={{usuario.correo}} name="producto">{{usuario.codigo_unico}} / {{usuario.nombre}} {{usuario.apellido}}
+                / {{usuario.correo}}</option>
+            </div>
           </datalist>
-          </ion-item>
+        </ion-item>
 
           <!--<ion-input id="1" name="correo" type="text" [(ngModel)]="correo" required></ion-input>-->
         
@@ -31,5 +34,20 @@
       </div>
     </form>
     
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="regalito">
+    <img src="../assets/img/REGALO.png">
+  </div>
+
+
+  <br>
+  <div class="mensaje">
+    <p>
+      ¡AHORA EL AMOR ES CON HECHOS Y NO SOLO PALABRAS!
+    </p>
   </div>
 </ion-content> 

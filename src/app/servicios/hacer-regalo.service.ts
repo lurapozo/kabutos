@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class HacerRegaloService {
 
-  //baseUrl: string = "http://127.0.0.1:8000/movil/";
+  //baseUrl :string= "http://127.0.0.1:8000/movil/";
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
 

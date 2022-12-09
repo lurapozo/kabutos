@@ -16,11 +16,11 @@
           <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(cupones.nombre,cupones.id)>
         </div>
         <div class="interior">
-          <div class="nombre">{{cupones.nombre}}</div>
+          <div class="nombre"><h2>{{cupones.nombre}}</h2></div>
           <div class="descripcion">{{cupones.descripcion}}</div>
         </div>
         
-        <div class="contenedor-imagen" (click)=mostrar(cupones.id) id={{cupones.nombre}}>
+        <div class="contenedor-imagen" id={{cupones.nombre}}>
           <img class="imagen" src="http://cabutoshop.pythonanywhere.com{{cupones.imagen}}">
         </div>
       </div>

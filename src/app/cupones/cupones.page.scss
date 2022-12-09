@@ -4,7 +4,7 @@ ion-header{
 }
 
 *{
-    font-family: 'MyriadProSemibold' !important;
+    font-family: 'MyriadProSemibold' ;
 }
 
 .contenedor{
@@ -55,7 +55,10 @@ ion-header{
         color:white;
         font-size: 25px;
         margin-bottom: 10px;
-        font-weight: bold;
+        h2{
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-weight: bold;  
+        }
     }
     .contenedor-imagen{
         padding-bottom: 0.5rem;
