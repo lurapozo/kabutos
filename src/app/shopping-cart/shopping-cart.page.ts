@@ -1,4 +1,4 @@
-import { Component, OnInit, TestabilityRegistry } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader, TestabilityRegistry } from '@angular/core';
 import { Router } from "@angular/router";
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
@@ -14,6 +14,7 @@ import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { exit } from 'process';
 import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { Console } from 'console';
 declare var window;
 
 @Component({
@@ -49,6 +50,7 @@ export class ShoppingCartPage implements OnInit {
   private correo: string = "";
   currentTimeHours: any;
   open = false;
+  politecnico=false;
   constructor(private modalCtrl: ModalController, private router: Router,
     private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
     private storage: Storage,
@@ -69,6 +71,9 @@ export class ShoppingCartPage implements OnInit {
           'correo': this.correo,
           'contrasena': 'xxxxx'
         };
+        if(this.correo.includes("@espol.edu.ec")){
+          this.politecnico=true;
+        }
         this.datos()
       }
     }, (error) => {
@@ -218,9 +223,15 @@ export class ShoppingCartPage implements OnInit {
     }
     
     ttotal = ototal + ctotal + ptotal;
+
+    if(this.politecnico){
+      ttotal=ttotal*0.9
+    }
+    
     if(ttotal<0){
       ttotal=0
     }
+    
     return Number.parseFloat(ttotal).toFixed(2);
 
   }
@@ -389,6 +400,9 @@ export class ShoppingCartPage implements OnInit {
       this.total = 0.00;
       return 0.00;
     } else {
+      if(this.politecnico){
+        tot=tot*0.9
+      }
       if(tot<0){
         tot=0
       }
