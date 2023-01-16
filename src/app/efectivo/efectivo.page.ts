@@ -290,6 +290,7 @@ export class EfectivoPage implements OnInit {
 
   getText(item){
     this.mensaje=(item.value)
+    console.log(this.mensaje)
   }
   
   confirmar(form) {
@@ -299,6 +300,7 @@ export class EfectivoPage implements OnInit {
     form.id = this.perfil.id;
     form.envio = this.envio;
     form.direccion = this.id_direccion;
+    form.mensaje= this.mensaje;
     form.descuento = 0;
     form.mensaje= this.mensaje;
     form.tarj="no";
