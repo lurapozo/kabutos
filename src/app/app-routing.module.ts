@@ -64,6 +64,10 @@ const routes: Routes = [
     loadChildren: () => import('./tarjetas-de-regalo/tarjetas-de-regalo.module').then( m => m.TarjetasDeRegaloPageModule)
   },
   {
+    path: 'premios',
+    loadChildren: () => import('./premios/premios.module').then( m => m.PremiosPageModule)
+  },
+  {
     path: 'hacer-regalo',
     loadChildren: () => import('./hacer-regalo/hacer-regalo.module').then( m => m.HacerRegaloPageModule)
   },
@@ -82,7 +86,11 @@ const routes: Routes = [
   {
     path: 'cupones-carrito',
     loadChildren: () => import('./cupones-carrito/cupones-carrito.module').then( m => m.CuponesCarritoPageModule)
+  },  {
+    path: 'premios',
+    loadChildren: () => import('./premios/premios.module').then( m => m.PremiosPageModule)
   },
+
 
   
   
