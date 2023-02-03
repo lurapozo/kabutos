@@ -14,7 +14,7 @@ import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { exit } from 'process';
 import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
-import { Console } from 'console';
+//import { Console } from 'console';
 declare var window;
 
 @Component({
@@ -37,6 +37,7 @@ export class ShoppingCartPage implements OnInit {
   user: any;
   modificado = false;
   total: number  = 0.00;
+  totalOriginal: number = 0.00;
   prodLen: number = 0;
   oferLen: number = 0;
   comLen: number = 0;
@@ -223,10 +224,11 @@ export class ShoppingCartPage implements OnInit {
     }
     
     ttotal = ototal + ctotal + ptotal;
-
+    this.totalOriginal = ttotal.toFixed(2);
     if(this.politecnico){
       ttotal=ttotal*0.9
     }
+
     
     if(ttotal<0){
       ttotal=0
@@ -400,13 +402,14 @@ export class ShoppingCartPage implements OnInit {
       this.total = 0.00;
       return 0.00;
     } else {
+    this.totalOriginal = tot.toFixed(2);
       if(this.politecnico){
         tot=tot*0.9
       }
       if(tot<0){
         tot=0
       }
-      return tot;
+      return tot.toFixed(2);
     }
   }
 
@@ -554,7 +557,6 @@ export class ShoppingCartPage implements OnInit {
         })
       )
       .subscribe(data => {
-
         this.currentTimeHours = currentDate.getHours();
         this.currentTimeHours = this.currentTimeHours < 10 ? "0" + this.currentTimeHours : this.currentTimeHours;
         var currentTimeMinutes = currentDate.getMinutes();
@@ -582,7 +584,6 @@ export class ShoppingCartPage implements OnInit {
           this.mensajeIncorrecto('Canje inválido', 'Te falta $' + (this.totalNecesarioMonto - this.total).toString() + ' para reclamar el cupon')
         }
 
-        //FALTA VALIDAR PRODUCTO
         else if (this.productoNecesario != false) {
           if (this.esValidoProducto != true) {
             let cantidadNecesaria = this.esValidoProducto.split(" ")[2]
@@ -639,7 +640,7 @@ export class ShoppingCartPage implements OnInit {
             }
             if (this.tarMontLen2>0){
               this.storage.set('usaTarProd', 'si');
-            }else{
+            } else{
               this.storage.set('usaTarProd', 'no');
             }
             this.storage.set('tarjetaRegaloMonto', 'no');
@@ -647,8 +648,7 @@ export class ShoppingCartPage implements OnInit {
           } else {
             this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
           }
-        } 
-        else {
+        } else {
           this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
           this.router.navigate(['']);
         }
@@ -726,5 +726,10 @@ export class ShoppingCartPage implements OnInit {
     this.carrito()
     this.storage.set('total', this.total);
     this.router.navigateByUrl('/footer/cupones', { replaceUrl: true });
+  }
+  productos(){
+    this.carrito()
+    this.storage.set('total', this.total);
+    this.router.navigateByUrl('/footer/producto', { replaceUrl: true });
   }
 }

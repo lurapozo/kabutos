@@ -28,7 +28,7 @@ import {ModalPage} from '././modal/modal.page';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-
+import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,6 +51,8 @@ driverOrder: ['indexeddb', 'sqlite', 'websql']
     FirebaseX,
     NativeStorage,
     HTTP,
+    SocialSharing,
+
     FooterPage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

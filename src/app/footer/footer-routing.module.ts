@@ -161,6 +161,18 @@ const routes: Routes = [
         path: 'cupones-carrito',
         loadChildren: () => import('../cupones-carrito/cupones-carrito.module').then( m => m.CuponesCarritoPageModule)
       },
+      {
+        path: 'premios',
+        loadChildren: () => import('../premios/premios.module').then( m => m.PremiosPageModule)
+      },
+      {
+        path: 'puntos',
+        loadChildren: () => import('../puntos/puntos.module').then( m => m.PuntosPageModule)
+      },
+      {
+        path: 'catalogo',
+        loadChildren: () => import('../catalogo/catalogo.module').then( m => m.CatalogoPageModule)
+      },
     ]
   },
   {

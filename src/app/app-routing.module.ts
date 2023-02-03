@@ -58,39 +58,26 @@ const routes: Routes = [
   {
     path: 'calificar',
     loadChildren: () => import('./calificar/calificar.module').then( m => m.CalificarPageModule)
-  },
-  {
-    path: 'tarjetas-de-regalo',
-    loadChildren: () => import('./tarjetas-de-regalo/tarjetas-de-regalo.module').then( m => m.TarjetasDeRegaloPageModule)
-  },
-  {
-    path: 'premios',
-    loadChildren: () => import('./premios/premios.module').then( m => m.PremiosPageModule)
-  },
-  {
-    path: 'hacer-regalo',
-    loadChildren: () => import('./hacer-regalo/hacer-regalo.module').then( m => m.HacerRegaloPageModule)
-  },
-  {
-    path: 'hacer-regalo-monto',
-    loadChildren: () => import('./hacer-regalo-monto/hacer-regalo-monto.module').then( m => m.HacerRegaloMontoPageModule)
-  },
-  {
-    path: 'hacer-regalo-escoger',
-    loadChildren: () => import('./hacer-regalo-escoger/hacer-regalo-escoger.module').then( m => m.HacerRegaloEscogerPageModule)
-  },
-  {
-    path: 'hacer-regalo-producto',
-    loadChildren: () => import('./hacer-regalo-producto/hacer-regalo-producto.module').then( m => m.HacerRegaloProductoPageModule)
-  },
-  {
-    path: 'cupones-carrito',
-    loadChildren: () => import('./cupones-carrito/cupones-carrito.module').then( m => m.CuponesCarritoPageModule)
   },  {
+    path: 'codigounico',
+    loadChildren: () => import('./codigounico/codigounico.module').then( m => m.CodigounicoPageModule)
+  },
+  {
     path: 'premios',
     loadChildren: () => import('./premios/premios.module').then( m => m.PremiosPageModule)
   },
-
+  {
+    path: 'puntos',
+    loadChildren: () => import('./puntos/puntos.module').then( m => m.PuntosPageModule)
+  },
+  {
+    path: 'catalogo',
+    loadChildren: () => import('./catalogo/catalogo.module').then( m => m.CatalogoPageModule)
+  },
+  {
+    path: 'detalles-premios',
+    loadChildren: () => import('./detalles-premios/detalles-premios.module').then( m => m.DetallesPremiosPageModule)
+  },
 
   
   

@@ -290,7 +290,6 @@ export class EfectivoPage implements OnInit {
 
   getText(item){
     this.mensaje=(item.value)
-    console.log(this.mensaje)
   }
   
   confirmar(form) {
@@ -300,7 +299,6 @@ export class EfectivoPage implements OnInit {
     form.id = this.perfil.id;
     form.envio = this.envio;
     form.direccion = this.id_direccion;
-    form.mensaje= this.mensaje;
     form.descuento = 0;
     form.mensaje= this.mensaje;
     form.tarj="no";
@@ -375,6 +373,7 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (data.valid == "ok") {
+            console.log("AAAAAAAAA", data.enviarnotificacion);
             if (this.tipoPago == "Tarjeta") {
               this.pagado(data.pedido, transaccion, autorizacion);
             }
@@ -385,14 +384,15 @@ export class EfectivoPage implements OnInit {
             this.storage.set("tarjetaRegaloproducto",'no')
             this.storage.get("tipoEntrega").then((val) => {
               if (val != null) {
-                if (val === "Local") {
+                if (this.tarjetaRegalo=='si') {
+                  this.mensajeCorrecto("Su regalo se ha enviado", "");
+                } else if (val === "Local" ){
                   this.mensajeCorrecto("Estaremos esperando por Usted", "");
-                } else {
+                }else {
                   this.mensajeCorrecto("Su pedido será enviado en breve", "");
                 }
               }
             });
-
             this.router.navigate([""]);
           } else {
             this.mensajeIncorrecto("Error", "No se ha enviado el pedido");

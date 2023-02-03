@@ -15,7 +15,9 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
-
+import { FCM } from "@capacitor-community/fcm"; 
+import { HistorialService } from "../../../servicios/historial.service";
+import { PushNotifications, Token } from '@capacitor/push-notifications';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -52,6 +54,7 @@ export class LoginPage implements OnInit {
     private fcm: FcmService,
     private firebase: FirebaseX,
     private perfilService: PerfilService,
+    private HistorialService:HistorialService,
     private shoppingService: ShoppingCartService) { }
 	
   ngOnInit() {
@@ -127,6 +130,28 @@ export class LoginPage implements OnInit {
         this.component.action="Cerrar Sesión";
         this.perfilS(form.correo);
 
+        PushNotifications.addListener('registration', 
+        (token: Token)=>{
+          console.log('The token is: '+ token.value)
+          this.storage.set('token', token.value);
+          let info = {
+            id: id,
+            token: token.value
+          };
+          console.log("infoToken es:", info);
+          this.HistorialService.addToken(info).subscribe(
+            (data) => {
+              if (data.valid == "Ok") {
+                console.log("AAAAAAAAA");
+              } else {
+                console.log("EEEEEEEE");
+              }
+            },
+            (err) => {
+              console.log("IIIIIII");
+            }
+          );
+        });
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,
@@ -279,84 +304,6 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     await alert.present();
   }
 
-  facebook(){
-    this.authService.loginwithFacebook().then(res=>{
-      console.log(res)
-      const usuario = res.user;
-      var mail = usuario.email;
-      var nombre = usuario.displayName;
-      var foto = usuario.photoURL;
-      
-      console.log(nombre)
-      console.log(foto)
-      var contra = usuario.displayName;
-      const logR ={
-        'cedula': " ",
-        'email': mail,
-        'nombre': contra,
-        'apellido': " ",
-        'contrasena': contra,
-        'confirmar': contra
-
-      }
-      
-      //this.router.navigateByUrl('/producto');
-      const log=  {'correo': mail,
-        'contrasena': contra
-      }
-      this.authService.VerificarUser(log).subscribe(data=> {
-        console.log(data.valid)
-        console.log("holaaaa ajajaajja")
-        if (data.valid == "OK"){
-          var nombre = data.nombre;
-          var apellido = data.apellido;
-          console.log(nombre)
-          console.log(apellido)
-          login.login = true;
-          this.storage.set('name', nombre);
-          this.storage.set('apellido', apellido);
-          this.storage.set('correo', mail);
-          this.storage.set('number', "");
-          this.component.name=nombre;
-          this.component.lastname = apellido;
-          this.component.action="Cerrar Sesión";
-          this.router.navigateByUrl('/');
-        }
-        else{
-          this.authService.addUser(logR).subscribe(data=> {
-            
-            console.log("imprimiendo data",data, logR)
-            if(data.valid == "OK"){
-              //this.mensaje("Registro","Registro","Registro exitoso");
-              var nombre = data.nombre;
-              var apellido = data.apellido;
-              console.log(nombre)
-              console.log(apellido)
-              login.login = true;
-              this.storage.set('name', nombre);
-              this.storage.set('apellido', apellido);
-              this.storage.set('correo', mail);
-              this.storage.set('number', "");
-              this.component.name=nombre;
-              this.component.lastname = apellido;
-              this.router.navigateByUrl('/registro-exitoso');
-            }else{
-              //this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
-              this.mensajeIncorrecto("Error de Registro","Parece que algo ha ocurrido");
-              this.router.navigateByUrl('/login'); 
-            }
-          console.log(logR);
-            })
-        }
-        
-      })
-      
-      }).catch(err =>{
-        //this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
-        this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
-      })
-    }
-
     togglePasswordClick():void{
       this.showPass=!this.showPass;   
       if(this.passwordToggleIcon == 'eye'){
@@ -400,19 +347,6 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
              }, 1000 );   
             });  
           }
-
-          showLoadingF() {  
-            this.loadingCtrl.create({  
-              message: 'Loading.....'   
-              }).then((loading) => {  
-               loading.present();{
-                this.facebook();
-              } 
-               setTimeout(() => {   
-                 loading.dismiss();  
-               }, 1000 );   
-              });  
-            }
 
 
             showLoadingR() {  

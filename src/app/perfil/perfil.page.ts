@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { login } from 'src/app/global';
 import { AppComponent } from '../app.component';
-
+import { CodigounicoPage } from '../codigounico/codigounico.page';
 
 
 @Component({
@@ -178,5 +178,26 @@ export class PerfilPage implements OnInit {
         this.perfil.url=result
         this.storage.set("perfil", this.perfil)
       })
+  }
+  
+  mostrarModal(codigo, url){
+    
+    console.log("funciona el click",url);
+    navigator.clipboard.writeText(codigo);
+    let m_usuario=this.perfil.nombre+" "+this.perfil.apellido
+    this.mostrarCodigoUnico(m_usuario,codigo, url);
+  }
+
+  async mostrarCodigoUnico(titulo: string, mensaje: string, url: string) {
+    const modal = await this.modalController.create({
+      component: CodigounicoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje,
+        'url': url
+      }
+    });
+    return await modal.present();
   }
 }

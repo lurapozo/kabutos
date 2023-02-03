@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PremiosService } from '../servicios/premios.service';
-import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
+import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 @Component({
@@ -50,8 +50,8 @@ export class PremiosPage implements OnInit {
 
   async detalle(imagen: string, nombre: string, descripcion: string, precio: string) {
     const modal = await this.modalCtrl.create({
-      component: DetallesProductosPage,
-      cssClass: 'DetallesProducto',
+      component: DetallesPremiosPage,
+      cssClass: 'DetallesPremios',
       componentProps: {
         'imagen': imagen,
         'nombre': nombre,

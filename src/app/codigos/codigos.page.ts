@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
-import { database } from 'firebase';
+
+
 
 @Component({
   selector: 'app-codigos',

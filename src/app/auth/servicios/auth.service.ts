@@ -9,7 +9,6 @@ import { Auth } from  './auth';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { auth } from 'firebase';
 import * as firebase from 'firebase/app';
 
 const httpOptions = {
@@ -27,8 +26,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-	/*AUTH_SERVER_ADDRESS:  string  =  'http://127.0.0.1:8000/movil';
-  baseUrl :string= "http://127.0.0.1:8000/movil/";*/
+	/*AUTH_SERVER_ADDRESS:  string  =  'http://127.0.0.1:8000'; cabutoshop.pythonanywhere.com/movil/login*/
   AUTH_SERVER_ADDRESS:  string  =  'http://cabutoshop.pythonanywhere.com/movil';
   baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
 
@@ -45,7 +43,7 @@ export class AuthService {
     const body = JSON.stringify(user);
     console.log("Transformar")
     console.log(body)
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/registro/`,user)
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/registro2/`,user)
   }
 
   VerificarUser(auth:Auth):Observable<any>{
@@ -56,13 +54,6 @@ export class AuthService {
     const body = JSON.stringify(auth);
     console.log(body)
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login/`,body,{'headers':headers})
-  }
-
-  loginwithFacebook(){
-    return this.fb.login(['email','public_profile']).then((response: FacebookLoginResponse)=>{
-      const credencial_fb = auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
-      return this.AFauth.signInWithCredential(credencial_fb);
-    })
   }
 
   enviarCorreo(correo:String):Observable<any>{

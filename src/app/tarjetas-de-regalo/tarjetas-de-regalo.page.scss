@@ -232,6 +232,9 @@ ion-header{
   .productos{
     color:white;
   }
+  .fecha{
+    color:white;
+  }
 }
 
 .agregar-imagen{
@@ -259,5 +262,26 @@ button{
   .texxxttt{
     width: 60%;
     font-size: 15pt;
+  }
+}
+
+.bottom{
+  display: flex;
+  .monto{
+    width: 75%;
+    display: flex;
+    align-items: start;
+  }
+  .productos{
+    width: 75%;
+    display: flex;
+    align-items: start;
+  }
+  .fecha{
+    width: 25%;
+    display: flex;
+    align-items: end;
+    text-align: right;
+    
   }
 }

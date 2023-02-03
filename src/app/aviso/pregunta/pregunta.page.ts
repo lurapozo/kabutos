@@ -60,16 +60,12 @@ export class PreguntaPage implements OnInit {
     console.log("ahora esto en el otro tsd",div)
     console.log("aqui estpa el totla a pagar",total)
 
-    console.log(nombre)
-    console.log(parseInt(cantidad))
-    console.log(correo)
     const prodxcant={
       'nombre': nombre,
       'cantidad': parseInt(cantidad),
       'correo': correo
     }
     this.shoppingCart.quitarCarrito(prodxcant).subscribe(data =>{
-      console.log(data.valid)
       if(data.valid == "OK"){
         div.style.display = "none";
         total.innerHTML=""+tot+"";

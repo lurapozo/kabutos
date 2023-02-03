@@ -93,15 +93,12 @@ export class DomicilioPage implements OnInit {
     this.coberturaService.getCobertura().subscribe(
       (data:any)=>{
         data.forEach((element: any) => {
-          if (element.zona!="" && seEncuentra==false) {
-            //console.log("element", element)
+          if (element.zona!="") {
             var coords = JSON.parse(element.zona);
             var poligono = this.makePolygon(coords, "blue");
             poligono.setMap(this.map);
             seEncuentra = google.maps.geometry.poly.containsLocation(this.map.getCenter(), poligono);
-            //console.log("se Encuentra? ", seEncuentra)
             color = seEncuentra ? "blue" : "red";
-            //seEncuentra? this.loading.dismiss(): console.log("pensando..")
             this.verificarPosicion(this.map.getCenter(), color);
             if(color!="red"){
               this.envio = element.envio;
@@ -110,10 +107,23 @@ export class DomicilioPage implements OnInit {
             google.maps.event.addListener(poligono, 'click', function (e) {
               $this.verificarPosicion(e.latLng, "blue");
               $this.envio = element.envio;
-              console.log("verificando Posicion Actual, envio", this.envio)
             });
           }
-    
+
+        });
+        data.forEach((element: any) => {
+          if (element.zona!="" && seEncuentra==false) {
+            var coords = JSON.parse(element.zona);
+            var poligono = this.makePolygon(coords, "blue");
+            seEncuentra = google.maps.geometry.poly.containsLocation(this.map.getCenter(), poligono);
+            console.log(seEncuentra)
+            color = seEncuentra ? "blue" : "red";
+            this.verificarPosicion(this.map.getCenter(), color);
+            if(color!="red"){
+              this.envio = element.envio;
+            }
+          }
+
         });
       }
     )

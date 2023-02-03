@@ -8,6 +8,7 @@ import { ContactoPageRoutingModule } from './contacto-routing.module';
 
 import { ContactoPage } from './contacto.page';
 import { ComponentsModule } from '../components/components.module';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ComponentsModule } from '../components/components.module';
     ContactoPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [ContactoPage]
+  declarations: [ContactoPage],
+  providers: [Geolocation]
 })
 export class ContactoPageModule {}

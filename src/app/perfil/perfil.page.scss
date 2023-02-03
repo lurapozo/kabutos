@@ -141,3 +141,15 @@ ion-item{
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.compartir{
+    text-align: right !important;
+    margin: 0px 10px 2px 78px;
+    height: 3rem;
+    width: 3rem;
+}
+.compartir:hover{
+    -moz-box-shadow: 0 0 15px rgba(4, 0, 255, 0.493);
+    -webkit-box-shadow: 0 0 15px rgba(4, 0, 255, 0.493);
+    box-shadow: 0 0 15px rgba(4, 0, 255, 0.493);
+    border-radius: 50%;
+}

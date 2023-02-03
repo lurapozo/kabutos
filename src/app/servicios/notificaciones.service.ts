@@ -22,9 +22,7 @@ const httpOptions = {
 export class NotificacionesService {
 
   
-  //baseUrl :string= "http://127.0.0.1:8000/movil/";
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
-
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +35,17 @@ export class NotificacionesService {
    return this.http.get(this.baseUrl+'notificaciones/',{'headers':headers})      
 
  }
+
+ getNotificacion(titulo: any) {
+  const headers = {
+    'Accept': 'application/json, text/plain',
+    'Content-Type': 'application/json'
+  }
+  titulo = titulo.split(' ').join('%20')
+  console.log(this.baseUrl+'notificaciones/' + titulo)
+ return this.http.get(this.baseUrl+'notificaciones/' + titulo,{'headers':headers})      
+
+}
 
  actualizarEstado(estado: string):Observable<any>{
   const headers = {

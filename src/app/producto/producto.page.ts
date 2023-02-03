@@ -44,11 +44,12 @@ export class ProductoPage implements OnInit {
   public pageZA: number = 0;
   public pageMayor: number = 0;
   public pageMenor: number = 0;
+  public flag: boolean = true;
 
   public filtro: String = "vendidos";
 
   constructor(
-    public productoService:   ProductoService, private router: Router, private alert: AlertController,
+    public productoService: ProductoService, private router: Router, private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
     public modalCtrl: ModalController,
@@ -69,85 +70,94 @@ export class ProductoPage implements OnInit {
     this.loadData();
   }
 
-  datos(event, filtro){
+  datos(event, filtro) {
+    this.flag = true;
+
     if (filtro == "vendidos") {
+      this.flag = true;
       this.page += 1;
       this.productoService.getProductosByFiltro(filtro, this.page).subscribe((data: Array<Producto>) => {
         this.productoParcial.push(...data);
         this.producto = this.productoParcial;
         console.log(data);
         if (event)
-            event.target.complete();
+          event.target.complete();
       }, (error) => {
         console.error(error);
         if (event)
-            event.target.complete();
+          event.target.complete();
       });
     }
-    else if (filtro == "descendente"){
+    else if (filtro == "descendente") {
+      this.flag = true;
       this.pageZA += 1;
       this.productoService.getProductosByFiltro(filtro, this.pageZA).subscribe((data: Array<Producto>) => {
         this.productoParcialZA.push(...data);
         this.producto = this.productoParcialZA;
         console.log(data);
         if (event)
-            event.target.complete();
+          event.target.complete();
       }, (error) => {
         console.error(error);
         if (event)
-            event.target.complete();
+          event.target.complete();
       });
-    }                                                     
-    else if (filtro == "ascendente"){
+    }
+    else if (filtro == "ascendente") {
+      this.flag = true;
       this.pageAZ += 1;
       this.productoService.getProductosByFiltro(filtro, this.pageAZ).subscribe((data: Array<Producto>) => {
         this.productoParcialAZ.push(...data);
         this.producto = this.productoParcialAZ;
         console.log(data);
         if (event)
-            event.target.complete();
+          event.target.complete();
       }, (error) => {
         console.error(error);
         if (event)
-            event.target.complete();
+          event.target.complete();
       });
     }
-    else if(filtro == "menor"){
+    else if (filtro == "menor") {
+      this.flag = true;
       this.pageMenor += 1;
       this.productoService.getProductosByFiltro(filtro, this.pageMenor).subscribe((data: Array<Producto>) => {
         this.productoParcialMenor.push(...data);
         this.producto = this.productoParcialMenor;
         console.log(data);
         if (event)
-            event.target.complete();
+          event.target.complete();
       }, (error) => {
         console.error(error);
         if (event)
-            event.target.complete();
+          event.target.complete();
       });
     }
-    else if(filtro == "mayor"){
+    else if (filtro == "mayor") {
+      this.flag = true;
       this.pageMayor += 1;
       this.productoService.getProductosByFiltro(filtro, this.pageMayor).subscribe((data: Array<Producto>) => {
         this.productoParcialMayor.push(...data);
         this.producto = this.productoParcialMayor;
         console.log(data);
         if (event)
-            event.target.complete();
+          event.target.complete();
       }, (error) => {
         console.error(error);
         if (event)
-            event.target.complete();
+          event.target.complete();
       });
     }
   }
 
   ionViewDidEnter() {
+    this.flag = true;
     this.dataFromCart = this.navParamsService.getNavData();
     this.getDataFromCarrito();
   }
 
   ionViewWillLeave() {
+    this.flag = true;
     var cantidades = document.querySelectorAll('.cantidad');
     console.log(cantidades);
     let datos = [];
@@ -161,14 +171,14 @@ export class ProductoPage implements OnInit {
     this.saveData(datos);
   }
 
-  
+
 
   cargaPantalla() {
     this.loadingCtrl.create({
       message: 'Loading.....'
     }).then((loading) => {
       loading.present(); {
-        
+
         this.ionViewWillEnter();
       }
       setTimeout(() => {
@@ -177,7 +187,7 @@ export class ProductoPage implements OnInit {
     });
   }
 
-  ordenar(data) { 
+  ordenar(data) {
     this.productoService.getProductosByFiltro(data, 1).subscribe((data: Array<Producto>) => {
       this.producto = data;
     }
@@ -187,31 +197,31 @@ export class ProductoPage implements OnInit {
   capturar() {
     let data = JSON.parse(JSON.stringify(this.producto));
     console.log(this.opcion)
-    if (this.opcion.localeCompare("descendente")==0){
+    if (this.opcion.localeCompare("descendente") == 0) {
       this.filtro = "descendente";
       this.datos(null, this.filtro);
-    }                                                     
-    else if (this.opcion.localeCompare("ascendente")==0){
+    }
+    else if (this.opcion.localeCompare("ascendente") == 0) {
       this.filtro = "ascendente";
       this.datos(null, this.filtro);
     }
-    else if(this.opcion.localeCompare("menor")==0){
+    else if (this.opcion.localeCompare("menor") == 0) {
       this.filtro = "menor";
       this.datos(null, this.filtro);
     }
-    else if(this.opcion.localeCompare("mayor")==0){
+    else if (this.opcion.localeCompare("mayor") == 0) {
       this.filtro = "mayor";
       this.datos(null, this.filtro);
     }
-    else if(this.opcion.localeCompare("vendidos")==0){
+    else if (this.opcion.localeCompare("vendidos") == 0) {
       this.filtro = "vendidos";
       this.datos(null, this.filtro);
-    }    
+    }
   }
 
 
   buscarProducto() {
-
+    this.flag = false;
     this.productoInput = this.textInput;
     console.log(this.productoInput)
     this.productoService.getProductoBuscar(this.productoInput).subscribe((data: Array<Producto>) => {
@@ -236,7 +246,7 @@ export class ProductoPage implements OnInit {
     console.log((parseInt(num) + 1) > max)
     if ((parseInt(num) + 1) > max) {
       this.mensajeIncorrecto("Agregar Producto", "Ha excedido el stock del producto");
-    }else{
+    } else {
       cantidad[0].innerHTML = String(parseInt(cantidad[0].innerHTML) + 1);
     }
   }
@@ -525,7 +535,7 @@ export class ProductoPage implements OnInit {
     }
   }
 
-  cargandoSiguientes(event){
+  cargandoSiguientes(event) {
     setTimeout(() => {
       event.target.complete();
       this.datos(event, this.filtro);

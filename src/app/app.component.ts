@@ -13,8 +13,13 @@ import { IncorrectoPage } from './aviso/incorrecto/incorrecto.page';
 import { IonContent } from '@ionic/angular';
 import { FooterPage } from 'src/app/footer/footer.page'
 import { FcmService } from './servicios/fcm.service';
+import { NotificacionesService } from './servicios/notificaciones.service';
+import { HistorialService } from "./servicios/historial.service";
 
+import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
 declare var window;
+
+import { FCM } from "@capacitor-community/fcm"; 
 
 @Component({
   selector: 'app-root',
@@ -23,6 +28,7 @@ declare var window;
 })
 export class AppComponent {
   inicio = login.login
+  token:String
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -34,7 +40,9 @@ export class AppComponent {
     private alert: AlertController,
     private modalCtrl: ModalController,
     private firebase: FirebaseX,
-    private footer: FooterPage
+    private footer: FooterPage,
+    private notificacionesService: NotificacionesService,
+    private HistorialService:HistorialService,
   ) {
     this.initializeApp();
   }
@@ -80,12 +88,17 @@ export class AppComponent {
                 }
               };
               this.router.navigate(['/footer/historial/detalle-historial'], navigationExtras);
-            } 
-            if (data.image) {
+            }
+            if(data.titulo=="Pedido despachado" || data.titulo=="Pedido enviado" || data.titulo=="Pedido entregado"){
+              this.notificacion(data.titulo, data.mensaje, "");
+            }else {
+              this.imagen(data)
+            }
+            /*if (data.image) {
               this.notificacion(data.titulo, data.mensaje, data.image);
             } else {
               this.notificacion(data.titulo, data.mensaje, "");
-            }
+            }*/
           } else {
             window.footer.datos();
           }
@@ -95,9 +108,100 @@ export class AppComponent {
         console.error(error);
       });
 
+      this.addListeners();
+    });
+    
+  }
+
+  addListeners(){
+    PushNotifications.requestPermissions().then(result => { 
+			if (result.receive === 'granted') { 
+				// Register with Apple / Google to receive push via APNS/FCM 
+				PushNotifications.register(); 
+			} else { 
+				// Show some error 
+				//alert('No se ha podido activar las notificaciones. Verifique las configuraciones de su dispositivo.'); 
+			} 
+		}); 
+    
+    FCM.subscribeTo({ topic: "masive" }) 
+      .then((r) => {}) 
+      .catch((err) => console.log(err)); 
+
+    PushNotifications.addListener('registration', 
+    (token: Token)=>{
+      console.log('The token is: '+ token.value)
+      this.storage.set('token', token.value);
+      this.storage.get('id').then((val) => {
+        let info = {
+          id: val,
+          token: token.value
+        };
+        console.log("infoToken es:", info);
+        this.HistorialService.addToken(info).subscribe(
+          (data) => {
+            if (data.valid == "Ok") {
+              console.log("AAAAAAAAA");
+            } else {
+              console.log("EEEEEEEE");
+            }
+          },
+          (err) => {
+            console.log("IIIIIII");
+          }
+        );
+      });
+    });
+
+    PushNotifications.addListener('registrationError', 
+		(error: any) => { 
+		}); 
+
+    PushNotifications.addListener('pushNotificationReceived', 
+    (notification:PushNotificationSchema) => {
+      const modal = this.modalCtrl.create({
+        component: DetalleNotificacionPage,
+        cssClass: 'DetalleNoti',
+        componentProps: {
+          'titulo': notification.title,
+          'mensaje': notification.body
+        }
+      });
+
+      /*LocalNotifications.shedule({
+        notifications:[
+          {
+            title: notification.title,
+            body: notification.body 
+          }
+        ]
+      })*/
+      
+    });
+     
+    PushNotifications.addListener('pushNotificationActionPerformed', 
+    (notification:ActionPerformed) => {
+      
     });
   }
 
+  imagen(data: any) {
+    this.notificacionesService.getNotificacion(data.titulo).subscribe((res: any) => {
+      //return res;
+      let noti = res[0];
+      console.log("noti",noti)
+      if(noti.hasOwnProperty("imagen")){
+        this.storage.set("imagenNoti", noti.imagen)
+        console.log("notificacion")
+        console.log(this.storage.get("imagenNoti"))
+        if (this.storage.get("imagenNoti")) {
+          let image: any = null;
+          this.notificacion(data.titulo, data.mensaje, noti.imagen==null?"":noti.imagen);
+        }
+      }
+    });
+
+  }
   public name: String = "";
   public lastname: String = "";
   private fullname: String = "";
@@ -164,10 +268,18 @@ export class AppComponent {
 
 
   logout() {
+    this.storage.get("token").then((val) => {
+      if (val != null) {
+        this.token = val;
+      }else{
+        this.token='0000';
+      }
+    });
     this.storage.clear()
       .then(
         data => {
           login.login = false;
+          this.storage.set('token', this.token);
           //this.ngOnInit()
           this.name = "";
           this.lastname = "";
@@ -248,6 +360,7 @@ export class AppComponent {
     });
     return await modal.present();
   }
+
   async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: CorrectoPage,

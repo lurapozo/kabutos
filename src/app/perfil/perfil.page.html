@@ -12,7 +12,8 @@
         </label>
         <ion-label>Codigo de Usuario</ion-label>
         <ion-item >
-          <ion-input type="text" [value]="codigo_unico"  id="codigo" (click)="copiar(codigo_unico)"readonly><i class="fa-solid fa-clipboard"></i></ion-input>
+          <ion-input type="text" [value]="codigo_unico"  id="codigo" (click)="mostrarModal(codigo_unico, url)"readonly></ion-input>
+          <img class="compartir" src="../../assets/img/compartir.png" (click)="mostrarModal(codigo_unico, url)">
         </ion-item>
         <ion-label>Nombres</ion-label>
         <ion-item >

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DireccionEntregaService {
-  //baseUrl :string= "http://127.0.0.1:8000/movil/";
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(

@@ -26,9 +26,7 @@
 </div>
 
 <ion-content>
-  <ion-refresher slot="fixed">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  
   <div class="contenedor1">
     
     <div class="contenedor-tarjetas" *ngFor="let tarjeta of tarjetas">
@@ -40,22 +38,34 @@
         <p>Regalo de {{tarjeta.emisor}}:</p>
       </div>
       <div class="contenedor2"  id={{tarjeta.nombre}}>
-        <div class="descripcion">Descripcion: {{tarjeta.descripcion}}</div>
+        <div class="descripcion">Descripción: {{tarjeta.descripcion}}</div>
         <br>
-        <div class="monto">Monto: ${{tarjeta.monto}}</div>
+        <div class="bottom">
+          <div class="monto">Monto: ${{tarjeta.monto}}</div>
+          <div class="fecha">{{tarjeta.fecha | date:'dd/MM/yyyy hh:mm'}}</div>
+        </div>
+        
       </div>
     </div>
- 
+
     <div class="contenedor-tarjetas" *ngFor="let tarjeta2 of tarjetas2">
       <div class="agregar-imagen" id="Tarjeta2{{tarjeta2.id}}">
         <img name="agregar" src="../assets/img/agregar_3.png" (click)=agregar2(tarjeta2.id)>
       </div>
-      <div class="nombre"><p>Regalo de: {{tarjeta2.emisor}}</p></div>
+      <div class="nombre">
+        <img src="../assets/img/OWgift.png" >
+        <p>Regalo de: {{tarjeta2.emisor}}</p>
+      </div>
       <div class="contenedor2"  id={{tarjeta2.nombre}}>
-        <div class="descripcion">Descripcion: {{tarjeta2.descripcion}}</div>
+        <div class="descripcion">Descripción: {{tarjeta2.descripcion}}</div>
         <br>
+        <div class="bottom">
         <div class="productos">Productos: {{tarjeta2.listaprod}}</div>
         <!--<div class="monto">Monto: ${{tarjeta2.monto}}</div>-->
+        <div class="fecha">{{tarjeta2.fecha | date:'dd/MM/yyyy hh:mm'}}</div>
+
+        </div>
+        
       </div>
     </div>
   </div>

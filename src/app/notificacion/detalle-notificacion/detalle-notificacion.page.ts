@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController, NavParams } from '@ionic/angular';
 import {NotificacionesService} from '../../servicios/notificaciones.service';
+import { Storage } from '@ionic/storage';
 
 declare var window;
 @Component({
@@ -9,6 +10,7 @@ declare var window;
   styleUrls: ['./detalle-notificacion.page.scss'],
 })
 export class DetalleNotificacionPage implements OnInit {
+  private storage: Storage;
   id = ""
   titulo = ""
   mensaje = ""
@@ -22,10 +24,14 @@ export class DetalleNotificacionPage implements OnInit {
       this.id = this.navParams.get('id')
       this.titulo = this.navParams.get('titulo')
       this.mensaje = this.navParams.get('mensaje')
-      if(this.navParams.get('imagen')!= ""){
+      this.imagen = this.navParams.get('imagen')
+      if(this.imagen){
         this.imagen = "http://cabutoshop.pythonanywhere.com"+this.navParams.get('imagen')
       }
+      else{
+        this.imagen = "http://cabutoshop.pythonanywhere.com" + this.storage.get("imagenNoti")
       }
+    }
   
     salir(){
       console.log("notificacion abrir",this.id)

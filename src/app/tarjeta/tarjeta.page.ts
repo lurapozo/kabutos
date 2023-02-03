@@ -1,23 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { Storage } from "@ionic/storage";
-import { Router } from "@angular/router";
-import {
-  LoadingController,
-  ModalController,
-  NavController,
-} from "@ionic/angular";
-import { NuevaTarjetaPage } from "./nueva-tarjeta/nueva-tarjeta.page";
-import { TarjetaService } from "../servicios/tarjeta.service";
-import { finalize } from "rxjs/operators";
-import { IncorrectoPage } from "../aviso/incorrecto/incorrecto.page";
-import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
+import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
+import { LoadingController, ModalController,NavController } from '@ionic/angular';
+import { NuevaTarjetaPage } from './nueva-tarjeta/nueva-tarjeta.page';
+import { TarjetaService } from '../servicios/tarjeta.service';
+import { finalize } from 'rxjs/operators';
+import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 @Component({
-  selector: "app-tarjeta",
-  templateUrl: "./tarjeta.page.html",
-  styleUrls: ["./tarjeta.page.scss"],
+  selector: 'app-tarjeta',
+  templateUrl: './tarjeta.page.html',
+  styleUrls: ['./tarjeta.page.scss'],
 })
 export class TarjetaPage implements OnInit {
+
   total: number;
   id;
   loading: any;
@@ -28,18 +25,19 @@ export class TarjetaPage implements OnInit {
     public modalController: ModalController,
     public tarjetaService: TarjetaService,
     private loadingCtrl: LoadingController,
-    private navCtrlr: NavController
-  ) {}
+    private navCtrlr: NavController, 
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ionViewDidEnter() {
     console.log("didEnter");
-    this.storage.get("total").then((val) => {
+    this.storage.get('total').then((val) => {
       console.log(val);
       this.total = val;
     });
-    this.storage.get("id").then((val) => {
+    this.storage.get('id').then((val) => {
       if (val != null) {
         this.id = val;
       }
@@ -48,48 +46,48 @@ export class TarjetaPage implements OnInit {
   }
 
   pagar(token, type, number) {
-    let tarjeta = "";
-    if (type === "vi") {
-      tarjeta = "Visa";
-    } else if (type === "mc") {
-      tarjeta = "Mastercard";
-    } else if (type === "ax") {
-      tarjeta = "American Express";
-    } else if (type === "di") {
-      tarjeta = "Diners";
-    } else if (type === "dc") {
-      tarjeta = "Discover";
-    } else if (type === "ms") {
-      tarjeta = "Maestro";
-    } else if (type === "cs") {
-      tarjeta = "Credisensa";
-    } else if (type === "so") {
-      tarjeta = "Solidario";
-    } else if (type === "up") {
-      tarjeta = "Union Pay";
+    let tarjeta="";
+    if(type === 'vi'){
+      tarjeta='Visa';
+    }else if (type === 'mc'){
+      tarjeta='Mastercard';
+    }else if (type === 'ax'){
+      tarjeta='American Express';
+    }else if (type === 'di'){
+      tarjeta='Diners';
+    }else if (type === 'dc'){
+      tarjeta='Discover';
+    }else if (type === 'ms'){
+      tarjeta='Maestro';
+    }else if (type === 'cs'){
+      tarjeta='Credisensa';
+    }else if (type === 'so'){
+      tarjeta='Solidario';
+    }else if (type === 'up'){
+      tarjeta='Union Pay';
     }
-    tarjeta = tarjeta + " ****" + number;
-    this.storage.set("numeroTarjeta", tarjeta);
-    this.storage.set("tokenTarjeta", token);
-    this.router.navigate(["/footer/efectivo"]);
+    tarjeta= tarjeta+" ****"+number;
+    this.storage.set('numeroTarjeta', tarjeta); 
+    this.storage.set('tokenTarjeta', token);
+    this.router.navigate(['/footer/efectivo']);
   }
 
   async datos() {
     await this.showLoading2();
-    this.tarjetaService
-      .getTarjetas(this.id)
+    this.tarjetaService.getTarjetas(this.id)
       .pipe(
         finalize(async () => {
           await this.loading.dismiss();
         })
       )
       .subscribe(
-        (data) => {
+        data => {
           console.log(this.id);
           this.tarjetas = data["cards"];
+
         },
-        (err) => {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la con");
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
       );
   }
@@ -97,42 +95,44 @@ export class TarjetaPage implements OnInit {
   async mensajeIncorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalController.create({
       component: IncorrectoPage,
-      cssClass: "IncorrectoProducto",
+      cssClass: 'IncorrectoProducto',
       componentProps: {
-        titulo: titulo,
-        mensaje: mensaje,
-      },
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
     });
     return await modal.present();
   }
 
   async showLoading2() {
     this.loading = await this.loadingCtrl.create({
-      message: "Loading.....",
+      message: 'Loading.....'
     });
     await this.loading.present();
+
   }
 
   dismiss() {
     this.modalController.dismiss();
   }
 
-  atras() {
-    let animations: AnimationOptions = {
+  atras(){
+    let animations:AnimationOptions={
       animated: true,
-      animationDirection: "back",
-    };
-    this.navCtrlr.back(animations);
+      animationDirection: "back"
+    }
+    this.navCtrlr.back(animations)
   }
 
   async agregar() {
     let modal = await this.modalController.create({
       component: NuevaTarjetaPage,
-      cssClass: "modal-tarjeta",
+      cssClass: 'modal-tarjeta'
     });
     modal.onDidDismiss().then((data) => {
       this.datos();
     });
     return await modal.present();
   }
+
 }

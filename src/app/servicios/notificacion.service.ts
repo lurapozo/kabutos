@@ -20,7 +20,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class NotificacionService {
-  //baseUrl :string= "http://127.0.0.1:8000/movil/";
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
