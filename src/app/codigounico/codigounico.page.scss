@@ -1,0 +1,91 @@
+.fondo{
+    background: rgb(191,43,5);
+    background: linear-gradient(90deg, rgba(191,43,5,1) 7%, rgba(194,26,8,1) 24%, rgba(155,42,7,1) 46%, rgba(147,56,4,1) 81%, rgba(170,88,0,1) 100%);
+}
+.logop{
+    height: 100%;
+    width: 100%;
+    padding: 0%;
+    border-radius: 50%;
+    border: 3px solid #2f00bb;
+}
+
+.hoverable{
+    display: block;
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    padding-bottom: 3px;
+}
+
+.btn-salir img{
+    height: 1rem;
+    width: 1rem;
+}
+
+
+.btn-salir{
+    text-align: right !important;
+    margin: 0px 9px 9px 9px;
+    padding-top: 5px;
+}
+
+
+
+
+.compartir{
+    text-align: right !important;
+    margin-top: -300px;
+    margin-left: 95px;
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+
+.img-perfil {
+    margin: 2rem 0px 0px 0px;
+    img{
+        height: 4rem;
+    }
+}
+
+.img-cabu{
+    margin: -5px 5px 5px 5px;
+}
+
+.titulo{
+    margin-top: -10px;
+    color:#ffffff !important;
+    font-size: 1.2rem;
+}
+
+.codigo{
+    margin-top: -10px;
+    padding-bottom: 10px;
+    color: #2f00bb;
+    font-size: 0.9rem;
+    margin: auto;
+    width: 75%;
+    padding: 2.5px;
+    background: #ffd000;
+    font-size: 1rem;
+    border-radius: 15px;
+}
+
+
+.compartir:hover{
+    -moz-box-shadow: 0 0 10px #2f00bb;
+    -webkit-box-shadow: 0 0 10px #2f00bb;
+    box-shadow: 0 0 10px #2f00bb;
+    border-radius: 50%;
+}
+
+.espacio{
+    padding: 20px;
+}
+
+.cuerpo{
+    padding: 10px;
+}
