@@ -5,7 +5,11 @@
   <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+  </div>
     <ion-label class="titulo">Mis Premios</ion-label>
     <br>
     <div class="franja">
@@ -26,68 +30,30 @@
     <div class="contenedor">
 
       <div>
-        <ion-label class="titulo">Por Utilizar</ion-label>
-
-        <div class="contener-producto" *ngFor="let premio of misPremios">
-          <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
+        <ion-label class="titulo2 azul">Por Utilizar</ion-label>
+        <ion-label class="titulo2 borde" (click)="utilizados()">Utilizados</ion-label>
+        <div class="contener-producto" *ngFor="let premio of misPremios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
           <div class="div-producto" (onload)="cargarNum(premio.nombre)">
             <div class="contener-columnaI">
               <div class="producto">
                 <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
               </div>
-              <h6 class="detalle" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
-                Ver detalle</h6>
             </div>
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <p class="fecha">{{premio.fecha_canje}}</p>
+                <p class="fecha">Canje: {{premio.fecha_canje}}<br><spam class="expira"style="color:{{colorBack}}">Expira: {{premio.fecha_entrega | date:'yyyy-MM-dd' }}</spam></p>
               </div>
-
             </div>
             <div class="contener-columna-centrar">
               <div class="precio">
-                <img class="puntos" src="../assets/img/puntos.png" width="25" height="25"> 
-                <h4 name="precio">{{premio.puntos}}</h4>
-              </div>
-              <div class="favorito">
-
+                <img class="puntos" src="../assets/img/puntos.png" > 
+                <h4 name="precio" >{{premio.puntos}}</h4>
               </div>
             </div>
           </div>
         </div>
         <br>
-        <ion-label class="titulo">Utilizados</ion-label>
-
-        <div class="contener-producto" *ngFor="let premio of historial">
-          <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
-          <div class="div-producto" (onload)="cargarNum(premio.nombre)">
-            <div class="contener-columnaI">
-              <div class="producto">
-                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
-              </div>
-              <h6 class="detalle" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
-                Ver detalle</h6>
-            </div>
-            <div class="contener-columna">
-              <div class="nombre">
-                <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <p class="fecha">{{premio.fecha_canje}}</p>
-              </div>
-
-            </div>
-            <div class="contener-columna-centrar">
-              <div class="precio">
-                <img class="puntos"  src="../assets/img/puntos.png" width="25" height="25">
-                <h4 name="precio"> {{premio.puntos}}</h4>
-              </div>
-              <div class="favorito">
-
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
